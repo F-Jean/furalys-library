@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bc207441cd949595a265e045a50c919",
+    "content-hash": "02ae9be443e967d70f5d0b844fde0333",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -7226,6 +7226,74 @@
     ],
     "packages-dev": [
         {
+            "name": "dama/doctrine-test-bundle",
+            "version": "v8.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dmaicher/doctrine-test-bundle.git",
+                "reference": "e382d27bc03ee04e0fd0ef95391047042792e7cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/e382d27bc03ee04e0fd0ef95391047042792e7cc",
+                "reference": "e382d27bc03ee04e0fd0ef95391047042792e7cc",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^3.3 || ^4.0",
+                "doctrine/doctrine-bundle": "^2.2.2",
+                "ext-json": "*",
+                "php": "^7.3 || ^8.0",
+                "psr/cache": "^1.0 || ^2.0 || ^3.0",
+                "symfony/cache": "^5.4 || ^6.3 || ^7.0",
+                "symfony/framework-bundle": "^5.4 || ^6.3 || ^7.0"
+            },
+            "require-dev": {
+                "behat/behat": "^3.0",
+                "friendsofphp/php-cs-fixer": "^3.27",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^8.0 || ^9.0 || ^10.0",
+                "symfony/phpunit-bridge": "^6.3",
+                "symfony/process": "^5.4 || ^6.3 || ^7.0",
+                "symfony/yaml": "^5.4 || ^6.3 || ^7.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DAMA\\DoctrineTestBundle\\": "src/DAMA/DoctrineTestBundle"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Maicher",
+                    "email": "mail@dmaicher.de"
+                }
+            ],
+            "description": "Symfony bundle to isolate doctrine database tests and improve test performance",
+            "keywords": [
+                "doctrine",
+                "isolation",
+                "performance",
+                "symfony",
+                "testing",
+                "tests"
+            ],
+            "support": {
+                "issues": "https://github.com/dmaicher/doctrine-test-bundle/issues",
+                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v8.0.1"
+            },
+            "time": "2023-12-05T16:11:29+00:00"
+        },
+        {
             "name": "masterminds/html5",
             "version": "2.8.1",
             "source": {
@@ -7517,6 +7585,310 @@
                 "source": "https://github.com/phar-io/version/tree/3.2.1"
             },
             "time": "2022-02-21T01:04:05+00:00"
+        },
+        {
+            "name": "phpstan/phpstan",
+            "version": "1.10.47",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "84dbb33b520ea28b6cf5676a3941f4bae1c1ff39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/84dbb33b520ea28b6cf5676a3941f4bae1c1ff39",
+                "reference": "84dbb33b520ea28b6cf5676a3941f4bae1c1ff39",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan-shim": "*"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
+            "support": {
+                "docs": "https://phpstan.org/user-guide/getting-started",
+                "forum": "https://github.com/phpstan/phpstan/discussions",
+                "issues": "https://github.com/phpstan/phpstan/issues",
+                "security": "https://github.com/phpstan/phpstan/security/policy",
+                "source": "https://github.com/phpstan/phpstan-src"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/phpstan",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-12-01T15:19:17+00:00"
+        },
+        {
+            "name": "phpstan/phpstan-deprecation-rules",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
+                "reference": "089d8a8258ed0aeefdc7b68b6c3d25572ebfdbaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/089d8a8258ed0aeefdc7b68b6c3d25572ebfdbaa",
+                "reference": "089d8a8258ed0aeefdc7b68b6c3d25572ebfdbaa",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0",
+                "phpstan/phpstan": "^1.10.3"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/phpstan-php-parser": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan rules for detecting usage of deprecated classes, methods, properties, constants and traits.",
+            "support": {
+                "issues": "https://github.com/phpstan/phpstan-deprecation-rules/issues",
+                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/1.1.4"
+            },
+            "time": "2023-08-05T09:02:04+00:00"
+        },
+        {
+            "name": "phpstan/phpstan-doctrine",
+            "version": "1.3.53",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-doctrine.git",
+                "reference": "85def57e5db6ac6c8a512200c0cfadf7b6621b10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/85def57e5db6ac6c8a512200c0cfadf7b6621b10",
+                "reference": "85def57e5db6ac6c8a512200c0cfadf7b6621b10",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0",
+                "phpstan/phpstan": "^1.10.12"
+            },
+            "conflict": {
+                "doctrine/collections": "<1.0",
+                "doctrine/common": "<2.7",
+                "doctrine/mongodb-odm": "<1.2",
+                "doctrine/orm": "<2.5",
+                "doctrine/persistence": "<1.3"
+            },
+            "require-dev": {
+                "composer/semver": "^3.3.2",
+                "doctrine/annotations": "^1.11.0",
+                "doctrine/collections": "^1.6",
+                "doctrine/common": "^2.7 || ^3.0",
+                "doctrine/dbal": "^2.13.8 || ^3.3.3",
+                "doctrine/lexer": "^1.2.1",
+                "doctrine/mongodb-odm": "^1.3 || ^2.1",
+                "doctrine/orm": "^2.11.0",
+                "doctrine/persistence": "^1.3.8 || ^2.2.1",
+                "gedmo/doctrine-extensions": "^3.8",
+                "nesbot/carbon": "^2.49",
+                "nikic/php-parser": "^4.13.2",
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/phpstan-phpunit": "^1.3.13",
+                "phpstan/phpstan-strict-rules": "^1.5.1",
+                "phpunit/phpunit": "^9.5.10",
+                "ramsey/uuid-doctrine": "^1.5.0",
+                "symfony/cache": "^4.4.35"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon",
+                        "rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Doctrine extensions for PHPStan",
+            "support": {
+                "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.3.53"
+            },
+            "time": "2023-11-21T10:31:58+00:00"
+        },
+        {
+            "name": "phpstan/phpstan-phpunit",
+            "version": "1.3.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-phpunit.git",
+                "reference": "70ecacc64fe8090d8d2a33db5a51fe8e88acd93a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/70ecacc64fe8090d8d2a33db5a51fe8e88acd93a",
+                "reference": "70ecacc64fe8090d8d2a33db5a51fe8e88acd93a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0",
+                "phpstan/phpstan": "^1.10"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<7.0"
+            },
+            "require-dev": {
+                "nikic/php-parser": "^4.13.0",
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/phpstan-strict-rules": "^1.5.1",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon",
+                        "rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPUnit extensions and rules for PHPStan",
+            "support": {
+                "issues": "https://github.com/phpstan/phpstan-phpunit/issues",
+                "source": "https://github.com/phpstan/phpstan-phpunit/tree/1.3.15"
+            },
+            "time": "2023-10-09T18:58:39+00:00"
+        },
+        {
+            "name": "phpstan/phpstan-symfony",
+            "version": "1.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-symfony.git",
+                "reference": "27ff6339f83796a7e0dd963cf445cd3c456fc620"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/27ff6339f83796a7e0dd963cf445cd3c456fc620",
+                "reference": "27ff6339f83796a7e0dd963cf445cd3c456fc620",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "php": "^7.2 || ^8.0",
+                "phpstan/phpstan": "^1.10.36"
+            },
+            "conflict": {
+                "symfony/framework-bundle": "<3.0"
+            },
+            "require-dev": {
+                "nikic/php-parser": "^4.13.0",
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/phpstan-phpunit": "^1.3.11",
+                "phpstan/phpstan-strict-rules": "^1.5.1",
+                "phpunit/phpunit": "^8.5.29 || ^9.5",
+                "psr/container": "1.0 || 1.1.1",
+                "symfony/config": "^5.4 || ^6.1",
+                "symfony/console": "^5.4 || ^6.1",
+                "symfony/dependency-injection": "^5.4 || ^6.1",
+                "symfony/form": "^5.4 || ^6.1",
+                "symfony/framework-bundle": "^5.4 || ^6.1",
+                "symfony/http-foundation": "^5.4 || ^6.1",
+                "symfony/messenger": "^5.4",
+                "symfony/polyfill-php80": "^1.24",
+                "symfony/serializer": "^5.4",
+                "symfony/service-contracts": "^2.2.0"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon",
+                        "rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukáš Unger",
+                    "email": "looky.msc@gmail.com",
+                    "homepage": "https://lookyman.net"
+                }
+            ],
+            "description": "Symfony Framework extensions and rules for PHPStan",
+            "support": {
+                "issues": "https://github.com/phpstan/phpstan-symfony/issues",
+                "source": "https://github.com/phpstan/phpstan-symfony/tree/1.3.5"
+            },
+            "time": "2023-10-30T14:52:15+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -8905,6 +9277,63 @@
             "time": "2020-09-28T06:39:44+00:00"
         },
         {
+            "name": "squizlabs/php_codesniffer",
+            "version": "3.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ed8e00df0a83aa96acf703f8c2979ff33341f879",
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+            },
+            "bin": [
+                "bin/phpcs",
+                "bin/phpcbf"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
+            "keywords": [
+                "phpcs",
+                "standards",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
+                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
+                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
+            },
+            "time": "2023-02-22T23:07:41+00:00"
+        },
+        {
             "name": "symfony/browser-kit",
             "version": "v7.0.0",
             "source": {
@@ -9431,6 +9860,61 @@
                 }
             ],
             "time": "2023-11-18T18:20:00+00:00"
+        },
+        {
+            "name": "thecodingmachine/phpstan-strict-rules",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thecodingmachine/phpstan-strict-rules.git",
+                "reference": "2ba8fa8b328c45f3b149c05def5bf96793c594b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thecodingmachine/phpstan-strict-rules/zipball/2ba8fa8b328c45f3b149c05def5bf96793c594b6",
+                "reference": "2ba8fa8b328c45f3b149c05def5bf96793c594b6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8.0",
+                "phpstan/phpstan": "^1.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^7.1"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "phpstan": {
+                    "includes": [
+                        "phpstan-strict-rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TheCodingMachine\\PHPStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Négrier",
+                    "email": "d.negrier@thecodingmachine.com"
+                }
+            ],
+            "description": "A set of additional rules for PHPStan based on best practices followed at TheCodingMachine",
+            "support": {
+                "issues": "https://github.com/thecodingmachine/phpstan-strict-rules/issues",
+                "source": "https://github.com/thecodingmachine/phpstan-strict-rules/tree/v1.0.0"
+            },
+            "time": "2021-11-08T09:10:49+00:00"
         },
         {
             "name": "theseer/tokenizer",
