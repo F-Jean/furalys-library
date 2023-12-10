@@ -6,6 +6,7 @@ use App\Repository\VideoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
 class Video
@@ -18,8 +19,7 @@ class Video
     #[ORM\Column(length: 255)]
     private string $url;
 
-    #[ORM\Column(length: 255)]
-    private string $file;
+    private UploadedFile $file;
 
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'videos')]
     private Collection $posts;
@@ -46,12 +46,12 @@ class Video
         return $this;
     }
 
-    public function getFile(): string
+    public function getFile(): UploadedFile
     {
         return $this->file;
     }
 
-    public function setFile(string $file): static
+    public function setFile(UploadedFile $file): static
     {
         $this->file = $file;
 

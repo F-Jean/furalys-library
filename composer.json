@@ -80,6 +80,12 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "database": [
+            "php bin/console doctrine:database:drop --if-exists -f",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:schema:update -f",
+            "php bin/console doctrine:fixtures:load -n"
         ]
     },
     "conflict": {
@@ -93,6 +99,7 @@
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^8.0",
+        "doctrine/doctrine-fixtures-bundle": "^3.5",
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-deprecation-rules": "^1.1",
         "phpstan/phpstan-doctrine": "^1.3",

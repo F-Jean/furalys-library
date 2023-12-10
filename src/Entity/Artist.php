@@ -6,6 +6,7 @@ use App\Repository\ArtistRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
 class Artist
@@ -24,11 +25,10 @@ class Artist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $avatar = null;
+    #[ORM\Column(length: 255)]
+    private string $avatar;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $avatarFile = null;
+    private UploadedFile $avatarFile;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $twitch = null;
@@ -85,24 +85,24 @@ class Artist
         return $this;
     }
 
-    public function getAvatar(): ?string
+    public function getAvatar(): string
     {
         return $this->avatar;
     }
 
-    public function setAvatar(?string $avatar): static
+    public function setAvatar(string $avatar): static
     {
         $this->avatar = $avatar;
 
         return $this;
     }
 
-    public function getAvatarFile(): ?string
+    public function getAvatarFile(): UploadedFile
     {
         return $this->avatarFile;
     }
 
-    public function setAvatarFile(?string $avatarFile): static
+    public function setAvatarFile(UploadedFile $avatarFile): static
     {
         $this->avatarFile = $avatarFile;
 
