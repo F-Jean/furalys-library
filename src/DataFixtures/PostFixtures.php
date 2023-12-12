@@ -7,7 +7,8 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Post;
 use App\DataFixtures\ArtistFixtures;
 use App\DataFixtures\CategoryFixtures;
-use App\Entity\Image;
+use App\DataFixtures\ImageFixtures;
+use App\DataFixtures\VideoFixtures;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class PostFixtures extends Fixture implements DependentFixtureInterface
@@ -37,6 +38,30 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         ->addImage($this->getReference(ImageFixtures::POST2));
         $manager->persist($post2);
 
+        $post3 = new Post();
+        $post3->setPostedAt(new \DateTimeImmutable())
+        ->addArtist($this->getReference(ArtistFixtures::WISHBONE))
+        ->addCategory($this->getReference(CategoryFixtures::ILLUSTRATION))
+        ->addImage($this->getReference(ImageFixtures::POST3));
+        $manager->persist($post3);
+
+        $post4 = new Post();
+        $post4->setPostedAt(new \DateTimeImmutable())
+        ->addArtist($this->getReference(ArtistFixtures::YAYACHAN))
+        ->addCategory($this->getReference(CategoryFixtures::LIVE2D))
+        ->addImage($this->getReference(ImageFixtures::POST4))
+        ->addImage($this->getReference(ImageFixtures::POST5))
+        ->addImage($this->getReference(ImageFixtures::POST6))
+        ->addImage($this->getReference(ImageFixtures::POST7));
+        $manager->persist($post4);
+
+        $post5 = new Post();
+        $post5->setPostedAt(new \DateTimeImmutable())
+        ->addArtist($this->getReference(ArtistFixtures::KAVALLIERE))
+        ->addCategory($this->getReference(CategoryFixtures::ANIMATION))
+        ->addVideo($this->getReference(VideoFixtures::VIDEO1));
+        $manager->persist($post5);
+
         $manager->flush();
     }
 
@@ -49,6 +74,8 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         return [
             ArtistFixtures::class,
             CategoryFixtures::class,
+            ImageFixtures::class,
+            VideoFixtures::class
         ];
     }
 }

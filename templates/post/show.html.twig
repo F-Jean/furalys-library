@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Affichage des posts</h1>
+
+    <p>Posté le : {{ post.postedAt|date('Y-m-d H:i:s') }}</p>
+
+    <h2>Artist(es):</h2>
+    <ul>
+        {% for artist in post.artists %}
+            <li>{{ artist.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Categorie(s):</h2>
+    {% for category in post.categories %}
+        <ul>
+                <li>{{ category.title }}</li>
+        </ul>
+
+        <h2>Description:</h2>
+        <p>{{ category.description }}</p>
+    {% endfor %}
+
+    <h2>Image(s):</h2>
+    <ul>
+            {% for image in post.images %}
+                <img 
+                class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4" 
+                src="{{ asset('build/images/post/'~image.path) }}">
+            {% endfor %}
+        </ul>
+
+    <h2>Video(s):</h2>
+    <ul>
+        {% for video in post.videos %}
+            <li>{{ video.url }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

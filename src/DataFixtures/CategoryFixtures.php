@@ -11,6 +11,7 @@ class CategoryFixtures extends Fixture
 {
     public const ILLUSTRATION = "Illustration";
     public const LIVE2D = "Live2d";
+    public const ANIMATION = "Animation";
 
     public function __construct(private SluggerInterface $slugger)
     {
@@ -34,9 +35,16 @@ class CategoryFixtures extends Fixture
         ->setDescription('Content about Live2d.');
         $manager->persist($live2d);
 
+        $animation = new Category;
+        $animation->setTitle('Animation')
+        ->setSlug($this->slugger->slug($animation->getTitle())->lower()->toString())
+        ->setDescription('Content about animation.');
+        $manager->persist($animation);
+
         $manager->flush();
 
         $this->addReference(self::ILLUSTRATION, $illustration);
         $this->addReference(self::LIVE2D, $live2d);
+        $this->addReference(self::ANIMATION, $animation);
     }
 }
