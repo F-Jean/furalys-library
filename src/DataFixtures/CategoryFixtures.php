@@ -23,28 +23,31 @@ class CategoryFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        $illustration = new Category;
-        $illustration->setTitle('Illustration')
-        ->setSlug($this->slugger->slug($illustration->getTitle())->lower()->toString())
-        ->setDescription('Content about illustration.');
-        $manager->persist($illustration);
+        $categoriesConfig = [
+            self::ILLUSTRATION => [
+                'title' => 'Illustration',
+                'description' => 'Content about illustration.',
+            ],
+            self::LIVE2D => [
+                'title' => 'Live2d',
+                'description' => 'Content about Live2d.',
+            ],
+            self::ANIMATION => [
+                'title' => 'Animation',
+                'description' => 'Content about animation.',
+            ],
+        ];
 
-        $live2d = new Category;
-        $live2d->setTitle('Live2d')
-        ->setSlug($this->slugger->slug($live2d->getTitle())->lower()->toString())
-        ->setDescription('Content about Live2d.');
-        $manager->persist($live2d);
+        foreach ($categoriesConfig as $reference => $config) {
+            $category = new Category;
+            $category->setTitle($config['title'])
+                ->setSlug($this->slugger->slug($category->getTitle())->lower()->toString())
+                ->setDescription($config['description']);
 
-        $animation = new Category;
-        $animation->setTitle('Animation')
-        ->setSlug($this->slugger->slug($animation->getTitle())->lower()->toString())
-        ->setDescription('Content about animation.');
-        $manager->persist($animation);
+            $manager->persist($category);
+            $this->addReference($reference, $category);
+        }
 
         $manager->flush();
-
-        $this->addReference(self::ILLUSTRATION, $illustration);
-        $this->addReference(self::LIVE2D, $live2d);
-        $this->addReference(self::ANIMATION, $animation);
     }
 }

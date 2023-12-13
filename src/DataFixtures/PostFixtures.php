@@ -28,31 +28,31 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $post1->setPostedAt(new \DateTimeImmutable())
         ->addArtist($this->getReference(ArtistFixtures::DYA_RIKKU))
         ->addCategory($this->getReference(CategoryFixtures::ILLUSTRATION))
-        ->addImage($this->getReference(ImageFixtures::POST1));
+        ->addImage($this->getReference(ImageFixtures::IMG1));
         $manager->persist($post1);
 
         $post2 = new Post();
         $post2->setPostedAt(new \DateTimeImmutable())
         ->addArtist($this->getReference(ArtistFixtures::DYA_RIKKU))
         ->addCategory($this->getReference(CategoryFixtures::ILLUSTRATION))
-        ->addImage($this->getReference(ImageFixtures::POST2));
+        ->addImage($this->getReference(ImageFixtures::IMG2));
         $manager->persist($post2);
 
         $post3 = new Post();
         $post3->setPostedAt(new \DateTimeImmutable())
         ->addArtist($this->getReference(ArtistFixtures::WISHBONE))
         ->addCategory($this->getReference(CategoryFixtures::ILLUSTRATION))
-        ->addImage($this->getReference(ImageFixtures::POST3));
+        ->addImage($this->getReference(ImageFixtures::IMG3));
         $manager->persist($post3);
 
         $post4 = new Post();
         $post4->setPostedAt(new \DateTimeImmutable())
         ->addArtist($this->getReference(ArtistFixtures::YAYACHAN))
         ->addCategory($this->getReference(CategoryFixtures::LIVE2D))
-        ->addImage($this->getReference(ImageFixtures::POST4))
-        ->addImage($this->getReference(ImageFixtures::POST5))
-        ->addImage($this->getReference(ImageFixtures::POST6))
-        ->addImage($this->getReference(ImageFixtures::POST7));
+        ->addImage($this->getReference(ImageFixtures::IMG4))
+        ->addImage($this->getReference(ImageFixtures::IMG5))
+        ->addImage($this->getReference(ImageFixtures::IMG6))
+        ->addImage($this->getReference(ImageFixtures::IMG7));
         $manager->persist($post4);
 
         $post5 = new Post();

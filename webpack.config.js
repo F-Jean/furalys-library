@@ -60,8 +60,8 @@ Encore
     .enableSassLoader()
     
     .copyFiles({
-        from: './assets/images',
-        to: 'images/[path][name].[ext]',
+        from: './assets/medias',
+        to: 'medias/[path][name].[ext]',
     })
 
     // uncomment if you use TypeScript

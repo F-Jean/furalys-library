@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Affichage des posts</h1>
+    <h1>Informations sur le post</h1>
+
+    <a href="{{ path('homepage') }}" class="btn btn-success">Retour</a>
 
     <p>Posté le : {{ post.postedAt|date('Y-m-d H:i:s') }}</p>
 
-    <h2>Artist(es):</h2>
+    <h2>Artiste(s):</h2>
     <ul>
         {% for artist in post.artists %}
             <li>{{ artist.name }}</li>
@@ -17,9 +19,6 @@
         <ul>
                 <li>{{ category.title }}</li>
         </ul>
-
-        <h2>Description:</h2>
-        <p>{{ category.description }}</p>
     {% endfor %}
 
     <h2>Image(s):</h2>
@@ -27,14 +26,17 @@
             {% for image in post.images %}
                 <img 
                 class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4" 
-                src="{{ asset('build/images/post/'~image.path) }}">
+                src="{{ asset('build/medias/post/'~image.path) }}">
             {% endfor %}
         </ul>
 
     <h2>Video(s):</h2>
     <ul>
         {% for video in post.videos %}
-            <li>{{ video.url }}</li>
+            <video width="320" height="240" controls>
+                <source src="{{ asset('build/medias/post/'~video.url) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         {% endfor %}
     </ul>
 {% endblock %}

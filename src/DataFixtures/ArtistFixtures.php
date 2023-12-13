@@ -24,45 +24,54 @@ class ArtistFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        $dyaRikku = new Artist;
-        $dyaRikku->setName('DyaRikku')
-        ->setSlug($this->slugger->slug($dyaRikku->getName())->lower()->toString())
-        ->setDescription('2D Artist/Illustrator, Live2D Rigger, Vtuber. Where is my pink dog')
-        ->setAvatar('build/images/avatar/DyaRikku_avatar.png')
-        ->setTwitch('twitch.tv/dyarikku')
-        ->setTwitter('twitter.com/dyarikku');
-        $manager->persist($dyaRikku);
+        $artistsConfig = [
+            self::DYA_RIKKU => [
+                'name' => 'DyaRikku',
+                'description' => '2D Artist/Illustrator, Live2D Rigger, Vtuber. Where is my pink dog',
+                'avatar' => '/avatar/DyaRikku_avatar.png',
+                'twitch' => 'twitch.tv/dyarikku',
+                'twitter' => 'twitter.com/dyarikku',
+            ],
+            self::WISHBONE => [
+                'name' => 'wishbone777',
+                'description' => 'You can call me ゆう。or wishbone',
+                'avatar' => '/avatar/wishbone777_avatar.png',
+                'twitter' => 'twitter.com/wishbone777',
+            ],
+            self::KAVALLIERE => [
+                'name' => 'Kavalliere',
+                'description' => '𝘝𝘛𝘶𝘣𝘦𝘳 𝘔𝘢𝘮𝘢 𝘢𝘯𝘥 𝘚𝘵𝘳𝘦𝘢𝘮𝘦𝘳 // The Lady of Fukurou Sanctuary',
+                'avatar' => '/avatar/kavalliere_avatar.png',
+                'twitch' => 'twitch.tv/kavalliere',
+                'twitter' => 'twitter.com/Kavalliere_',
+            ],
+            self::YAYACHAN => [
+                'name' => 'YayaChan',
+                'description' => 'イラストレーター',
+                'avatar' => '/avatar/YayaChan_avatar.png',
+                'twitter' => 'twitter.com/YayaChanArtist',
+            ],
+        ];
 
-        $wishbone777 = new Artist;
-        $wishbone777->setName('wishbone777')
-        ->setSlug($this->slugger->slug($wishbone777->getName())->lower()->toString())
-        ->setDescription('You can call me ゆう。or  wishbone')
-        ->setAvatar('build/images/avatar/wishbone777_avatar.png')
-        ->setTwitter('twitter.com/wishbone777');
-        $manager->persist($wishbone777);
+        foreach ($artistsConfig as $reference => $config) {
+            $artist = new Artist;
+            $artist->setName($config['name'])
+                ->setSlug($this->slugger->slug($artist->getName())->lower()->toString())
+                ->setDescription($config['description'])
+                ->setAvatar($config['avatar']);
 
-        $kavalliere = new Artist;
-        $kavalliere->setName('Kavalliere')
-        ->setSlug($this->slugger->slug($kavalliere->getName())->lower()->toString())
-        ->setDescription('𝘝𝘛𝘶𝘣𝘦𝘳 𝘔𝘢𝘮𝘢 𝘢𝘯𝘥 𝘚𝘵𝘳𝘦𝘢𝘮𝘦𝘳 // The Lady of Fukurou Sanctuary')
-        ->setAvatar('build/images/avatar/kavalliere_avatar.png')
-        ->setTwitch('twitch.tv/kavalliere')
-        ->setTwitter('twitter.com/Kavalliere_');
-        $manager->persist($kavalliere);
+            if (isset($config['twitch'])) {
+                $artist->setTwitch($config['twitch']);
+            }
 
-        $YayaChan = new Artist;
-        $YayaChan->setName('YayaChan')
-        ->setSlug($this->slugger->slug($YayaChan->getName())->lower()->toString())
-        ->setDescription('イラストレーター')
-        ->setAvatar('build/images/avatar/YayaChan_avatar.png')
-        ->setTwitter('twitter.com/YayaChanArtist');
-        $manager->persist($YayaChan);
+            if (isset($config['twitter'])) {
+                $artist->setTwitter($config['twitter']);
+            }
+
+            $manager->persist($artist);
+            $this->addReference($reference, $artist);
+        }
 
         $manager->flush();
-
-        $this->addReference(self::DYA_RIKKU, $dyaRikku);
-        $this->addReference(self::KAVALLIERE, $kavalliere);
-        $this->addReference(self::WISHBONE, $wishbone777);
-        $this->addReference(self::YAYACHAN, $YayaChan);
     }
 }
