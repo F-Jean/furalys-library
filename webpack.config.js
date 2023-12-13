@@ -22,6 +22,9 @@ Encore
      */
     .addEntry('app', './assets/app.js')
 
+    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
+    .enableStimulusBridge('./assets/controllers.json')
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
@@ -54,7 +57,12 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
+    
+    .copyFiles({
+        from: './assets/medias',
+        to: 'medias/[path][name].[ext]',
+    })
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

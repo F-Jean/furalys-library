@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{# HOMEPAGE that displays all content #}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4">
+                    <div class="card">
+                        {# IMAGES #}
+                        {% if post.images|length > 0 and post.images|first is not null %}
+                            <a href="{{ path('post_show', {'id' : post.id }) }}">
+                                <img 
+                                width="320" 
+                                height="240" 
+                                src="{{ asset('build/medias/post/'~post.images|first.path) }}">
+                            </a>
+                        {% endif %}
+
+                        {# VIDEOS #}
+                        {% if post.videos|length > 0 and post.videos|first is not null %}
+                            <a href="{{ path('post_show', {'id' : post.id }) }}">
+                                <video width="320" height="240" controls>
+                                    <source src="{{ asset('build/medias/post/'~post.videos|first.url) }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
