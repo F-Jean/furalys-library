@@ -1,42 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Informations sur le post</h1>
+    <div class="post">
+        <h1>Informations sur le post</h1>
 
-    <a href="{{ path('homepage') }}" class="btn btn-success">Retour</a>
+        <a href="{{ path('homepage') }}" class="btn btn-success">Retour</a>
 
-    <p>Posté le : {{ post.postedAt|date('Y-m-d H:i:s') }}</p>
+        <p>Posté le : {{ post.postedAt|date('Y-m-d H:i:s') }}</p>
 
-    <h2>Artiste(s):</h2>
-    <ul>
-        {% for artist in post.artists %}
-            <li>{{ artist.name }}</li>
-        {% endfor %}
-    </ul>
-
-    <h2>Categorie(s):</h2>
-    {% for category in post.categories %}
+        <h2>Artiste(s):</h2>
         <ul>
-                <li>{{ category.title }}</li>
-        </ul>
-    {% endfor %}
-
-    <h2>Image(s):</h2>
-    <ul>
-            {% for image in post.images %}
-                <img 
-                class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4" 
-                src="{{ asset('build/medias/post/'~image.path) }}">
+            {% for artist in post.artists %}
+                <li>{{ artist.name }}</li>
             {% endfor %}
         </ul>
 
-    <h2>Video(s):</h2>
-    <ul>
-        {% for video in post.videos %}
-            <video width="320" height="240" controls>
-                <source src="{{ asset('build/medias/post/'~video.url) }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+        <h2>Categorie(s):</h2>
+        {% for category in post.categories %}
+            <ul>
+                    <li>{{ category.title }}</li>
+            </ul>
         {% endfor %}
-    </ul>
+
+        <h2>Image(s):</h2>
+        <ul>
+                {% for image in post.images %}
+                    <img 
+                    class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4" 
+                    src="{{ asset('build/medias/post/'~image.path) }}">
+                {% endfor %}
+            </ul>
+
+        <h2>Video(s):</h2>
+        <ul>
+            {% for video in post.videos %}
+                <video width="320" height="240" controls>
+                    <source src="{{ asset('build/medias/post/'~video.url) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
