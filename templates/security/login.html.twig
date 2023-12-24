@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        {% block header_title %}
+            <h1 id="user-create" class="d-flex justify-content-center my-5">Furalys Library</h1>
+        {% endblock %}
+
+        <h2 class="d-flex justify-content-center my-5">Easily manage your resources</h2>
+        
+        <div class="d-flex justify-content-center">
+            {% if error %}
+                <div class="alert alert-danger d-flex justify-content-center w-25" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-center mt-5">
+            <form action="{{ path('app_login') }}" method="post" name="login">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Email :</label>
+                    <input type="text" id="username" class="form-control" name="_username" value="{{ last_username }}" placeholder="Enter email here ..." />
+                </div>
+                <div>
+                    <label for="password" class="form-label">Password :</label>
+                    <input type="password" id="password" class="form-control" name="_password" placeholder="Enter password here ..." />
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <button class="btn btn-success" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="options">
+            <p class="mt-4 d-flex justify-content-center mt-4">New here ? Try it, it's free & easy to use !</p>
+            <div class="d-flex justify-content-center mt-4">
+                <a class="btn btn-secondary" href="#" role="button">Register</a>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <a class="btn btn-secondary" href="{{ path('homepage') }}" role="button">Back to portfolio</a>
+            </div>
+        </div>
+        <div class="general-infos">
+            <h2 class="d-flex justify-content-center mt-5">What is Furalys library ?</h2>
+            <p class="d-flex justify-content-center mt-4">COMING SOON</p>
+        </div>
+
+        <footer class="login-footer mt-5">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            </ul>
+            <p class="text-center text-muted">Copyright &copy; Furalys</p>
+        </footer>
+    </div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+{# HOMEPAGE that displays all the posts #}
+
+{% block body %}
+    {% if is_granted('ROLE_USER') %}
+        <div class="container-fluid min-vh-100">
+            <div class="row vh-100">
+            
+                <!-- Main content -->
+                <main role="main" class="col-md-12 ml-sm-auto col-lg-12 bg-dark">
+                    {% if is_granted('ROLE_USER') %}
+                        <nav class="navbar navbar-expand-lg bg-dark" >
+                            <button class="btn btn-dark " type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                                </svg>
+                            </button>
+                            <div class="container-fluid ps-0">
+                                <div class="navbar-collapse d-flex justify-content-between">
+                                    <a class="navbar-brand text-light ms-4" href="#">My profile</a>
+                                    <form class="d-flex" role="search">
+                                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                    <a class="nav-link me-3 fs-5 text-light" href="{{ path('app_logout') }}">Logout</a>
+                                </div>
+                            </div>
+                        </nav><!-- /.navbar -->
+                    {% endif %}
+
+                    <div class="row">
+                        <!-- Sidebar -->
+                        <nav id="collapseWidthExample" class="bg-dark collapse collapse-horizontal">
+                            <div class="container">
+                                <!-- ... sidebar content here ... -->
+                                <ul class="nav flex-column">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <li class="nav-item">
+                                            <a class="nav-link mx-2 fs-5 text-light" href="{{ path('user_create') }}">Add user</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link mx-2 fs-5 text-light">User list</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_USER') %}
+                                        <li class="nav-item">
+                                            <a class="nav-link mx-2 fs-5 text-light">Add a post</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link mx-2 fs-5 text-light">Add a category</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link mx-2 fs-5 text-light">Add an artist</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link mx-2 fs-5 text-light">Add a tag</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </nav>
+
+                        <div class="col-xs-auto ml-sm-auto col-md-auto col-lg-auto">
+                            <div class="post-width">
+                                <div class="d-flex flex-row flex-wrap">
+                                    {% for post in posts %}
+                                        <div class="post-medias me-3 mb-3">
+                                            {# IMAGES #}
+                                            {% if post.images|length > 0 and post.images|first is not null %}
+                                                <a href="{{ path('post_show', {'id' : post.id }) }}">
+                                                    <img width="360" height="240"
+                                                        src="{{ asset('build/medias/post/'~post.images|first.path) }}">
+                                                </a>
+                                            {% endif %}
+
+                                            {# VIDEOS #}
+                                            {% if post.videos|length > 0 and post.videos|first is not null %}
+                                                <a href="{{ path('post_show', {'id' : post.id }) }}">
+                                                    <video width="320" height="240" controls>
+                                                        <source src="{{ asset('build/medias/post/'~post.videos|first.url) }}"
+                                                            type="video/mp4">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
