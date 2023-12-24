@@ -1,44 +1,82 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="post">
-        <h1>Informations sur le post</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+                <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <!-- Add your sidebar content here -->
+                        <ul class="nav flex-column">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item">
+                                    <a class="nav-link mx-2 fs-5 text-black" href="{{ path('user_create') }}#user-create">Add user</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mx-2 fs-5 text-black">User list</a>
+                                </li>
+                            {% endif %}
+                            {% if is_granted('ROLE_USER') %}
+                                <li class="nav-item">
+                                    <a class="nav-link mx-2 fs-5 text-black">Add a post</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mx-2 fs-5 text-black">Add a category</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mx-2 fs-5 text-black">Add an artist</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mx-2 fs-5 text-black">Add a tag</a>
+                                </li>
+                            {% endif %}
+                            <!-- ... add other sidebar items ... -->
+                        </ul>
+                    </div>
+                </nav>
 
-        <a href="{{ path('homepage') }}" class="btn btn-success">Retour</a>
+            <!-- Main content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <!-- Posts will be rendered here -->
+                <h2>Informations about the post</h2>
 
-        <p>Posté le : {{ post.postedAt|date('Y-m-d H:i:s') }}</p>
+                <a href="{{ path('app_posts') }}" class="btn btn-success">Back to posts</a>
 
-        <h2>Artiste(s):</h2>
-        <ul>
-            {% for artist in post.artists %}
-                <li>{{ artist.name }}</li>
-            {% endfor %}
-        </ul>
+                <p>Posté le : {{ post.postedAt|date('Y-m-d H:i:s') }}</p>
 
-        <h2>Categorie(s):</h2>
-        {% for category in post.categories %}
-            <ul>
-                    <li>{{ category.title }}</li>
-            </ul>
-        {% endfor %}
+                <h3>Artiste(s):</h3>
+                <ul>
+                    {% for artist in post.artists %}
+                        <li>{{ artist.name }}</li>
+                    {% endfor %}
+                </ul>
 
-        <h2>Image(s):</h2>
-        <ul>
-                {% for image in post.images %}
-                    <img 
-                    class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4" 
-                    src="{{ asset('build/medias/post/'~image.path) }}">
+                <h3>Categorie(s):</h3>
+                {% for category in post.categories %}
+                    <ul>
+                            <li>{{ category.title }}</li>
+                    </ul>
                 {% endfor %}
-            </ul>
 
-        <h2>Video(s):</h2>
-        <ul>
-            {% for video in post.videos %}
-                <video width="320" height="240" controls>
-                    <source src="{{ asset('build/medias/post/'~video.url) }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            {% endfor %}
-        </ul>
+                <h3>Image(s):</h3>
+                <ul>
+                        {% for image in post.images %}
+                            <img 
+                            class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4" 
+                            src="{{ asset('build/medias/post/'~image.path) }}">
+                        {% endfor %}
+                    </ul>
+
+                <h3>Video(s):</h3>
+                <ul>
+                    {% for video in post.videos %}
+                        <video width="320" height="240" controls>
+                            <source src="{{ asset('build/medias/post/'~video.url) }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    {% endfor %}
+                </ul>
+            </main>
+        </div>
     </div>
 {% endblock %}
