@@ -27,6 +27,10 @@ class Category
     #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'categories')]
     private Collection $posts;
 
+    #[ORM\ManyToOne(inversedBy: 'categories')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -93,6 +97,18 @@ class Category
     public function removePost(Post $post): static
     {
         $this->posts->removeElement($post);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

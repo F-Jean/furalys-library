@@ -5,8 +5,10 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Image;
+use App\DataFixtures\UserFixtures;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ImageFixtures extends Fixture
+class ImageFixtures extends Fixture implements DependentFixtureInterface
 {
     public const IMG1 = "img1";
     public const IMG2 = "img2";
@@ -47,13 +49,26 @@ class ImageFixtures extends Fixture
         ];
 
         foreach ($imagesConfig as $reference => $config) {
+            $userqdoe = $this->getReference(UserFixtures::USER_QDOE);
             $image = new Image();
-            $image->setPath($config['path']);
+            $image->setPath($config['path'])
+            ->setUser($userqdoe);
 
             $manager->persist($image);
             $this->addReference($reference, $image);
         }
 
         $manager->flush();
+    }
+
+    // return an array of the fixture classes that must be loaded before this one
+    /**
+     * @return array<int, string>
+     */
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class
+        ];
     }
 }

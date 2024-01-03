@@ -5,9 +5,11 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Artist;
+use App\DataFixtures\UserFixtures;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ArtistFixtures extends Fixture
+class ArtistFixtures extends Fixture implements DependentFixtureInterface
 {
     public const DYA_RIKKU = "DyaRikku";
     public const KAVALLIERE = "Kavalliere";
@@ -54,16 +56,19 @@ class ArtistFixtures extends Fixture
         ];
 
         foreach ($artistsConfig as $reference => $config) {
+            $userQdoe = $this->getReference(UserFixtures::USER_QDOE);
             $artist = new Artist;
             $artist->setName($config['name'])
                 ->setSlug($this->slugger->slug($artist->getName())->lower()->toString())
                 ->setDescription($config['description'])
-                ->setAvatar($config['avatar']);
+                ->setAvatar($config['avatar'])
+                ->setUser($userQdoe);
 
+            // if a twitch field is detected then add it
             if (isset($config['twitch'])) {
                 $artist->setTwitch($config['twitch']);
             }
-
+            // if a twitter field is detected then add it
             if (isset($config['twitter'])) {
                 $artist->setTwitter($config['twitter']);
             }
@@ -73,5 +78,16 @@ class ArtistFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    // return an array of the fixture classes that must be loaded before this one
+    /**
+     * @return array<int, string>
+     */
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class
+        ];
     }
 }

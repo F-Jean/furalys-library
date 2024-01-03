@@ -30,6 +30,10 @@ class Post
     #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'posts')]
     private Collection $videos;
 
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->artists = new ArrayCollection();
@@ -150,6 +154,18 @@ class Post
     public function removeVideo(Video $video): static
     {
         $this->videos->removeElement($video);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% block container %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% block header_title %}
+            <h1 id="user-modif" class="d-flex justify-content-center my-5 text-light">Edit user(s)</h1>
+        {% endblock %}
+        <div class="d-flex justify-content-center">
+            <a href="{{ path('user_list') }}" class="btn btn-success">Back to user list</a>
+        </div>
+
+        <div class="d-flex justify-content-center text-light mt-5">
+            {{ form_start(form, {'action' : path('user_edit', {'id' : user.id})}) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword.first) }}
+                {{ form_row(form.plainPassword.second) }}
+                <div id="passwordHelpBlock" class="form-text mb-4 text-light">
+                    Password must contains at least 8 caracters</br>
+                    with lowercase and uppercase letters</br> 
+                    numbers and special characters.
+                </div>
+                {{ form_row(form.role) }}
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mt-4">Edit</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    {% endif %}
+{% endblock %}

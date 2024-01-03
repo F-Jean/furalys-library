@@ -24,6 +24,10 @@ class Video
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'videos')]
     private Collection $posts;
 
+    #[ORM\ManyToOne(inversedBy: 'videos')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -81,6 +85,18 @@ class Video
         if ($this->posts->removeElement($post)) {
             $post->removeVideo($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

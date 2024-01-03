@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if is_granted('ROLE_USER') %}
+        <div class="container-fluid min-vh-100">
+            <div class="row vh-100">
+                <!-- Main content -->
+                <main role="main" class="col-md-12 ml-sm-auto col-lg-12 bg-dark">
+                    {% if is_granted('ROLE_USER') %}
+                        <nav class="navbar navbar-expand-lg bg-dark" >
+                            <button class="btn btn-dark " type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                                </svg>
+                            </button>
+                            <div class="container-fluid ps-0">
+                                <div class="navbar-collapse d-flex justify-content-between">
+                                    <a class="navbar-brand text-light ms-4" href="{{ path('app_posts') }}">My profile</a>
+                                    <form class="d-flex" role="search">
+                                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                    <a class="nav-link me-3 fs-5 text-light" href="{{ path('app_logout') }}">Logout</a>
+                                </div>
+                            </div>
+                        </nav><!-- /.navbar -->
+                    {% endif %}
+
+                    <div class="row">
+                        <!-- Sidebar -->
+                        <nav id="collapseWidthExample" class="bg-dark collapse collapse-horizontal">
+                            <div class="container">
+                                <!-- ... sidebar content here ... -->
+                                <ul class="nav flex-column">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <li class="nav-item">
+                                            {# Only available for admins to handle (edit/delete) users accounts #}
+                                            <a class="nav-link mx-2 fs-5 text-light" href="{{ path('user_list') }}">Users list</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_USER') %}
+                                        <div class="create-content">
+                                            <li class="nav-item">
+                                                <a class="nav-link mx-2 fs-5 text-light">Add a post</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link mx-2 fs-5 text-light">Add a category</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link mx-2 fs-5 text-light">Add an artist</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link mx-2 fs-5 text-light">Add a tag</a>
+                                            </li>
+                                        </div>
+                                        <div class="categories-show">
+                                            {# link to categories' list page #}
+                                            <a class="nav-link mx-2 fs-5 text-light" href="#">See all categories</a>
+                                            <div class="best-categories">
+                                                {# display the 5 - 10 categories that the user have marked as favorite #}
+                                            </div>
+                                        </div>
+                                        <div class="artists-show">
+                                            {# link to artists' list page #}
+                                            <a class="nav-link mx-2 fs-5 text-light" href="#">See all artists</a>
+                                            <div class="best-categories">
+                                                {# display the 5 - 10 artists that the user have marked as favorite #}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </nav>
+
+                        {# FLASH MESSAGES SECTION #}
+                        <div class="d-flex justify-content-center mt-5">
+                            {% for flash_message in app.flashes('success') %}
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Yeah !</strong> {{ flash_message }}
+                                </div>
+                            {% endfor %}
+
+                            {% for flash_message in app.flashes('error') %}
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Oops !</strong> {{ flash_message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {# END OF FLASH MESSAGES SECTION #}
+
+                        {% block container %}{% endblock %}
+                        
+                    </div>
+                </main>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

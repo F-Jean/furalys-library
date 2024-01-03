@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints\Cascade;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
 class Artist
@@ -38,6 +39,10 @@ class Artist
 
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'artists')]
     private Collection $posts;
+
+    #[ORM\ManyToOne(inversedBy: 'artists')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    private User $user;
 
     public function __construct()
     {
@@ -156,6 +161,18 @@ class Artist
         if ($this->posts->removeElement($post)) {
             $post->removeArtist($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
