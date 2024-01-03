@@ -58,6 +58,22 @@ class UserType extends AbstractType
                     'empty_data' => '',
                 ]
             )
+            ->add(
+                'role',
+                ChoiceType::class,
+                [
+                    'required' => true,
+                    'multiple' => false,
+                    'label' => 'Rôle de l\'utilisateur',
+                    'choices' => [
+                        'User' => 'ROLE_USER',
+                        'Admin' => 'ROLE_ADMIN',
+                    ],
+                    'attr' => [
+                        'class' => 'w-25',
+                    ],
+                ]
+            )
         ;
     }
 

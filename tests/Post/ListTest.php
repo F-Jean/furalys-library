@@ -3,15 +3,15 @@
 namespace App\Tests\Post;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
-class ShowTest extends WebTestCase
+class ListTest extends WebTestCase
 {
-    public function testPostShouldBeDisplayed(): void
+    public function testShowPostsWhileLoggedIn(): void
     {
+        // Simululates the sending of an HTTP request
         $client = static::createClient();
-
         // Recover the crawler then request the access to the login page
         $crawler = $client->request(Request::METHOD_GET, '/login');
         // Test if it lands on the page
@@ -28,12 +28,10 @@ class ShowTest extends WebTestCase
         // Test if it's a FOUND (redirection code 302)
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
 
-        $client->followRedirect();
-
-        $crawler = $client->request(Request::METHOD_GET, '/post/1');
-
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $this->assertCount(1, $crawler->filter('.post'));
-        $this->assertSelectorTextContains('h2', 'Informations about the post');
+        $crawler = $client->followRedirect();
+        
+        // Check if redirected to the posts page, app_posts, like it should
+        $this->assertRouteSame('app_posts');
+        $this->assertCount(5, $crawler->filter('.post-media'));
     }
 }

@@ -24,6 +24,10 @@ class Image
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'images')]
     private Collection $posts;
 
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -81,6 +85,18 @@ class Image
         if ($this->posts->removeElement($post)) {
             $post->removeImage($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
