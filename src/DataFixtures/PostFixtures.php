@@ -69,6 +69,16 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         ->setUser($userqdoe);
         $manager->persist($post5);
 
+        for ($i = 1; $i <= 40; $i++) {
+            $post = new Post();
+            $post->setPostedAt(new \DateTimeImmutable())
+            ->addArtist($this->getReference(ArtistFixtures::DYA_RIKKU))
+            ->addCategory($this->getReference(CategoryFixtures::ILLUSTRATION))
+            ->addImage($this->getReference(ImageFixtures::IMG1))
+            ->setUser($userqdoe);
+            $manager->persist($post);
+        }
+
         $manager->flush();
     }
 
