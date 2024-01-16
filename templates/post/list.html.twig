@@ -6,39 +6,9 @@
     <div class="col-xs-auto ml-sm-auto col-md-auto col-lg-auto">
         <div class="post-width">
             <div class="d-flex flex-row flex-wrap">
-                {# if the user has at least a post #}
-                {% if user.posts|length > 0 %}
-                    {# for all the post present #}
-                    {% for post in posts %}
-                        {# and if the post(s) match(es) the one(s) of the user connected #}
-                        {% if app.user == post.user %}
-                            <div class="post-media">
-                                {# IMAGES #}
-                                {% if post.images|length > 0 and post.images|first is not null %}
-                                    <a href="{{ path('post_show', {'id' : post.id }) }}">
-                                        <img width="360" height="240"
-                                            src="{{ asset('build/medias/post/'~post.images|first.path) }}">
-                                    </a>
-                                {% endif %}
-
-                                {# VIDEOS #}
-                                {% if post.videos|length > 0 and post.videos|first is not null %}
-                                    <a href="{{ path('post_show', {'id' : post.id }) }}">
-                                        <video width="320" height="240" controls>
-                                            <source src="{{ asset('build/medias/post/'~post.videos|first.url) }}"
-                                                type="video/mp4">
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    </a>
-                                {% endif %}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    {# To be replace by an image before prod #}
-                    <p class="text-light">No posts yet. Add your first post!</p>
-                {% endif %}
+                {% include "post/_posts.html.twig" with {'posts': posts} %}
             </div>
+            <button class="load btn btn-secondary" href="#">Afficher Plus</button>
         </div>
     </div>
     {# END OF POSTS SECTION #}
