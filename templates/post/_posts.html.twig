@@ -30,5 +30,8 @@
     {% endfor %}
 {% else %}
     {# To be replace by an image before prod #}
+    <div class="row">
     <p class="text-light">No posts yet. Add your first post!</p>
+    <button class="col-lg-4 load btn btn-success" href="#">Add first post</button>
+    </div>
 {% endif %}

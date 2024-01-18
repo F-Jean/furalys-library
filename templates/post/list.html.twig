@@ -8,7 +8,9 @@
             <div class="d-flex flex-row flex-wrap">
                 {% include "post/_posts.html.twig" with {'posts': posts} %}
             </div>
-            <button class="load btn btn-secondary" href="#">Afficher Plus</button>
+            {% if user.posts|length > 0 %}
+                <button class="load btn btn-secondary" href="#">Afficher Plus</button>
+            {% endif %}
         </div>
     </div>
     {# END OF POSTS SECTION #}

@@ -26,6 +26,7 @@
                                     </form>
                                     <a class="nav-link me-3 fs-5 text-light" href="{{ path('app_logout') }}">Logout</a>
                                 </div>
+                                <a class="nav-link me-3 fs-5 text-light" href="{{ path('homepage') }}">Back to website</a>
                             </div>
                         </nav><!-- /.navbar -->
                     {% endif %}
@@ -46,6 +47,10 @@
                     </div>
                     {# END OF FLASH MESSAGES SECTION #}
 
+                    <div class="d-flex justify-content-center my-5 text-light" >
+                        {% block header_title %}{% endblock %}
+                    </div>
+
                     <div class="row">
                         <!-- Sidebar -->
                         <nav id="collapseWidthExample" class="col-lg-2 bg-dark collapse collapse-horizontal">
@@ -61,10 +66,10 @@
                                     {% if is_granted('ROLE_USER') %}
                                         <div class="create-content">
                                             <li class="nav-item">
-                                                <a class="nav-link mx-2 fs-5 text-light">Add a post</a>
+                                                <a class="nav-link mx-2 fs-5 text-light ">Add a post</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link mx-2 fs-5 text-light">Add a category</a>
+                                                <a class="nav-link mx-2 fs-5 text-light" href="{{ path('category_list') }}">Categories</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link mx-2 fs-5 text-light">Add an artist</a>

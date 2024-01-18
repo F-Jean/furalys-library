@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -32,16 +31,13 @@ class PostController extends AbstractController
         // Check that the user is connected
         if (!$user instanceof User) {
             throw new AccessDeniedException('You have to connect first.');
+        } else {
+            // If user is connected, recover THEIR posts
+            $userPosts = $this->postRepository->findBy(['user' => $user], ['id' => 'DESC'], 16);
         }
 
-        // If user is connected, recover THEIR posts
-        $this->postRepository->findBy(['user' => $user]);
-
-        //  The verification that checks if a user have posts 
-        //  otherwise displays a message is handle directly in the Twig view
-
         return $this->render('post/list.html.twig', [
-            'posts' => $this->postRepository->getPosts(1, 16),
+            'posts' => $userPosts ?? [],
             'user' => $user
         ]);
     }

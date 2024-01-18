@@ -1,0 +1,34 @@
+{% extends 'layout.html.twig' %}
+
+{% block header_title %}
+    <h1>Category list</h1>
+{% endblock %}
+
+{% block container %}
+    {% if is_granted('ROLE_USER') %}
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 text-light">
+            <a href="{{ path('category_create') }}" class="btn btn-success">Add a category</a>
+            {% if user.categories|length > 0 %}
+                <div class="row">
+                    <table class="table table-dark table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% include "category/_categories.html.twig" with {'categories': categories} %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    Seems there is nothing here, it's emptier than an interstellar void ..
+                </div>
+            {% endif %}
+        </main>
+    {% endif %}
+{% endblock %}

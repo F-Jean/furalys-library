@@ -1,31 +1,33 @@
 {% extends 'layout.html.twig' %}
 
+{% block header_title %}
+    <h1>Informations about the post</h1>
+{% endblock %}
+
 {% block container %}
     {% if app.user == post.user %}
         <!-- Main content -->
         <main role="main" class="post col-md-9 ml-sm-auto col-lg-10 px-md-4 text-light">
             <!-- Posts will be rendered here -->
-            <h2>Informations about the post</h2>
-
             <a href="{{ path('app_posts') }}" class="btn btn-success">Back to posts</a>
 
             <p>Posté le : {{ post.postedAt|date('Y-m-d H:i:s') }}</p>
 
-            <h3>Artiste(s):</h3>
+            <h2>Artiste(s):</h2>
             <ul>
                 {% for artist in post.artists %}
                     <li>{{ artist.name }}</li>
                 {% endfor %}
             </ul>
 
-            <h3>Categorie(s):</h3>
+            <h2>Categorie(s):</h2>
             {% for category in post.categories %}
                 <ul>
                         <li>{{ category.title }}</li>
                 </ul>
             {% endfor %}
 
-            <h3>Image(s):</h3>
+            <h2>Image(s):</h2>
             <ul>
                     {% for image in post.images %}
                         <img 
@@ -34,7 +36,7 @@
                     {% endfor %}
                 </ul>
 
-            <h3>Video(s):</h3>
+            <h2>Video(s):</h2>
             <ul>
                 {% for video in post.videos %}
                     <video width="320" height="240" controls>
