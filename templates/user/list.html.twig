@@ -1,11 +1,12 @@
 {% extends 'layout.html.twig' %}
 
+{% block header_title %}
+    <h1>Users list</h1>
+{% endblock %}
+
 {% block container %}
     {% if is_granted('ROLE_ADMIN') %}
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 text-light">
-            {% block header_title %}
-                <h1 class="my-4">Users list</h1>
-            {% endblock %}
             {% if users|length == 0 %}
             <div class="alert alert-warning" role="alert">
                 Seems there is noone here, it's emptier than an interstellar void ..
@@ -29,7 +30,7 @@
                                 <td>{{ user.email }}</td>
                                 <td>
                                     <a href="{{ path('user_edit', {'id' : user.id}) }}#user-modif" class="btn btn-success btn-sm">Edit</a>
-                                    <a href="{{ path('user_delete', {'id' : user.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                                    <a href="{{ path('user_delete', {'id' : user.id}) }}" class="btn btn-danger btn-sm">Delete</a>
                                 </td>
                             </tr>
                         {% endfor %}

@@ -1,0 +1,15 @@
+{# _categories.html.twig #}
+
+{% for category in categories %}
+    {% if app.user == category.user %}
+        <tr class="category-infos">
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ category.title }}</td>
+            <td>{{ category.description }}</td>
+            <td>
+                <a class="btn btn-success btn-sm" href="{{ path('category_edit', {'id' : category.id }) }}">Edit</a>
+                <a class="btn btn-danger btn-sm" href="{{ path('category_delete', {'id' : category.id }) }}">Delete</a>
+            </td>
+        </tr>
+    {% endif %}
+{% endfor %}
