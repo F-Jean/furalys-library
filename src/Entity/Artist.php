@@ -7,9 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints\Cascade;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
+#[UniqueEntity(
+    fields: ["name"],
+    message: "This artist already exists."
+)]
 class Artist
 {
     #[ORM\Id]
@@ -17,7 +22,8 @@ class Artist
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
+    #[Assert\NotBlank(message: "Please enter a name.")]
     private string $name;
 
     #[ORM\Column(length: 255)]
@@ -26,9 +32,20 @@ class Artist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $debut;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $end;
+
     #[ORM\Column(length: 255)]
     private string $avatar;
 
+    #[Assert\NotBlank(message: "Please provide an image.")]
+    #[Assert\File(
+        mimeTypes:["image/*"],
+        mimeTypesMessage: "Please upload a valid image file."
+    )]
     private UploadedFile $avatarFile;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -86,6 +103,30 @@ class Artist
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDebut(): ?\DateTimeImmutable
+    {
+        return $this->debut;
+    }
+
+    public function setDebut(?\DateTimeImmutable $debut): static
+    {
+        $this->debut = $debut;
+
+        return $this;
+    }
+
+    public function getEnd(): ?\DateTimeImmutable
+    {
+        return $this->end;
+    }
+
+    public function setEnd(?\DateTimeImmutable $end): static
+    {
+        $this->end = $end;
 
         return $this;
     }

@@ -15,7 +15,7 @@
                             </button>
                             <div class="container-fluid ps-0">
                                 <div class="navbar-collapse d-flex justify-content-between">
-                                    <a class="navbar-brand text-light ms-4" href="{{ path('app_posts') }}">My profile</a>
+                                    <a class="navbar-brand text-light ms-4" href="{{ path('app_posts') }}">{{ app.user.username }}</a>
                                     <form class="d-flex" role="search">
                                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">
@@ -72,7 +72,7 @@
                                                 <a class="nav-link mx-2 fs-5 text-light" href="{{ path('category_list') }}">Categories</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link mx-2 fs-5 text-light">Add an artist</a>
+                                                <a class="nav-link mx-2 fs-5 text-light" href="{{ path('artist_list') }}">Artists</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link mx-2 fs-5 text-light">Add a tag</a>

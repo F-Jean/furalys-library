@@ -60,7 +60,7 @@ class LoginTest extends WebTestCase
         
         // Check if redirected to the posts page, app_posts, like it should
         $this->assertRouteSame('app_posts');
-        $this->assertCount(5, $crawler->filter('.post-media'));
+        $this->assertCount(16, $crawler->filter('.post-media'));
     }
 
     public function testUserShouldNotBeAuthenticatedDueToInvalidCredentialsAndRaiseFormError(): void

@@ -34,7 +34,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/users/{id}/edit', name: 'user_edit')]
+    #[Route('/user/{id}/edit', name: 'user_edit')]
     public function editAction(
         User $user,
         Request $request,
@@ -50,7 +50,7 @@ class UserController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Users data successfully updated"
+                "User data successfully updated"
             );
 
             return $this->redirectToRoute('user_list');
@@ -62,7 +62,7 @@ class UserController extends AbstractController
         );
     }
 
-    #[Route('/users/{id}/delete', name: 'user_delete')]
+    #[Route('/user/{id}/delete', name: 'user_delete')]
     public function deleteUserAction(
         User $user,
         UserDataInterface $userData

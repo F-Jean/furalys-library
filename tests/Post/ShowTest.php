@@ -34,6 +34,6 @@ class ShowTest extends WebTestCase
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertCount(1, $crawler->filter('.post'));
-        $this->assertSelectorTextContains('h2', 'Informations about the post');
+        $this->assertSelectorTextContains('h1', 'Informations about the post');
     }
 }

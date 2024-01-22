@@ -1,0 +1,14 @@
+{# _artists.html.twig #}
+
+{% for artist in artists %}
+    {% if app.user == artist.user %}
+        <tr class="artist-infos">
+            <th scope="row">{{ loop.index }}</th>
+            <td><a href="{{ path('artist_show', { 'id' : artist.id }) }}">{{ artist.name }}</a></td>
+            <td>
+                <a class="btn btn-success btn-sm" href="{{ path('artist_edit', {'id' : artist.id }) }}">Edit</a>
+                <a class="btn btn-danger btn-sm" href="{{ path('artist_delete', {'id' : artist.id }) }}">Delete</a>
+            </td>
+        </tr>
+    {% endif %}
+{% endfor %}
