@@ -30,28 +30,28 @@ class ArtistFixtures extends Fixture implements DependentFixtureInterface
             self::DYA_RIKKU => [
                 'name' => 'DyaRikku',
                 'description' => '2D Artist/Illustrator, Live2D Rigger, Vtuber. Where is my pink dog',
-                'avatar' => '/avatar/DyaRikku_avatar.png',
-                'twitch' => 'twitch.tv/dyarikku',
-                'twitter' => 'twitter.com/dyarikku',
+                'avatar' => 'DyaRikku_avatar.png',
+                'twitch' => 'dyarikku',
+                'twitter' => 'dyarikku',
             ],
             self::WISHBONE => [
                 'name' => 'wishbone777',
                 'description' => 'You can call me ゆう。or wishbone',
-                'avatar' => '/avatar/wishbone777_avatar.png',
-                'twitter' => 'twitter.com/wishbone777',
+                'avatar' => 'wishbone_avatar.jpg',
+                'twitter' => 'wishbone777',
             ],
             self::KAVALLIERE => [
                 'name' => 'Kavalliere',
                 'description' => '𝘝𝘛𝘶𝘣𝘦𝘳 𝘔𝘢𝘮𝘢 𝘢𝘯𝘥 𝘚𝘵𝘳𝘦𝘢𝘮𝘦𝘳 // The Lady of Fukurou Sanctuary',
-                'avatar' => '/avatar/kavalliere_avatar.png',
-                'twitch' => 'twitch.tv/kavalliere',
-                'twitter' => 'twitter.com/Kavalliere_',
+                'avatar' => 'kavalliere_avatar.png',
+                'twitch' => 'kavalliere',
+                'twitter' => 'Kavalliere_',
             ],
             self::YAYACHAN => [
                 'name' => 'YayaChan',
                 'description' => 'イラストレーター',
-                'avatar' => '/avatar/YayaChan_avatar.png',
-                'twitter' => 'twitter.com/YayaChanArtist',
+                'avatar' => 'YayaChan_avatar.jpg',
+                'twitter' => 'YayaChanArtist',
             ],
         ];
 

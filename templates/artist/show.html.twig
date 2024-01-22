@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% block header_title %}
+    <h1>Informations about the artist</h1>
+{% endblock %}
+
+{% block container %}
+    {% if app.user == artist.user %}
+        <!-- Main content -->
+        <main role="main" class="post col-md-9 ml-sm-auto col-lg-10 px-md-4 text-light">
+            <!-- Posts will be rendered here -->
+            <a href="{{ path('artist_list') }}" class="btn btn-primary">Back to artists</a>
+            <a href="{{ path('artist_edit', {'id' : artist.id }) }}" class="btn btn-success">Edit</a>
+            <a href="{{ path('artist_delete', {'id' : artist.id }) }}" class="btn btn-danger">Delete</a>
+
+            <div class="avatar-container">
+                <img src="{{ asset('build/medias/avatar/'~artist.avatar) }}" 
+                class="rounded" alt="">
+            </div>
+        
+            <h2>Name :</h2>
+            <h3>{{ artist.name }}</h3>
+
+            <h2>Description :</h2>
+            <p>{{ artist.description }}</p>
+
+            {% if artist.twitch|length > 0 %}
+                <h2>Twitch :</h2>
+                <p>twitch.tv/{{ artist.twitch }}</p>
+            {% endif %}
+
+            {% if artist.twitter|length > 0 %}
+                <h2>Twitter :</h2>
+                <p>twitter.com/{{ artist.twitter }}</p>
+            {% endif %}
+
+            {% if artist.debut|length > 0 %}
+                <h2>Debut date : {{ artist.debut|date('Y-m-d') }}</h2>
+            {% endif %}
+
+            {% if artist.end|length > 0 %}
+                <h2>End/Graduation the : {{ artist.end|date('Y-m-d') }}</h2>
+            {% endif %}
+        </main>
+    {% else %}
+        {# To be replace by an image before prod #}
+        <p class="text-light">Sorry the artist you're lookin for don't want to see you, sad !</p>
+    {% endif %}
+{% endblock %}

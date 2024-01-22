@@ -8,8 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(
+    fields: ["email"],
+    message: "Invalid credentials."
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -18,14 +24,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private int $id;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: "Please enter an email.")]
     private string $email;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Please enter a username.")]
     private string $username;
 
     #[ORM\Column]
     private string $role;
 
+    #[Assert\NotBlank(message: "Please enter a password.")]
+    #[Assert\Length(
+        min: 8,
+        minMessage: "Password should have at least {{ limit }} caracters."
+    )]
+    #[Assert\Regex(
+        "/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$/",
+        message: "Incorrect password format."
+    )]
     private string $plainPassword;
 
     /**

@@ -23,20 +23,30 @@
             <h2>Categorie(s):</h2>
             {% for category in post.categories %}
                 <ul>
-                        <li>{{ category.title }}</li>
+                    <li>{{ category.title }}</li>
                 </ul>
             {% endfor %}
 
-            <h2>Image(s):</h2>
+            {% for image in post.images %}
+                {% if post.images|length > 0 and post.images|first is not null %}
+                    <h2>Image(s):</h2>
+                    <p>Publié le : {{ image.releasedThe|date('Y-m-d') }}</p>
+                    {% endif %}
+            {% endfor %}
             <ul>
-                    {% for image in post.images %}
-                        <img 
-                        class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4" 
-                        src="{{ asset('build/medias/post/'~image.path) }}">
-                    {% endfor %}
-                </ul>
+                {% for image in post.images %}
+                    <img 
+                    class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4" 
+                    src="{{ asset('build/medias/post/'~image.path) }}">
+                {% endfor %}
+            </ul>
 
-            <h2>Video(s):</h2>
+            {% for video in post.videos %}
+                {% if post.videos|length > 0 and post.videos|first is not null %}
+                    <h2>Video(s):</h2>
+                    <p>Publié le : {{ video.releasedThe|date('Y-m-d') }}</p>
+                {% endif %}
+            {% endfor %}
             <ul>
                 {% for video in post.videos %}
                     <video width="320" height="240" controls>

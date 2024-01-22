@@ -2,16 +2,17 @@
 
 {% block container %}
     {% block header_title %}
-        <h1 class="d-flex justify-content-center my-5 text-light">Modify category</h1>
+        <h1 class="d-flex justify-content-center my-5 text-light">Modify artist</h1>
     {% endblock %}
 
     <div class="d-flex justify-content-center align-items-center text-light">
         <div class="w-50">
-            {{ form_start(form, {'action' : path('category_edit', { 'id' : category.id })}) }}
+            {{ form_start(form, {'action' : path('artist_edit', { 'id' : artist.id })}) }}
                 {{ form_widget(form) }}
+                <p>(*) Required</p>
                 <div class="d-flex justify-content-center align-items-center">
                     <button type="submit" class="btn btn-success me-5">Modify</button>
-                    <a href="{{ path('category_list') }}" class="btn btn-primary">Back to category list</a>
+                    <a href="{{ path('artist_list') }}" class="btn btn-primary">Back to artist list</a>
                 </div>
             {{ form_end(form) }}
         </div>

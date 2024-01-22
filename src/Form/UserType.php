@@ -41,7 +41,7 @@ class UserType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
-                    'invalid_message' => 'PAsswords don\'t match',
+                    'invalid_message' => 'Passwords don\'t match',
                     'required' => true,
                     'first_options'  => [
                         'label' => 'Password',

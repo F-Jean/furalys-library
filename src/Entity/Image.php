@@ -21,6 +21,9 @@ class Image
 
     private UploadedFile $file;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $releasedThe;
+
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'images')]
     private Collection $posts;
 
@@ -58,6 +61,18 @@ class Image
     public function setFile(UploadedFile $file): static
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getReleasedThe(): ?\DateTimeImmutable
+    {
+        return $this->releasedThe;
+    }
+
+    public function setReleasedThe(?\DateTimeImmutable $releasedThe): static
+    {
+        $this->releasedThe = $releasedThe;
 
         return $this;
     }
