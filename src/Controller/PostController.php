@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
+use App\Service\HandlePostInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -54,6 +57,40 @@ class PostController extends AbstractController
         ]);
     }
 
+    #[Route('/post/create', name: 'post_create')]
+    public function createAction(
+        Request $request,
+        HandlePostInterface $handlePost
+    ): Response
+    {
+        //Recover the connected user
+        $user = $this->getUser();
+        $post = new Post();
+        $post->setUser($user);
+
+        $form = $this->createForm(
+            PostType::class,
+            $post, ['validation_groups' => ['Default', 'add']]
+        )->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $handlePost->createPost($post);
+
+            $this->addFlash(
+                'success',
+                'The post has been created successfully.'
+            );
+
+            // Redirect to the newly created post
+            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
+        }
+
+        return $this->render('post/create.html.twig', [
+            'postForm' => $form->createView(),
+        ]);
+    }
+
+    // Keep below the create method otherwise they enter in conflicts
     #[Route('/post/{id}', name: 'post_show')]
     public function show(Post $post): Response
     {

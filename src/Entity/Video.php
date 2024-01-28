@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
 class Video
@@ -19,6 +20,7 @@ class Video
     #[ORM\Column(length: 255)]
     private string $url;
 
+    #[Assert\File(maxSize: "300k")]
     private UploadedFile $file;
 
     #[ORM\Column(nullable: true)]

@@ -1,4 +1,4 @@
-{# _posts.html.twig #}
+{# templates/post/_posts.html.twig #}
 
 {# if the user has at least a post #}
 {% if user.posts|length > 0 %}
@@ -31,7 +31,7 @@
 {% else %}
     {# To be replace by an image before prod #}
     <div class="row">
-    <p class="text-light">No posts yet. Add your first post!</p>
-    <button class="col-lg-4 load btn btn-success" href="#">Add first post</button>
+        <p class="text-light">No posts yet. Add your first post!</p>
+        <a href="{{ path('post_create') }}" class="col-lg-4 btn btn-success">Add first post</a>
     </div>
 {% endif %}
