@@ -1,13 +1,17 @@
 {# templates/post/_video.html.twig #}
 
 {% if form.file is defined %}
-    {{ form_row(form.file) }}
+    {{ form_row(form.file, { 'attr': {'class': 'mt-5'}}) }}
+    <div class ="text-light">
+        <p>"OR" select a Youtube url here :</p>
+        {{ form_row(form.url) }}
+    </div>
     <p class ="text-light">
         Publish the : (Not required)
     </p>
     {{ form_row(form.releasedThe, { 'attr': {'class': 'datetimepicker'} }) }}
 {% endif %}
-{{ form_row(form.url) }}
+{{ form_row(form.path) }}
 <div class="form-group">
     <button type="button" class="btn btn-danger btn-remove">
         Delete

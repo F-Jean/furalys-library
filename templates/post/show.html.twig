@@ -35,11 +35,14 @@
                     {% if image.releasedThe is not empty %}
                         <p>Publish the : {{ image.releasedThe|date('Y-m-d') }}</p>
                     {% endif %}
-                    <ul>
-                        <img 
-                        class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4" 
-                        src="{{ asset('build/medias/post/'~image.path) }}">
-                    </ul>
+                    <!-- If image.file that was filled in the form -->
+                    {% if image.path is not empty %}
+                        <ul>
+                            <img 
+                            class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4" 
+                            src="{{ asset('build/medias/post/'~image.path) }}">
+                        </ul>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
             
@@ -49,12 +52,28 @@
                     {% if video.releasedThe is not empty %}
                         <p>Publish the : {{ video.releasedThe|date('Y-m-d') }}</p>
                     {% endif %}
-                     <ul>
-                        <video width="320" height="240" controls>
-                            <source src="{{ asset('build/medias/post/'~video.url) }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </ul>
+                    <!-- If it's video.file that was filled in the form -->
+                    {% if video.path is not empty %}
+                        <ul>
+                            <video width="320" height="240" controls>
+                                <source src="{{ asset('build/medias/post/'~video.path) }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </ul>
+                    <!-- If it's video.url that was filled in the form -->
+                    {% elseif video.url is not empty %}
+                        <ul>
+                            <iframe class="post-video" 
+                            width="320" 
+                            height="240" 
+                            src="{{ video.url }}" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                                Your browser can't read the video.
+                            </iframe>
+                        </ul>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         </main>

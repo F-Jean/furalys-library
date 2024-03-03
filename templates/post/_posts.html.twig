@@ -13,16 +13,45 @@
                         <img width="360" height="240"
                             src="{{ asset('build/medias/post/'~post.images|first.path) }}">
                     </a>
+                    <div class="card-footer text-center">
+                        <a href="{{ path('post_edit', {'id' : post.id }) }}" class="btn btn-success">
+                            Modified
+                        </a>
+                        <a href="{{ path('post_delete', {'id' : post.id }) }}" class="btn btn-danger">
+                            Delete
+                        </a>
+                    </div>
                 {% endif %}
 
                 {# VIDEOS #}
                 {% if post.videos|length > 0 and post.videos|first is not null %}
+                    {% set video = post.videos|first %}
+                    <!-- Allow to access the first result of the entire video table (both path and url).
+                    Without it we first try to access only the first result of video.path and
+                    if it's empty this will cause an error.
+                    -->
                     <a href="{{ path('post_show', {'id' : post.id }) }}">
-                        <video width="360" height="240" controls>
-                            <source src="{{ asset('build/medias/post/'~post.videos|first.url) }}"
-                                type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        <!-- If it's video.file that was filled in the form -->
+                        {% if video.path is not empty %}
+                            <video width="360" height="240" controls>
+                                <source src="{{ asset('build/medias/post/'~post.videos|first.path) }}"
+                                    type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        <!-- If it's video.url that was filled in the form -->
+                        {% elseif video.url is not empty %}
+                            <ul>
+                                <iframe class="post-video" 
+                                width="320" 
+                                height="240" 
+                                src="{{ asset(video.url) }}" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                                    Your browser can't read the video.
+                                </iframe>
+                            </ul>
+                        {% endif %}
                     </a>
                 {% endif %}
             </div>

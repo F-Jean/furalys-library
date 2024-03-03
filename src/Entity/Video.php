@@ -8,8 +8,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
+#[UniqueEntity(
+    fields: ["file"],
+    message: "Cette vidéo existe déjà !"
+)]
 class Video
 {
     #[ORM\Id]
@@ -17,14 +22,22 @@ class Video
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column(length: 255)]
-    private string $url;
+    #[ORM\Column(nullable: true, length: 255)]
+    private ?string $path = null;
 
-    #[Assert\File(maxSize: "300k")]
-    private UploadedFile $file;
+    #[Assert\File(
+        maxSize: "300M",
+        mimeTypes: ['video/mp4', 'video/avi', 'video/mpeg', 'video/quicktime', 'video/mov', 'video/wmv'],
+        mimeTypesMessage: 'Please upload a valid video (MP4, AVI, MPEG, QuickTime, MOV, WMV)',
+        nullable: true,
+    )]
+    private ?UploadedFile $file = null;
+
+    #[ORM\Column(nullable: true, length: 255)]
+    private ?string $url = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $releasedThe;
+    private ?\DateTimeImmutable $releasedThe = null;
 
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'videos')]
     private Collection $posts;
@@ -43,26 +56,38 @@ class Video
         return $this->id;
     }
 
-    public function getUrl(): string
+    public function getPath(): ?string
     {
-        return $this->url;
+        return $this->path;
     }
 
-    public function setUrl(string $url): static
+    public function setPath(?string $path): static
     {
-        $this->url = $url;
+        $this->path = $path;
 
         return $this;
     }
 
-    public function getFile(): UploadedFile
+    public function getFile(): ?UploadedFile
     {
         return $this->file;
     }
 
-    public function setFile(UploadedFile $file): static
+    public function setFile(?UploadedFile $file): static
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): static
+    {
+        $this->url = $url;
 
         return $this;
     }

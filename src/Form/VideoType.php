@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -18,7 +19,7 @@ class VideoType extends AbstractType
     {
         $builder
             ->add(
-                'url',
+                'path',
                 HiddenType::class
                 // displayed in the form as a hidden field
             )
@@ -35,6 +36,16 @@ class VideoType extends AbstractType
                     ]);
                 }
             })
+            ->add(
+                'url',
+                TextType::class,
+                [
+                    'label' => false,
+                    /* Ajout de empty_data pour test le blank pour l'edit
+                    (et ne pas avoir l'erreur de sf) */
+                    'empty_data' => '',
+                ]
+            )
             ->add(
                 'releasedThe',
                 DateTimeType::class,

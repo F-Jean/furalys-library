@@ -14,4 +14,6 @@ interface HandlePostInterface
         EntityManagerInterface $manager
     );
     public function createPost(Post $post): void;
+    public function editPost(Post $post): void;
+    public function deletePost(Post $post): void;
 }

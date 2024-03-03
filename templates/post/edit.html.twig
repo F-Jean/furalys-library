@@ -1,21 +1,22 @@
-{# templates/post/create.html.twig #}
+{# templates/post/edit.html.twig #}
 
 {% extends 'layout.html.twig' %}
 
 {% block header_title %}
-    <h1>Create a new post</h1>
+    <h1>Edit post</h1>
 {% endblock %}
 
 {% block container %}
-    <div class="create-post">
+    <div class="edit-post">
         <div class="text-light text-center mb-5">
             <p>You need to at least add one image or video to create a post</p>
         </div>
+        <a href="{{ path('app_posts') }}" class="btn btn-success">Back to posts</a>
         {{ form_start(postForm) }}
             {{ include("post/_form.html.twig", {form: postForm}) }}
             {% if filtered_Artists is not empty and filtered_Categories is not empty %}
                 <div class="btn-create d-flex justify-content-center">
-                    <button class="btn btn-primary btn-post">Create post</button>
+                    <button class="btn btn-primary btn-post">Edit post</button>
                 </div>
             {% else %}
             <div class="text-center">

@@ -15,6 +15,9 @@ class PostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $filteredArtists = $options['filtered_Artists'];
+        $filteredCategories = $options['filtered_Categories'];
+
         $builder
             ->add(
                 'artists',
@@ -25,6 +28,7 @@ class PostType extends AbstractType
                     'label' => 'Choose one or more artist(s) :',
                     'multiple' => true,
                     'expanded' => true,
+                    'choices' => $filteredArtists,
                     
                 ]
             )
@@ -37,6 +41,7 @@ class PostType extends AbstractType
                     'label' => 'Choose one or more category(ies) :',
                     'multiple' => true,
                     'expanded' => true,
+                    'choices' => $filteredCategories,
                 ]
             )
             ->add(
@@ -73,6 +78,8 @@ class PostType extends AbstractType
             'attr' => [
                 'novalidate' => 'novalidate', // Comment me to reactivate the html5 validation!  🚥
             ],
+            'filtered_Artists' => null,
+            'filtered_Categories' => null,
         ]);
     }
 }

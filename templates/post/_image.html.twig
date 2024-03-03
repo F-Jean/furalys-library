@@ -2,7 +2,7 @@
 
 {{ form_widget(form.path)}}
 {% if form.file is defined %}
-    {{ form_row(form.file) }}
+    {{ form_row(form.file, { 'attr': {'class': 'mt-5'}}) }}
     <p class ="text-light">
         Publish the : (Not required)
     </p>

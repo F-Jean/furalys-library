@@ -40,21 +40,37 @@
         {{ form_errors(postForm.videos) }}
     </div>
 </div>
-<div class="row justify-content-center text-light">
-    <!-- ARTISTES -->
-    <div class="add-artist col-md-4 my-5">
-        {{ form_row(postForm.artists) }}
+<!-- ARTISTS -->
+{% if filtered_Artists is not empty %}
+    <div class="row justify-content-center text-light">
+        <div class="add-artist col-md-4 my-5">
+            {{ form_row(postForm.artists) }}
+        </div>
+        <div id="selected_artists" class="col-md-4 my-5" >
+            <!-- The selected artists will be added here 
+            thanks to artist_dropdown.js-->
+        </div>
     </div>
-    <div id="selected_artists" class="col-md-4 my-5" >
-        <!-- The selected artists will be added here -->
+{% else %}
+    <div>
+        <p class="text-light">No artists yet, add one here :</p>
+        <a href="{{ path('artist_create') }}" class="col-lg-1 btn btn-success">Add first artist</a>
     </div>
-</div>
-<div class="row justify-content-center text-light">
-    <!-- CATEGORIES -->
-    <div class="add-category col-md-4 my-5">
-        {{ form_row(postForm.categories) }}
+{% endif %}
+<!-- CATEGORIES -->
+{% if filtered_Categories is not empty %}
+    <div class="row justify-content-center text-light">
+        <div class="add-category col-md-4 my-5">
+            {{ form_row(postForm.categories) }}
+        </div>
+        <div id="selected_categories" class="col-md-4 my-5" >
+            <!-- The selected categories will be added here 
+            thanks to category_dropdown.js-->
+        </div>
     </div>
-    <div id="selected_categories" class="col-md-4 my-5" >
-        <!-- The selected categories will be added here -->
+    {% else %}
+    <div>
+        <p class="text-light">No categories yet, add one here :</p>
+        <a href="{{ path('category_create') }}" class="col-lg-1 btn btn-success">Add first category</a>
     </div>
-</div>
+{% endif %}
