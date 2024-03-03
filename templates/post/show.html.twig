@@ -1,3 +1,5 @@
+{# templates/post/show.html.twig #}
+
 {% extends 'layout.html.twig' %}
 
 {% block header_title %}
@@ -27,34 +29,53 @@
                 </ul>
             {% endfor %}
 
+            <h2>Image(s):</h2>
             {% for image in post.images %}
                 {% if post.images|length > 0 and post.images|first is not null %}
-                    <h2>Image(s):</h2>
-                    <p>Publié le : {{ image.releasedThe|date('Y-m-d') }}</p>
+                    {% if image.releasedThe is not empty %}
+                        <p>Publish the : {{ image.releasedThe|date('Y-m-d') }}</p>
                     {% endif %}
-            {% endfor %}
-            <ul>
-                {% for image in post.images %}
-                    <img 
-                    class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4" 
-                    src="{{ asset('build/medias/post/'~image.path) }}">
-                {% endfor %}
-            </ul>
-
-            {% for video in post.videos %}
-                {% if post.videos|length > 0 and post.videos|first is not null %}
-                    <h2>Video(s):</h2>
-                    <p>Publié le : {{ video.releasedThe|date('Y-m-d') }}</p>
+                    <!-- If image.file that was filled in the form -->
+                    {% if image.path is not empty %}
+                        <ul>
+                            <img 
+                            class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4" 
+                            src="{{ asset('build/medias/post/'~image.path) }}">
+                        </ul>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
-            <ul>
-                {% for video in post.videos %}
-                    <video width="320" height="240" controls>
-                        <source src="{{ asset('build/medias/post/'~video.url) }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                {% endfor %}
-            </ul>
+            
+            <h2>Video(s):</h2>
+            {% for video in post.videos %}
+                {% if post.videos|length > 0 and post.videos|first is not null %}
+                    {% if video.releasedThe is not empty %}
+                        <p>Publish the : {{ video.releasedThe|date('Y-m-d') }}</p>
+                    {% endif %}
+                    <!-- If it's video.file that was filled in the form -->
+                    {% if video.path is not empty %}
+                        <ul>
+                            <video width="320" height="240" controls>
+                                <source src="{{ asset('build/medias/post/'~video.path) }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </ul>
+                    <!-- If it's video.url that was filled in the form -->
+                    {% elseif video.url is not empty %}
+                        <ul>
+                            <iframe class="post-video" 
+                            width="320" 
+                            height="240" 
+                            src="{{ video.url }}" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                                Your browser can't read the video.
+                            </iframe>
+                        </ul>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
         </main>
     {% else %}
         {# To be replace by an image before prod #}

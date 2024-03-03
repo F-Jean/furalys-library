@@ -1,13 +1,24 @@
 @import "~bootstrap/scss/bootstrap";
 
-// footer.login-footer {
-//     padding-top: 297px;
-// }
-
 .post-width {
     width: 1504px;
 }
 
 nav#collapseWidthExample.bg-dark.collapse-horizontal.collapse.show {
     width: 231px;
+}
+
+// Page post/_form.html.twig
+// The id is not in the template sheet
+// it is generate by the form in the html page
+#post_categories {
+    max-height: 200px;
+    overflow-y: auto; /* add a scroll effect */
+}
+
+// The id is not in the template sheet
+// it is generate by the form in the html page
+#post_artists {
+    max-height: 200px;
+    overflow-y: auto; /* add a scroll effect */
 }

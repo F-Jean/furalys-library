@@ -21,13 +21,14 @@ class Post
     #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'posts')]
     private Collection $artists;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'posts')]
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'posts')]
     private Collection $categories;
 
-    #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'posts')]
+    #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'posts', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private Collection $images;
 
-    #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'posts')]
+    #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'posts', cascade: ['persist'])]
     private Collection $videos;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
@@ -36,6 +37,7 @@ class Post
 
     public function __construct()
     {
+        $this->postedAt = new \DateTimeImmutable();
         $this->artists = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();

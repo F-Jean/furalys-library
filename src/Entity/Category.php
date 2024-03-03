@@ -32,7 +32,7 @@ class Category
     #[Assert\NotBlank(message: "Please enter a description.")]
     private string $description;
 
-    #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'categories')]
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'categories')]
     private Collection $posts;
 
     #[ORM\ManyToOne(inversedBy: 'categories')]

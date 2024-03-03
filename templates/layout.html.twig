@@ -66,7 +66,7 @@
                                     {% if is_granted('ROLE_USER') %}
                                         <div class="create-content">
                                             <li class="nav-item">
-                                                <a class="nav-link mx-2 fs-5 text-light ">Add a post</a>
+                                                <a class="nav-link mx-2 fs-5 text-light" href="{{ path('post_create') }}">Add a post</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link mx-2 fs-5 text-light" href="{{ path('category_list') }}">Categories</a>

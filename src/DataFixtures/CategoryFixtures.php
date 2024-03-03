@@ -52,6 +52,17 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
             $this->addReference($reference, $category);
         }
 
+        for ($i = 1; $i <= 20; $i++) {
+            $userqdoe = $this->getReference(UserFixtures::USER_QDOE);
+            $category = new Category();
+            $category->setTitle("Category n° $i")
+            ->setSlug($this->slugger->slug($category->getTitle())->lower()->toString())
+            ->setDescription("Lorem ipsum")
+            ->setUser($userqdoe);
+
+            $manager->persist($category);
+        }
+
         $manager->flush();
     }
 

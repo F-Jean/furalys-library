@@ -1,0 +1,25 @@
+{# templates/post/_image.html.twig #}
+
+{{ form_widget(form.path)}}
+{% if form.file is defined %}
+    {{ form_row(form.file, { 'attr': {'class': 'mt-5'}}) }}
+    <p class ="text-light">
+        Publish the : (Not required)
+    </p>
+    {{ form_row(form.releasedThe, { 'attr': {'class': 'datetimepicker'} }) }}
+{% endif %}
+{% if form.vars.data is not null %}
+    <img 
+    src="{{ asset('build/medias/post/'~form.vars.data.path) }}" 
+    width="325" 
+    height="200">
+{% else %}
+    <div class="svg-container">
+        <i class="fa-regular fa-circle-xmark"></i>
+    </div>
+{% endif %}
+<div class="form-group">
+    <button type="button" class="btn btn-danger btn-remove">
+        Delete
+    </button>
+</div>
