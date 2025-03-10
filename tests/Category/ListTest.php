@@ -36,7 +36,7 @@ class ListTest extends WebTestCase
         // Check redirection
         $this->assertRouteSame('category_list');
         $this->assertSelectorTextContains('h1', 'Category list');
-        $this->assertCount(3, $crawler->filter('.category-infos'));
+        $this->assertCount(23, $crawler->filter('.category-infos'));
     }
 
     public function testNoTaskExist(): void

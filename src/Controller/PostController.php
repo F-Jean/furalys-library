@@ -162,6 +162,8 @@ class PostController extends AbstractController
         HandlePostInterface $handlePost
     ): Response
     {
+        // Check for "authorize" access: calls all voters.
+        $this->denyAccessUnlessGranted('authorize', $post);
         //Recover the connected user
         $user = $this->getUser();
 
@@ -238,6 +240,8 @@ class PostController extends AbstractController
         Post $post,
         HandlePostInterface $handlePost
     ): RedirectResponse {
+        // Check for "authorize" access: calls all voters.
+        $this->denyAccessUnlessGranted('authorize', $post);
 
         $handlePost->deletePost($post);
 
