@@ -1,0 +1,23 @@
+{# templates/image/changeDate.html.twig #}
+
+{% extends 'layout.html.twig' %}
+
+{% block header_title %}
+    <h1>Change the image published date</h1>
+{% endblock %}
+
+{% block container %}
+    <div class="edit-post">
+        <a href="#" class="btn btn-success">Back to the post</a>
+        <img 
+        src="{{ asset('build/medias/post/'~form.vars.data.path) }}" 
+        width="325" 
+        height="200">
+        {{ form_start(imageForm) }}
+            <p class ="text-light">
+                Publish the : (Not required)
+            </p>
+            {{ form_row(form.releasedThe, { 'attr': {'class': 'datetimepicker'} }) }}
+        {{ form_end(imageForm, {render_rest: false}) }}
+    </div>
+{% endblock %}

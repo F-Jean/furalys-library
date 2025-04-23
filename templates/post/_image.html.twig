@@ -1,8 +1,9 @@
 {# templates/post/_image.html.twig #}
+{# include of templates/post/_form.html.twig #}
 
 {{ form_widget(form.path)}}
 {% if form.file is defined %}
-    {{ form_row(form.file, { 'attr': {'class': 'mt-5'}}) }}
+    {{ form_row(form.file, { 'attr': {'class': 'mt-5'} }) }}
     <p class ="text-light">
         Publish the : (Not required)
     </p>

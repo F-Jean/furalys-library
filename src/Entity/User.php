@@ -46,19 +46,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $plainPassword;
 
     /**
-     * User constructor
-     */
-    public function __construct()
-    {
-        $this->role = 'ROLE_USER';
-        $this->artists = new ArrayCollection();
-        $this->categories = new ArrayCollection();
-        $this->images = new ArrayCollection();
-        $this->posts = new ArrayCollection();
-        $this->videos = new ArrayCollection();
-    }
-
-    /**
      * @var string The hashed password
      */
     #[ORM\Column]
@@ -78,6 +65,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Video::class, orphanRemoval: true)]
     private Collection $videos;
+
+    /**
+     * User constructor
+     */
+    public function __construct()
+    {
+        $this->role = 'ROLE_USER';
+        $this->artists = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->posts = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+    }
 
     public function getId(): int
     {

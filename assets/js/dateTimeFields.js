@@ -6,7 +6,7 @@ import flatpickr from 'flatpickr';
 document.addEventListener('DOMContentLoaded', function () {
     flatpickr('.datetimepicker', {
         // Flatpickr configuration options
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
+        enableTime: false,
+        dateFormat: "Y-m-d",
     });
 });

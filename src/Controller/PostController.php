@@ -24,6 +24,7 @@ class PostController extends AbstractController
         private PostRepository $postRepository,
         private UserRepository $userRepository,
         private VideoRepository $videoRepository,
+        private HandlePostInterface $handlePost,
     )
     {
     }
@@ -69,7 +70,6 @@ class PostController extends AbstractController
     #[Route('/post/create', name: 'post_create')]
     public function createAction(
         Request $request,
-        HandlePostInterface $handlePost
     ): Response
     {
         //Recover the connected user
@@ -129,7 +129,7 @@ class PostController extends AbstractController
             }
 
             // If all previous validations pass, proceed with post creation
-            $handlePost->createPost($post);
+            $this->handlePost->createPost($post);
             $this->addFlash(
                 'success',
                 'The post has been created successfully.'
@@ -159,9 +159,10 @@ class PostController extends AbstractController
     public function editAction(
         Post $post,
         Request $request,
-        HandlePostInterface $handlePost
     ): Response
     {
+        // Check for "authorize" access: calls all voters.
+        $this->denyAccessUnlessGranted('authorize', $post);
         //Recover the connected user
         $user = $this->getUser();
 
@@ -217,7 +218,7 @@ class PostController extends AbstractController
             }
 
             // If all previous validations pass, proceed with post creation
-            $handlePost->editPost($post);
+            $this->handlePost->editPost($post);
             $this->addFlash(
                 'success',
                 'The post has been modified successfully.'
@@ -236,10 +237,11 @@ class PostController extends AbstractController
     #[Route('/post/{id}/delete', name: 'post_delete')]
     public function deleteTaskAction(
         Post $post,
-        HandlePostInterface $handlePost
     ): RedirectResponse {
+        // Check for "authorize" access: calls all voters.
+        $this->denyAccessUnlessGranted('authorize', $post);
 
-        $handlePost->deletePost($post);
+        $this->handlePost->deletePost($post);
 
         $this->addFlash(
             'success',

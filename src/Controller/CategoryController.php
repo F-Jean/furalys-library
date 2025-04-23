@@ -26,7 +26,8 @@ class CategoryController extends AbstractController
      */
     public function __construct(
         private CategoryRepository $categoryRepository,
-        private SluggerInterface $slugger
+        private SluggerInterface $slugger,
+        private HandleCategoryInterface $handleCategory
     ) {
     }
 
@@ -55,7 +56,6 @@ class CategoryController extends AbstractController
     #[Route('/category/create', name: 'category_create')]
     public function createAction(
         Request $request,
-        HandleCategoryInterface $handleCategory
     ): Response
     {
         /** @var User $user */
@@ -71,7 +71,7 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $category->setSlug($this->slugger->slug($category->getTitle())->lower()->toString());
 
-            $handleCategory->createCategory($category);
+            $this->handleCategory->createCategory($category);
 
             $this->addFlash(
                 'success',
@@ -90,7 +90,6 @@ class CategoryController extends AbstractController
     public function editAction(
         Category $category,
         Request $request,
-        HandleCategoryInterface $handleCategory
     ): Response {
         // Check for "authorize" access: calls all voters.
         $this->denyAccessUnlessGranted('authorize', $category);
@@ -103,7 +102,7 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $category->setSlug($this->slugger->slug($category->getTitle())->lower()->toString());
 
-            $handleCategory->editCategory();
+            $this->handleCategory->editCategory();
 
             $this->addFlash(
                 'success',
@@ -122,11 +121,10 @@ class CategoryController extends AbstractController
     #[Route('/category/{id}/delete', name: 'category_delete')]
     public function deleteTaskAction(
         Category $category,
-        HandleCategoryInterface $handleCategory
     ): RedirectResponse {
         $this->denyAccessUnlessGranted('authorize', $category);
 
-        $handleCategory->deleteCategory($category);
+        $this->handleCategory->deleteCategory($category);
 
         $this->addFlash(
             'success',

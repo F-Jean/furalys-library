@@ -43,12 +43,12 @@ class EditTest extends WebTestCase
         );
 
         // Absolute path from the file
-        $imagePath = __DIR__.'/../../public/build/medias/avatar/DyaRikku-avatar-65ae884089c84.png';
+        $imagePath = __DIR__.'/../../public/build/medias/avatar/DyaRikku_avatar.png';
 
         // Create object UploadedFile from file path
         $uploadedFile = new UploadedFile(
             $imagePath,
-            'DyaRikku-avatar-65ae884089c84.png',
+            'DyaRikku_avatar.png',
             'image/png',
             null,
             true
@@ -170,12 +170,12 @@ class EditTest extends WebTestCase
         );
 
         // Absolute path from the file
-        $imagePath = __DIR__.'/../../public/build/medias/avatar/DyaRikku-avatar-65ae884089c84.png';
+        $imagePath = __DIR__.'/../../public/build/medias/avatar/DyaRikku_avatar.png';
 
         // Create object UploadedFile from file path
         $uploadedFile = new UploadedFile(
             $imagePath,
-            'DyaRikku-avatar-65ae884089c84.png',
+            'DyaRikku_avatar.png',
             'image/png',
             null,
             true

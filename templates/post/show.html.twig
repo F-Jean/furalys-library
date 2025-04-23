@@ -34,6 +34,7 @@
                 {% if post.images|length > 0 and post.images|first is not null %}
                     {% if image.releasedThe is not empty %}
                         <p>Publish the : {{ image.releasedThe|date('Y-m-d') }}</p>
+                        <a href="#" class="btn btn-success">Change published date</a>
                     {% endif %}
                     <!-- If image.file that was filled in the form -->
                     {% if image.path is not empty %}

@@ -30,7 +30,7 @@ class DeleteTest extends WebTestCase
         /** @var EntityManagerInterface $entityManager */
         $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
         /** @var Artist $artist */
-        $artist = $entityManager->getRepository(Artist::class)->find(1);
+        $artist = $entityManager->getRepository(Artist::class)->find(2);
 
         /** @var UrlGeneratorInterface $urlGenerator */
         $urlGenerator = $client->getContainer()->get("router");
@@ -44,7 +44,7 @@ class DeleteTest extends WebTestCase
         $this->assertSelectorTextContains('html', 'The artist has been deleted successfully !');
         $this->assertResponseIsSuccessful();
 
-        $artist = $entityManager->getRepository(Artist::class)->find(1);
+        $artist = $entityManager->getRepository(Artist::class)->find(2);
         $this->assertNull($artist);
     }
 
