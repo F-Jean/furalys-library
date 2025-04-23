@@ -23,6 +23,10 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        # Enabling the controller resolver automapping feature has been
+        # deprecated. Symfony Mapped Route Parameters should be used as replacement
+        controller_resolver:
+            auto_mapping: false
 
 when@test:
     doctrine:

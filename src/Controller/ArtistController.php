@@ -26,7 +26,8 @@ class ArtistController extends AbstractController
      */
     public function __construct(
         private ArtistRepository $artistRepository,
-        private SluggerInterface $slugger
+        private SluggerInterface $slugger,
+        private HandleArtistInterface $handleArtist,
     ) {
     }
 
@@ -53,7 +54,6 @@ class ArtistController extends AbstractController
     #[Route('/artist/create', name: 'artist_create')]
     public function createAction(
         Request $request,
-        HandleArtistInterface $handleArtist
     ): Response
     {
         /** @var User $user */
@@ -69,7 +69,7 @@ class ArtistController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $artist->setSlug($this->slugger->slug($artist->getName())->lower()->toString());
 
-            $handleArtist->createArtist($artist);
+            $this->handleArtist->createArtist($artist);
 
             $this->addFlash(
                 'success',
@@ -101,7 +101,6 @@ class ArtistController extends AbstractController
     public function editAction(
         Artist $artist,
         Request $request,
-        HandleArtistInterface $handleArtist
     ): Response {
         $this->denyAccessUnlessGranted('authorize', $artist);
 
@@ -113,7 +112,7 @@ class ArtistController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $artist->setSlug($this->slugger->slug($artist->getName())->lower()->toString());
 
-            $handleArtist->editArtist($artist);
+            $this->handleArtist->editArtist($artist);
 
             $this->addFlash(
                 'success',
@@ -132,13 +131,12 @@ class ArtistController extends AbstractController
     #[Route('/artist/{id}/delete', name: 'artist_delete')]
     public function deleteAction(
         Artist $artist,
-        HandleArtistInterface $handleArtist
     ): RedirectResponse {
         // Check that the user is logged in, that's an Artist object and
         // only the author/user logged or admin can manage it
         $this->denyAccessUnlessGranted('authorize', $artist);
 
-        $handleArtist->deleteArtist($artist);
+        $this->handleArtist->deleteArtist($artist);
 
         $this->addFlash(
             'success',

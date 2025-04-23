@@ -25,7 +25,6 @@ class Post
     private Collection $categories;
 
     #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'posts', cascade: ['persist'])]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private Collection $images;
 
     #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'posts', cascade: ['persist'])]
