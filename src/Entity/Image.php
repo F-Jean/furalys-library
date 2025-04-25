@@ -29,13 +29,13 @@ class Image
         maxSize: "300M",
         mimeTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/pdf', 'image/ai', 'image/psd', 'image/clip', 'image/svg'],
         mimeTypesMessage: 'Please upload a valid image (JPEG, JPG, PNG, GIF, PDF, AI, PSD, CLIP, SVG)',
-        nullable: true,
     )]
     private ?UploadedFile $file = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $releasedThe = null;
 
+    /** @var Collection<int, Post> */
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'images')]
     private Collection $posts;
 

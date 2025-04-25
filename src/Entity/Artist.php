@@ -54,12 +54,14 @@ class Artist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $twitter = null;
 
+    /** @var Collection<int, Post> */
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'artists')]
     private Collection $posts;
 
     #[ORM\ManyToOne(inversedBy: 'artists')]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
-    private User $user;
+    #[Assert\NotNull(message: 'Un utilisateur est requis.')]
+    private ?User $user;
 
     public function __construct()
     {

@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Category;
 
 /**
@@ -10,7 +9,6 @@ use App\Entity\Category;
  */
 interface HandleCategoryInterface
 {
-    public function __construct(EntityManagerInterface $manager);
     public function createCategory(Category $category): void;
     public function editCategory(): void;
     public function deleteCategory(Category $category): void;

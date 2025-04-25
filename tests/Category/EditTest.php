@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 class EditTest extends WebTestCase
 {
@@ -38,7 +39,7 @@ class EditTest extends WebTestCase
         $urlGenerator = $client->getContainer()->get("router");
         $crawler = $client->request(
             Request::METHOD_GET,
-            $urlGenerator->generate("category_edit", ["id" => $originalCategory->getId(1)])
+            $urlGenerator->generate("category_edit", ["id" => $originalCategory->getId()])
         );
 
         $form = $crawler->filter('form[name=category]')->form([
@@ -101,10 +102,10 @@ class EditTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
         $client->followRedirect();
 
-        // Catch original category
+        // Catch category
         /** @var EntityManagerInterface $entityManager */
         $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
-        /** @var Category $originalCategory */
+        /** @var Category $category */
         $category = $entityManager->getRepository(Category::class)->findOneBy([]);
 
         /** @var UrlGeneratorInterface $urlGenerator */
@@ -141,10 +142,10 @@ class EditTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
         $client->followRedirect();
 
-        // Catch original category
+        // Catch category
         /** @var EntityManagerInterface $entityManager */
         $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
-        /** @var Category $originalCategory */
+        /** @var Category $category */
         $category = $entityManager->getRepository(Category::class)->findOneBy([]);
 
         /** @var UrlGeneratorInterface $urlGenerator */

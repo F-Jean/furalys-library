@@ -1,4 +1,35 @@
-# UPGRADE Symfony 7.2
+# UPGRADE Symfony 7.2 Part 2
+
+## 📅 Date : 2025-04-23  
+## 👤 Author : Furalys
+## 🧪 Context : Project still undergoing local development
+
+## 🎯 Objectives
+
+Finish the migration of the project's dependencies
+
+---
+
+## 🔧 Technical changes
+
+### PHPStan :
+    - NO CHANGES have been made as `thecodingmachine/phpstan-strict-rules` block the update because of compatibility as for now
+    - The current version works fine and is stable
+    - An update to PHPStan version 2.* is recommanded when a stable version of PHP 8.4 will be available and the project updated
+    - Errors have been founded and taking cared of : 
+        most were due to a lack of typing
+        Removal of constructors from service interfaces to keep them simple and more flexible
+
+### PHPUnit :
+
+---
+
+## ✅ Status : Migration successfull
+
+-----
+-----
+
+# UPGRADE Symfony 7.2 Part 1
 
 ## 📅 Date : 2025-04-17  
 ## 👤 Author : Furalys

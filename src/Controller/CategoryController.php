@@ -40,15 +40,15 @@ class CategoryController extends AbstractController
         // Check that the user is connected
         if (!$user instanceof User) {
             throw new AccessDeniedException('You have to connect first.');
-        } else {
-            // If user is connected, recover THEIR categories
-            $categories = $this->categoryRepository->findBy(['user' => $user]);
         }
+
+        // If user is connected, recover THEIR categories
+        $categories = $this->categoryRepository->findBy(['user' => $user]);
 
         return $this->render('category/list.html.twig', [
             // if $categories is defined and not null then 'categories' => $categories is used
             // if $categories is null then 'categories' => [] is used
-            'categories' => $categories ?? [],
+            'categories' => $categories,
             'user' => $user
         ]);
     }

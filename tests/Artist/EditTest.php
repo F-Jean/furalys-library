@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 class EditTest extends WebTestCase
 {
@@ -39,7 +40,7 @@ class EditTest extends WebTestCase
         $urlGenerator = $client->getContainer()->get("router");
         $crawler = $client->request(
             Request::METHOD_GET,
-            $urlGenerator->generate("artist_edit", ["id" => $originalArtist->getId(1)])
+            $urlGenerator->generate("artist_edit", ["id" => $originalArtist->getId()])
         );
 
         // Absolute path from the file

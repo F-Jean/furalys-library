@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 class CreateTest extends WebTestCase
 {
@@ -65,10 +66,10 @@ class CreateTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
         $client->followRedirect();
 
-        // Catch original category
+        // Catch category
         /** @var EntityManagerInterface $entityManager */
         $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
-        /** @var Category $originalCategory */
+        /** @var Category $category */
         $category = $entityManager->getRepository(Category::class)->findOneBy([]);
 
         /** @var UrlGeneratorInterface $urlGenerator */
@@ -105,10 +106,10 @@ class CreateTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
         $client->followRedirect();
 
-        // Catch original category
+        // Catch category
         /** @var EntityManagerInterface $entityManager */
         $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
-        /** @var Category $originalCategory */
+        /** @var Category $category */
         $category = $entityManager->getRepository(Category::class)->findOneBy([]);
 
         /** @var UrlGeneratorInterface $urlGenerator */
@@ -145,10 +146,10 @@ class CreateTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
         $client->followRedirect();
 
-        // Catch original category
+        // Catch category
         /** @var EntityManagerInterface $entityManager */
         $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
-        /** @var Category $originalCategory */
+        /** @var Category $category */
         $category = $entityManager->getRepository(Category::class)->findOneBy([]);
 
         /** @var UrlGeneratorInterface $urlGenerator */

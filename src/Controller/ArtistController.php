@@ -40,13 +40,13 @@ class ArtistController extends AbstractController
         // Check that the user is connected
         if (!$user instanceof User) {
             throw new AccessDeniedException('You have to connect first.');
-        } else {
-            // If user is connected, recover THEIR categories
-            $artists = $this->artistRepository->findBy(['user' => $user]);
         }
+        
+        // If user is connected, recover THEIR categories
+        $artists = $this->artistRepository->findBy(['user' => $user]);
 
         return $this->render('artist/list.html.twig', [
-            'artists' => $artists ?? [],
+            'artists' => $artists,
             'user' => $user
         ]);
     }

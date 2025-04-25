@@ -51,18 +51,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password;
 
+    /** @var Collection<int, Artist> */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Artist::class, orphanRemoval: true)]
     private Collection $artists;
 
+    /** @var Collection<int, Category> */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Category::class, orphanRemoval: true)]
     private Collection $categories;
 
+    /** @var Collection<int, Image> */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Image::class, orphanRemoval: true)]
     private Collection $images;
 
+    /** @var Collection<int, Post> */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Post::class, orphanRemoval: true)]
     private Collection $posts;
 
+    /** @var Collection<int, Video> */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Video::class, orphanRemoval: true)]
     private Collection $videos;
 
@@ -103,6 +108,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
+        assert(!empty($this->email), 'Email should not be empty.');
         return (string) $this->email;
     }
 

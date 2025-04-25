@@ -16,7 +16,7 @@ final class HandlePost implements HandlePostInterface
      * @param EntityManagerInterface $manager
      */
     public function __construct(
-        private EntityManagerInterface $manager,
+        private readonly EntityManagerInterface $manager,
     ) {
     }
 

@@ -18,15 +18,19 @@ class Post
     #[ORM\Column]
     private \DateTimeImmutable $postedAt;
 
+    /** @var Collection<int, Artist> */
     #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'posts')]
     private Collection $artists;
 
+    /** @var Collection<int, Category> */
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'posts')]
     private Collection $categories;
 
+    /** @var Collection<int, Image> */
     #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'posts', cascade: ['persist'])]
     private Collection $images;
 
+    /** @var Collection<int, Video> */
     #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'posts', cascade: ['persist'])]
     private Collection $videos;
 

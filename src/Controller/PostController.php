@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PostRepository;
-use App\Repository\UserRepository;
 use App\Repository\VideoRepository;
 use App\Service\HandlePostInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,7 +21,6 @@ class PostController extends AbstractController
 {
     public function __construct(
         private PostRepository $postRepository,
-        private UserRepository $userRepository,
         private VideoRepository $videoRepository,
         private HandlePostInterface $handlePost,
     )
@@ -39,17 +37,17 @@ class PostController extends AbstractController
         // Check that the user is connected
         if (!$user instanceof User) {
             throw new AccessDeniedException('You have to connect first.');
-        } else {
-            // If user is connected, recover THEIR posts and videos
-            $userPosts = $this->postRepository->findBy(['user' => $user], ['id' => 'DESC'], 16);
-            // Find all the user videos
-            $userVideos = $this->videoRepository->findBy(['user' => $user]);
         }
 
+        // If user is connected, recover THEIR posts and videos
+        $userPosts = $this->postRepository->findBy(['user' => $user], ['id' => 'DESC'], 16);
+        // Find all the user videos
+        $userVideos = $this->videoRepository->findBy(['user' => $user]);
+
         return $this->render('post/list.html.twig', [
-            'posts' => $userPosts ?? [],
+            'posts' => $userPosts,
             'user' => $user,
-            'video' => $userVideos ?? [],
+            'video' => $userVideos,
         ]);
     }
 
@@ -73,6 +71,7 @@ class PostController extends AbstractController
     ): Response
     {
         //Recover the connected user
+        /** @var User $user */
         $user = $this->getUser();
         $post = new Post();
         $post->setUser($user);
@@ -164,6 +163,7 @@ class PostController extends AbstractController
         // Check for "authorize" access: calls all voters.
         $this->denyAccessUnlessGranted('authorize', $post);
         //Recover the connected user
+        /** @var User $user */
         $user = $this->getUser();
 
         // Filters the content of logged-in user

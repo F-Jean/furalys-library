@@ -18,8 +18,8 @@ class UserData implements UserDataInterface
      * @param UserPasswordHasherInterface $passwordHasher
      */
     public function __construct(
-        private EntityManagerInterface $manager,
-        private UserPasswordHasherInterface $passwordHasher
+        private readonly EntityManagerInterface $manager,
+        private readonly UserPasswordHasherInterface $passwordHasher
     ) {
     }
 
