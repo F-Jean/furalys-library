@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Artist;
+use App\Entity\User;
 use App\DataFixtures\UserFixtures;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -56,7 +57,8 @@ class ArtistFixtures extends Fixture implements DependentFixtureInterface
         ];
 
         foreach ($artistsConfig as $reference => $config) {
-            $userQdoe = $this->getReference(UserFixtures::USER_QDOE);
+            $userQdoe = $this->getReference(UserFixtures::USER_QDOE, User::class);
+
             $artist = new Artist;
             $artist->setName($config['name'])
                 ->setSlug($this->slugger->slug($artist->getName())->lower()->toString())

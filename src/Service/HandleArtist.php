@@ -17,8 +17,8 @@ final class HandleArtist implements HandleArtistInterface
      * @param EntityManagerInterface $manager
      */
     public function __construct(
-        private EntityManagerInterface $manager,
-        private SluggerInterface $slugger
+        private readonly EntityManagerInterface $manager,
+        private readonly SluggerInterface $slugger
     ) {
     }
 

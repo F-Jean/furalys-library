@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 class EditTest extends WebTestCase
 {
@@ -38,7 +39,7 @@ class EditTest extends WebTestCase
         $urlGenerator = $client->getContainer()->get("router");
         $crawler = $client->request(
             Request::METHOD_GET,
-            $urlGenerator->generate("user_edit", ["id" => $originalUser->getId(4)])
+            $urlGenerator->generate("user_edit", ["id" => $originalUser->getId()])
         );
 
         $form = $crawler->filter('form[name=user]')->form([
@@ -70,7 +71,7 @@ class EditTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
 
         $form = $crawler->filter("form[name=login]")->form([
-            "_username" => "adoe@sf.com",
+            "_username" => "bdoe@sf.com",
             "_password" => "password"
         ]);
         $client->submit($form);
@@ -157,7 +158,6 @@ class EditTest extends WebTestCase
 
         $form = $crawler->filter('form[name=user]')->form([
             'user[email]' => 'furalys@sf.com',
-            'user[username]' => 'furalys',
             'user[username]' => 'new edited username',
             'user[plainPassword][first]' => '',
             'user[plainPassword][second]' => '',
@@ -200,7 +200,6 @@ class EditTest extends WebTestCase
 
         $form = $crawler->filter('form[name=user]')->form([
             'user[email]' => '',
-            'user[username]' => 'furalys',
             'user[username]' => 'new edited username',
             'user[plainPassword][first]' => '!NewPassword1',
             'user[plainPassword][second]' => '!NewPassword1',
@@ -243,7 +242,6 @@ class EditTest extends WebTestCase
 
         $form = $crawler->filter('form[name=user]')->form([
             'user[email]' => 'adoe@sf.com',
-            'user[username]' => 'furalys',
             'user[username]' => 'new edited username',
             'user[plainPassword][first]' => '!NewPassword1',
             'user[plainPassword][second]' => '!NewPassword1',
@@ -286,7 +284,6 @@ class EditTest extends WebTestCase
 
         $form = $crawler->filter('form[name=user]')->form([
             'user[email]' => 'furalys@sf.com',
-            'user[username]' => 'furalys',
             'user[username]' => 'new edited username',
             'user[plainPassword][first]' => 'password',
             'user[plainPassword][second]' => 'password',
@@ -329,7 +326,6 @@ class EditTest extends WebTestCase
 
         $form = $crawler->filter('form[name=user]')->form([
             'user[email]' => 'furalys@sf.com',
-            'user[username]' => 'furalys',
             'user[username]' => 'new edited username',
             'user[plainPassword][first]' => '!NewPassword1',
             'user[plainPassword][second]' => '!NewPassword2',

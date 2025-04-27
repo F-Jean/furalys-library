@@ -29,7 +29,6 @@ class Video
         maxSize: "300M",
         mimeTypes: ['video/mp4', 'video/avi', 'video/mpeg', 'video/quicktime', 'video/mov', 'video/wmv'],
         mimeTypesMessage: 'Please upload a valid video (MP4, AVI, MPEG, QuickTime, MOV, WMV)',
-        nullable: true,
     )]
     private ?UploadedFile $file = null;
 
@@ -39,6 +38,7 @@ class Video
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $releasedThe = null;
 
+    /** @var Collection<int, Post> */
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'videos')]
     private Collection $posts;
 

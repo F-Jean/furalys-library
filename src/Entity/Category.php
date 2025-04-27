@@ -32,6 +32,7 @@ class Category
     #[Assert\NotBlank(message: "Please enter a description.")]
     private string $description;
 
+    /** @var Collection<int, Post> */
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'categories')]
     private Collection $posts;
 

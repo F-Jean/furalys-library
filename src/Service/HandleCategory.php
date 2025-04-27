@@ -7,6 +7,8 @@ use App\Entity\Category;
 
 /**
  * HandleCategory class
+ * 
+ * Category management service
  */
 final class HandleCategory implements HandleCategoryInterface
 {
@@ -16,7 +18,7 @@ final class HandleCategory implements HandleCategoryInterface
      * @param EntityManagerInterface $manager
      */
     public function __construct(
-        private EntityManagerInterface $manager
+        private readonly EntityManagerInterface $manager
     ) {
     }
 
@@ -39,7 +41,7 @@ final class HandleCategory implements HandleCategoryInterface
     }
 
     /**
-     * @param Task $task
+     * @param Category $category
      * @return void
      */
     public function deleteCategory(Category $category): void
