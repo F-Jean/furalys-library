@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Category;
+use App\Entity\User;
 use App\DataFixtures\UserFixtures;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -41,7 +42,7 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
         ];
 
         foreach ($categoriesConfig as $reference => $config) {
-            $userqdoe = $this->getReference(UserFixtures::USER_QDOE);
+            $userqdoe = $this->getReference(UserFixtures::USER_QDOE, User::class);
             $category = new Category;
             $category->setTitle($config['title'])
                 ->setSlug($this->slugger->slug($category->getTitle())->lower()->toString())
@@ -53,7 +54,7 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
         }
 
         for ($i = 1; $i <= 20; $i++) {
-            $userqdoe = $this->getReference(UserFixtures::USER_QDOE);
+            $userqdoe = $this->getReference(UserFixtures::USER_QDOE, User::class);
             $category = new Category();
             $category->setTitle("Category n° $i")
             ->setSlug($this->slugger->slug($category->getTitle())->lower()->toString())

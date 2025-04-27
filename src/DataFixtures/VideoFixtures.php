@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Video;
+use App\Entity\User;
 use App\DataFixtures\UserFixtures;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
@@ -18,7 +19,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        $userqdoe = $this->getReference(UserFixtures::USER_QDOE);
+        $userqdoe = $this->getReference(UserFixtures::USER_QDOE, User::class);
         $video1 = new Video();
         $video1->setPath('@Kavalliere__21_11_23_1a.mp4')
         ->setUser($userqdoe);

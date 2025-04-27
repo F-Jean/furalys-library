@@ -71,7 +71,7 @@ class EditTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
 
         $form = $crawler->filter("form[name=login]")->form([
-            "_username" => "adoe@sf.com",
+            "_username" => "bdoe@sf.com",
             "_password" => "password"
         ]);
         $client->submit($form);
