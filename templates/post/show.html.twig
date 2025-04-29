@@ -12,6 +12,12 @@
         <main role="main" class="post col-md-9 ml-sm-auto col-lg-10 px-md-4 text-light">
             <!-- Posts will be rendered here -->
             <a href="{{ path('app_posts') }}" class="btn btn-success">Back to posts</a>
+            <a href="{{ path('post_edit', {'id' : post.id }) }}" class="btn btn-success">
+                Modify post
+            </a>
+            <a href="{{ path('post_delete', {'id' : post.id }) }}" class="btn btn-danger">
+                Delete post
+            </a>
 
             <p>Posté le : {{ post.postedAt|date('Y-m-d H:i:s') }}</p>
 
@@ -34,7 +40,7 @@
                 {% if post.images|length > 0 and post.images|first is not null %}
                     {% if image.releasedThe is not empty %}
                         <p>Publish the : {{ image.releasedThe|date('Y-m-d') }}</p>
-                        <a href="#" class="btn btn-success">Change published date</a>
+                        {# <a href="#" class="btn btn-success">Change published date</a> #}
                     {% endif %}
                     <!-- If image.file that was filled in the form -->
                     {% if image.path is not empty %}

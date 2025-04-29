@@ -1,3 +1,8 @@
+// assets/js/add_more_medias.js
+
+// assets/js/preview_media.js
+import { setupImagePreview } from './preview_media.js';
+
 function previewFile(item) {
     var preview = item.querySelector('img');
     var file = item.querySelector('input[type=file]').files[0];
@@ -33,6 +38,10 @@ const newItem = (e) => {
     item.querySelector(".btn-remove").addEventListener("click", () => item.remove());
     collectionHolder.appendChild(item);
     item.querySelector('input[type=file]').addEventListener("change", () => previewFile(item));
+
+    // function of assets/js/preview_media.js for preview images
+    setupImagePreview();
+
     // increase index
     collectionHolder.dataset.index++;
 };
