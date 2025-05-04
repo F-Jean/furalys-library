@@ -111,22 +111,6 @@ class PostController extends AbstractController
                 }
             }
 
-            // If user choose to enter an url
-            // verify that it's a Youtube url only
-            foreach ($post->getVideos() as $video) {
-                $urlVideo = $video->getUrl();
-                if (!empty($urlVideo) && 
-                    !str_starts_with($urlVideo, "https://www.youtube.com/watch?v=") &&
-                    !str_starts_with($urlVideo, "www.youtube.com/watch?v=") &&
-                    !str_starts_with($urlVideo, "youtube.com/watch?v=")) {
-                        $this->addFlash(
-                            'error',
-                            'Please choose a Youtube URL only.'
-                        );
-                    return $this->redirectToRoute('post_create');
-                }
-            }
-
             // If all previous validations pass, proceed with post creation
             $this->handlePost->createPost($post);
             $this->addFlash(
@@ -197,22 +181,6 @@ class PostController extends AbstractController
                         'error',
                         'Please fill only one of the "File" or "URL" fields for each video.'
                     );
-                    return $this->redirectToRoute('post_edit', ['id' => $post->getId()]);
-                }
-            }
-
-            // If user choose to enter an url
-            // verify that it's a Youtube url only
-            foreach ($post->getVideos() as $video) {
-                $urlVideo = $video->getUrl();
-                if (!empty($urlVideo) && 
-                    !str_starts_with($urlVideo, "https://www.youtube.com/watch?v=") &&
-                    !str_starts_with($urlVideo, "www.youtube.com/watch?v=") &&
-                    !str_starts_with($urlVideo, "youtube.com/watch?v=")) {
-                        $this->addFlash(
-                            'error',
-                            'Please choose a Youtube URL only.'
-                        );
                     return $this->redirectToRoute('post_edit', ['id' => $post->getId()]);
                 }
             }

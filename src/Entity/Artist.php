@@ -60,7 +60,7 @@ class Artist
 
     #[ORM\ManyToOne(inversedBy: 'artists')]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
-    #[Assert\NotNull(message: 'Un utilisateur est requis.')]
+    #[Assert\NotNull(message: 'A user is required.')]
     private ?User $user;
 
     public function __construct()

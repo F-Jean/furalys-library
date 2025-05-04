@@ -1,22 +1,40 @@
 // assets/js/add_more_medias.js
 
 // assets/js/preview_media.js
-import { setupImagePreview } from './preview_media.js';
+import { 
+    setupImagePreview, 
+    setupVideoPreview,
+    setupYoutubeVideoPreview
+ } from './preview_media.js';
 
 function previewFile(item) {
-    var preview = item.querySelector('img');
-    var file = item.querySelector('input[type=file]').files[0];
-    // FileReader reads the contents of the selected file and assigns it 
-    // to the image source <img>. This allows the user to see a preview of 
-    // the image before submitting it.
-    var reader = new FileReader();
+    const fileInput = item.querySelector('input[type=file]');
+    const file = fileInput?.files[0];
+
+    // Find out if there is an image or video to preview in the block
+    const previewImg = item.querySelector('img');
+    const previewVideo = item.querySelector('video');
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
     reader.addEventListener("load", function () {
-        preview.src = reader.result;
+        // if image found
+        if (file.type.startsWith('image/') && previewImg) {
+            previewImg.src = reader.result;
+            previewImg.classList.remove('d-none');
+        }
+
+        // if video found
+        else if (file.type.startsWith('video/') && previewVideo) {
+            previewVideo.src = reader.result;
+            previewVideo.classList.remove('d-none');
+            previewVideo.load(); // reload
+        }
     }, false);
 
-    if (file) {
-        reader.readAsDataURL(file);
-    }
+    reader.readAsDataURL(file);
 }
 
 /* ADD & DELETE BUTTONS */
@@ -39,8 +57,10 @@ const newItem = (e) => {
     collectionHolder.appendChild(item);
     item.querySelector('input[type=file]').addEventListener("change", () => previewFile(item));
 
-    // function of assets/js/preview_media.js for preview images
+    // function of assets/js/preview_media.js for previewing media
     setupImagePreview();
+    setupVideoPreview();
+    setupYoutubeVideoPreview();
 
     // increase index
     collectionHolder.dataset.index++;

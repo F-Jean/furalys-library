@@ -115,10 +115,6 @@
             "php bin/console cache:clear",
             "./vendor/bin/phpstan clear-result-cache",
             "./vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=512M"
-        ],
-        "reload": [
-            "symfony server:stop",
-            "symfony serve -d"
         ]
     },
     "conflict": {

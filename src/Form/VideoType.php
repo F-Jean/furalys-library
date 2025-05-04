@@ -9,8 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class VideoType extends AbstractType
@@ -23,19 +21,14 @@ class VideoType extends AbstractType
                 HiddenType::class
                 // displayed in the form as a hidden field
             )
-            // The event is used here to dynamically add a 'file' field to the form 
-            // based on the presence or absence of an existing image
-            ->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event)
-            {
-                $video = $event->getData();
-                if($video === null) 
-                {
-                    $event->getForm()->add('file', FileType::class, [
-                        'label' => false,
-                        'required' => false,
-                    ]);
-                }
-            })
+            ->add(
+                'file', 
+                FileType::class, 
+                [
+                    'label' => false,
+                    'required' => false,
+                ]
+            )
             ->add(
                 'url',
                 TextType::class,

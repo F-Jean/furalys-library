@@ -53,6 +53,14 @@
                             </ul>
                         {% endif %}
                     </a>
+                    <div class="card-footer text-center">
+                        <a href="{{ path('post_edit', {'id' : post.id }) }}" class="btn btn-success">
+                            Modify
+                        </a>
+                        <a href="{{ path('post_delete', {'id' : post.id }) }}" class="btn btn-danger">
+                            Delete
+                        </a>
+                    </div>
                 {% endif %}
             </div>
         {% endif %}

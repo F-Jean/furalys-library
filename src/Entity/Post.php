@@ -6,6 +6,7 @@ use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -24,14 +25,19 @@ class Post
 
     /** @var Collection<int, Category> */
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'posts')]
+    #[Assert\NotBlank(
+        message: "You must select at least one category"
+    )]
     private Collection $categories;
 
     /** @var Collection<int, Image> */
     #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'posts', cascade: ['persist'])]
+    #[Assert\Valid]
     private Collection $images;
 
     /** @var Collection<int, Video> */
     #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'posts', cascade: ['persist'])]
+    #[Assert\Valid]
     private Collection $videos;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
