@@ -56,7 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $artists;
 
     /** @var Collection<int, Category> */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Category::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Category::class, orphanRemoval: true, cascade: ['remove'])]
     private Collection $categories;
 
     /** @var Collection<int, Image> */
