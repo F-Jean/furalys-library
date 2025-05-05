@@ -24,12 +24,22 @@ class Artist
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank(message: "Please enter a name.")]
+    #[Assert\Length(
+        min: 3,
+        max: 255,
+        minMessage: 'The name must be at least {{ limit }} characters long.',
+        maxMessage: 'The name cannot be longer than {{ limit }} characters.'
+    )]
     private string $name;
 
     #[ORM\Column(length: 255)]
     private string $slug;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 1000, nullable: true)]
+    #[Assert\Length(
+        max: 1000,
+        maxMessage: 'The description cannot be longer than {{ limit }} characters.'
+    )]    
     private ?string $description = null;
 
     #[ORM\Column(nullable: true)]
@@ -49,9 +59,19 @@ class Artist
     private UploadedFile $avatarFile;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Regex(
+        pattern: '/twitch\.tv/i',
+        match: false,
+        message: 'Please enter only the Twitch username, not the full URL.'
+    )]
     private ?string $twitch = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Regex(
+        pattern: '/twitter\.com/i',
+        match: false,
+        message: 'Please enter only the Twitter username, not the full URL.'
+    )]
     private ?string $twitter = null;
 
     /** @var Collection<int, Post> */

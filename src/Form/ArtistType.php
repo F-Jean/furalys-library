@@ -43,7 +43,7 @@ class ArtistType extends AbstractType
                 'twitch',
                 TextType::class,
                 [
-                    'label' => "Twitch channel (Only write the username that's after : twitch.tv/) | Not required",
+                    'label' => "Twitch channel (Only write the username that's after : twitch.tv/) | Not mandatory",
                     'attr' => [
                         'placeholder' => 'twitch.tv/',
                     ],
@@ -56,7 +56,7 @@ class ArtistType extends AbstractType
                 'twitter',
                 TextType::class,
                 [
-                    'label' => "Twitter channel (Only write the username that's after : twitter.com/) | Not required",
+                    'label' => "Twitter channel (Only write the username that's after : twitter.com/) | Not mandatory",
                     'attr' => [
                         'placeholder' => 'twitter.com/',
                     ],
