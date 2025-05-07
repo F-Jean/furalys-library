@@ -37,11 +37,19 @@ class Post
         cascade: ['persist']
     )]
     #[Assert\Valid]
+    #[Assert\Count(
+        max: 5,
+        maxMessage: 'Only upload up to {{ limit }} images.'
+    )]
     private Collection $images;
 
     /** @var Collection<int, Video> */
     #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'posts', cascade: ['persist'])]
     #[Assert\Valid]
+    #[Assert\Count(
+        max: 5,
+        maxMessage: 'Only upload up to {{ limit }} videos.'
+    )]
     private Collection $videos;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
