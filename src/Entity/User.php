@@ -52,23 +52,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $password;
 
     /** @var Collection<int, Artist> */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Artist::class, orphanRemoval: true)]
+    #[ORM\OneToMany(
+        mappedBy: 'user',
+        targetEntity: Artist::class,
+        orphanRemoval: true
+    )]
     private Collection $artists;
 
     /** @var Collection<int, Category> */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Category::class, orphanRemoval: true, cascade: ['remove'])]
+    #[ORM\OneToMany(
+        mappedBy: 'user',
+        targetEntity: Category::class,
+        orphanRemoval: true,
+        cascade: ['remove']
+    )]
     private Collection $categories;
 
     /** @var Collection<int, Image> */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Image::class, orphanRemoval: true)]
+    #[ORM\OneToMany(
+        mappedBy: 'user',
+        targetEntity: Image::class,
+        orphanRemoval: true
+    )]
     private Collection $images;
 
     /** @var Collection<int, Post> */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Post::class, orphanRemoval: true)]
+    #[ORM\OneToMany(
+        mappedBy: 'user',
+        targetEntity: Post::class,
+        orphanRemoval: true
+    )]
     private Collection $posts;
 
     /** @var Collection<int, Video> */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Video::class, orphanRemoval: true)]
+    #[ORM\OneToMany(
+        mappedBy: 'user',
+        targetEntity: Video::class,
+        orphanRemoval: true
+    )]
     private Collection $videos;
 
     /**

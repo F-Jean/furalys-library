@@ -31,7 +31,11 @@ class Post
     private Collection $categories;
 
     /** @var Collection<int, Image> */
-    #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'posts', cascade: ['persist'])]
+    #[ORM\ManyToMany(
+        targetEntity: Image::class,
+        inversedBy: 'posts',
+        cascade: ['persist']
+    )]
     #[Assert\Valid]
     private Collection $images;
 
@@ -41,7 +45,7 @@ class Post
     private Collection $videos;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $user = null;
 
     public function __construct()

@@ -19,6 +19,12 @@ class Video
     private int $id;
 
     #[ORM\Column(nullable: true, length: 255)]
+    #[Assert\Length(
+        min: 1,
+        max: 255,
+        minMessage: 'The name must be at least {{ limit }} characters.',
+        maxMessage: 'The name cannot be longer than {{ limit }} characters.'
+    )]
     private ?string $path = null;
 
     #[Assert\File(
@@ -34,6 +40,11 @@ class Video
     private ?string $url = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\NotNull(message: "Please select a date.")]
+    #[Assert\LessThanOrEqual(
+        "today",
+        message: "The release date cannot be in the future."
+    )]
     private ?\DateTimeImmutable $releasedThe = null;
 
     /** @var Collection<int, Post> */

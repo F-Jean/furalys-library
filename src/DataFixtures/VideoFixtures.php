@@ -22,6 +22,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $userqdoe = $this->getReference(UserFixtures::USER_QDOE, User::class);
         $video1 = new Video();
         $video1->setPath('@Kavalliere__21_11_23_1a.mp4')
+        ->setReleasedThe(new \DateTimeImmutable())
         ->setUser($userqdoe);
         $manager->persist($video1);
 

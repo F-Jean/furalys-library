@@ -91,32 +91,6 @@ final class HandlePost implements HandlePostInterface
             }
         }
 
-        // MANAGES IMAGES DATETIMEPICKERS
-        // Retrieve images associated with the post
-        $images = $post->getImages();
-
-        // Browse each image to check the date
-        foreach ($images as $image) {
-            // Check if the date is empty
-            if (empty($image->getReleasedThe())) {
-                // If the date is empty, set it to null
-                $image->setReleasedThe(null);
-            }
-        }
-
-        // MANAGES VIDEOS DATETIMEPICKERS
-        // Retrieve videos associated with the post
-        $videos = $post->getVideos();
-
-        // Browse each video to check the date
-        foreach ($videos as $video) {
-            // Check if the date is empty
-            if (empty($video->getReleasedThe())) {
-                // If the date is empty, set it to null
-                $video->setReleasedThe(null);
-            }
-        }
-
         $this->manager->persist($post);
         $this->manager->flush();
     }
@@ -189,32 +163,6 @@ final class HandlePost implements HandlePostInterface
                     // Define the video URL as the embed URL
                     $video->setUrl($embedUrl);
                 }
-            }
-        }
-
-        // MANAGES IMAGES DATETIMEPICKERS
-        // Retrieve images associated with the post
-        $images = $post->getImages();
-
-        // Browse each image to check the date
-        foreach ($images as $image) {
-            // Check if the date is empty
-            if (empty($image->getReleasedThe())) {
-                // If the date is empty, set it to null
-                $image->setReleasedThe(null);
-            }
-        }
-
-        // MANAGES VIDEOS DATETIMEPICKERS
-        // Retrieve videos associated with the post
-        $videos = $post->getVideos();
-
-        // Browse each video to check the date
-        foreach ($videos as $video) {
-            // Check if the date is empty
-            if (empty($video->getReleasedThe())) {
-                // If the date is empty, set it to null
-                $video->setReleasedThe(null);
             }
         }
 

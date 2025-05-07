@@ -53,6 +53,7 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
             $userqdoe = $this->getReference(UserFixtures::USER_QDOE, User::class);
             $image = new Image();
             $image->setPath($config['path'])
+            ->setReleasedThe(new \DateTimeImmutable())
             ->setUser($userqdoe);
 
             $manager->persist($image);
