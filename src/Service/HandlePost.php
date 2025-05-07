@@ -67,13 +67,16 @@ final class HandlePost implements HandlePostInterface
             
                 // Define regular expressions for different variations of the YouTube URL
                 $youtubeRegexes = [
-                    '#https?://(?:www\.)?youtube\.com/watch\?v=([\w-]+)#',
-                    '#(?:www\.)?youtube\.com/watch\?v=([\w-]+)#',
-                    '#youtube\.com/watch\?v=([\w-]+)#'
+                    '#https?://(?:www\.)?youtube\.com/watch\?v=([\w-]+)#', // Classical watch https://www.youtube.com/watch?v=ID
+                    '#https?://(?:www\.)?youtube\.com/embed/([\w-]+)#', // Embed https://www.youtube.com/embed/ID
+                    '#https?://(?:www\.)?youtube\.com/v/([\w-]+)#', // /v/ format https://www.youtube.com/v/ID
+                    '#https?://(?:www\.)?youtube\.com/shorts/([\w-]+)#', // Shorts https://www.youtube.com/shorts/ID
+                    '#https?://youtu\.be/([\w-]+)#' // Short URL https://youtu.be/ID
                 ];
             
                 // Check each regular expression to find the YouTube video ID
                 $ytId = null;
+                $urlVideo = strtok($video->getUrl(), '&'); // Keeps only the part before any ‘&’
                 foreach ($youtubeRegexes as $regex) {
                     if (preg_match($regex, $urlVideo, $matches)) {
                         $ytId = $matches[1];
@@ -88,32 +91,6 @@ final class HandlePost implements HandlePostInterface
                     // Define the video URL as the embed URL
                     $video->setUrl($embedUrl);
                 }
-            }
-        }
-
-        // MANAGES IMAGES DATETIMEPICKERS
-        // Retrieve images associated with the post
-        $images = $post->getImages();
-
-        // Browse each image to check the date
-        foreach ($images as $image) {
-            // Check if the date is empty
-            if (empty($image->getReleasedThe())) {
-                // If the date is empty, set it to null
-                $image->setReleasedThe(null);
-            }
-        }
-
-        // MANAGES VIDEOS DATETIMEPICKERS
-        // Retrieve videos associated with the post
-        $videos = $post->getVideos();
-
-        // Browse each video to check the date
-        foreach ($videos as $video) {
-            // Check if the date is empty
-            if (empty($video->getReleasedThe())) {
-                // If the date is empty, set it to null
-                $video->setReleasedThe(null);
             }
         }
 
@@ -189,32 +166,6 @@ final class HandlePost implements HandlePostInterface
                     // Define the video URL as the embed URL
                     $video->setUrl($embedUrl);
                 }
-            }
-        }
-
-        // MANAGES IMAGES DATETIMEPICKERS
-        // Retrieve images associated with the post
-        $images = $post->getImages();
-
-        // Browse each image to check the date
-        foreach ($images as $image) {
-            // Check if the date is empty
-            if (empty($image->getReleasedThe())) {
-                // If the date is empty, set it to null
-                $image->setReleasedThe(null);
-            }
-        }
-
-        // MANAGES VIDEOS DATETIMEPICKERS
-        // Retrieve videos associated with the post
-        $videos = $post->getVideos();
-
-        // Browse each video to check the date
-        foreach ($videos as $video) {
-            // Check if the date is empty
-            if (empty($video->getReleasedThe())) {
-                // If the date is empty, set it to null
-                $video->setReleasedThe(null);
             }
         }
 

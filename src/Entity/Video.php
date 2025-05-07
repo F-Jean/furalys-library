@@ -8,13 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Validator\YoutubeUrl;
 
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
-#[UniqueEntity(
-    fields: ["file"],
-    message: "Cette vidéo existe déjà !"
-)]
 class Video
 {
     #[ORM\Id]
@@ -23,19 +19,32 @@ class Video
     private int $id;
 
     #[ORM\Column(nullable: true, length: 255)]
+    #[Assert\Length(
+        min: 1,
+        max: 255,
+        minMessage: 'The name must be at least {{ limit }} characters.',
+        maxMessage: 'The name cannot be longer than {{ limit }} characters.'
+    )]
     private ?string $path = null;
 
     #[Assert\File(
-        maxSize: "300M",
+        maxSize: "2048M",
         mimeTypes: ['video/mp4', 'video/avi', 'video/mpeg', 'video/quicktime', 'video/mov', 'video/wmv'],
         mimeTypesMessage: 'Please upload a valid video (MP4, AVI, MPEG, QuickTime, MOV, WMV)',
     )]
     private ?UploadedFile $file = null;
 
     #[ORM\Column(nullable: true, length: 255)]
+    #[Assert\Url(message: 'video.url.invalid')] // e.g translations/validators for error messages
+    #[YoutubeUrl(message: 'video.url.not_youtube')] // e.g Validator/YoutubeUrlValidator
     private ?string $url = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\NotNull(message: "Please select a date.")]
+    #[Assert\LessThanOrEqual(
+        "today",
+        message: "The release date cannot be in the future."
+    )]
     private ?\DateTimeImmutable $releasedThe = null;
 
     /** @var Collection<int, Post> */

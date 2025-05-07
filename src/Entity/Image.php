@@ -8,13 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
-#[UniqueEntity(
-    fields: ["file"],
-    message: "Cette image existe déjà !"
-)]
 class Image
 {
     #[ORM\Id]
@@ -23,6 +18,12 @@ class Image
     private int $id;
 
     #[ORM\Column(nullable: true, length: 255)]
+    #[Assert\Length(
+        min: 1,
+        max: 255,
+        minMessage: 'The name must be at least {{ limit }} characters.',
+        maxMessage: 'The name cannot be longer than {{ limit }} characters.'
+    )]
     private ?string $path = null;
 
     #[Assert\File(
@@ -33,6 +34,11 @@ class Image
     private ?UploadedFile $file = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\NotNull(message: "Please select a date.")]
+    #[Assert\LessThanOrEqual(
+        "today",
+        message: "The release date cannot be in the future."
+    )]
     private ?\DateTimeImmutable $releasedThe = null;
 
     /** @var Collection<int, Post> */

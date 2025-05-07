@@ -8,6 +8,12 @@
         <button type="button" class="btn btn-primary btn-new" data-collection="#images">
             <i class="fas fa-plus-circle"></i> Image(s)
         </button>
+        {# Image errors display #}
+        {% if postForm.images.vars.errors is not empty %}
+            <div class="alert alert-danger mt-2">
+                {{ form_errors(postForm.images) }}
+            </div>
+        {% endif %}
         <div 
         id="images" 
         class="row" 
@@ -26,6 +32,12 @@
         <button type="button" class="btn btn-primary btn-new" data-collection="#videos"><i class="fas fa-plus-circle"></i> 
             Video(s)
         </button>
+        {# Image errors display #}
+        {% if postForm.videos.vars.errors is not empty %}
+            <div class="alert alert-danger mt-2">
+                {{ form_errors(postForm.videos) }}
+            </div>
+        {% endif %}
         <div 
         id="videos" 
         class="row" 

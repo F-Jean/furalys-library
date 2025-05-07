@@ -9,7 +9,10 @@
 {% block container %}
     <div class="create-post">
         <div class="text-light text-center mb-5">
-            <p>You need to at least add one image or video to create a post</p>
+            <p>
+                You need at least one image or video to create a post</br>
+                Upload up to 10 media at once (limit : 5 images & 5 videos / 2Go in total)
+            </p>
         </div>
         <a href="{{ path('app_posts') }}" class="btn btn-success">Back to posts</a>
         {{ form_start(postForm) }}
