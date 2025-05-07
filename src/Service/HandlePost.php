@@ -67,13 +67,16 @@ final class HandlePost implements HandlePostInterface
             
                 // Define regular expressions for different variations of the YouTube URL
                 $youtubeRegexes = [
-                    '#https?://(?:www\.)?youtube\.com/watch\?v=([\w-]+)#',
-                    '#(?:www\.)?youtube\.com/watch\?v=([\w-]+)#',
-                    '#youtube\.com/watch\?v=([\w-]+)#'
+                    '#https?://(?:www\.)?youtube\.com/watch\?v=([\w-]+)#', // Classical watch https://www.youtube.com/watch?v=ID
+                    '#https?://(?:www\.)?youtube\.com/embed/([\w-]+)#', // Embed https://www.youtube.com/embed/ID
+                    '#https?://(?:www\.)?youtube\.com/v/([\w-]+)#', // /v/ format https://www.youtube.com/v/ID
+                    '#https?://(?:www\.)?youtube\.com/shorts/([\w-]+)#', // Shorts https://www.youtube.com/shorts/ID
+                    '#https?://youtu\.be/([\w-]+)#' // Short URL https://youtu.be/ID
                 ];
             
                 // Check each regular expression to find the YouTube video ID
                 $ytId = null;
+                $urlVideo = strtok($video->getUrl(), '&'); // Keeps only the part before any ‘&’
                 foreach ($youtubeRegexes as $regex) {
                     if (preg_match($regex, $urlVideo, $matches)) {
                         $ytId = $matches[1];
