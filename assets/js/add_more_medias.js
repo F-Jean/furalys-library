@@ -4,7 +4,8 @@
 import { 
     setupImagePreview, 
     setupVideoPreview,
-    setupYoutubeVideoPreview
+    setupYoutubeVideoPreview,
+    setupExclusiveVideoInputs
  } from './preview_media.js';
 
 function previewFile(item) {
@@ -61,6 +62,7 @@ const newItem = (e) => {
     setupImagePreview();
     setupVideoPreview();
     setupYoutubeVideoPreview();
+    setupExclusiveVideoInputs();
 
     // increase index
     collectionHolder.dataset.index++;

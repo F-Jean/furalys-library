@@ -139,3 +139,41 @@ function extractYoutubeVideoId(url) {
         return null;
     }
 }
+
+// FOR VIDEOS
+// Checks if one field is filled, then the other disappears
+
+export function setupExclusiveVideoInputs() {
+    const videoGroups = document.querySelectorAll('[data-video-toggle-group]');
+
+    videoGroups.forEach(group => {
+        const fileInput = group.querySelector('input[type="file"]');
+        const urlInput = group.querySelector('input[type="text"]');
+
+        const toggleFields = () => {
+            const hasFile = fileInput?.files?.length > 0;
+            const hasUrl = urlInput?.value?.trim().length > 0;
+
+            if (hasFile) {
+                urlInput.closest('.text-light').classList.add('d-none');
+            } else {
+                urlInput.closest('.text-light').classList.remove('d-none');
+            }
+
+            if (hasUrl) {
+                fileInput.closest('.col-md-6').classList.add('d-none');
+            } else {
+                fileInput.closest('.col-md-6').classList.remove('d-none');
+            }
+        };
+
+        fileInput?.addEventListener('change', toggleFields);
+        urlInput?.addEventListener('input', toggleFields);
+
+        toggleFields(); // Initial check
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupExclusiveVideoInputs();
+});
