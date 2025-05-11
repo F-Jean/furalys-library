@@ -1,54 +1,60 @@
 {# templates/post/_video.html.twig #}
+<div class="custom-form-container">
+    {% if form.file is defined %}
+        <div data-video-toggle-group>
+            <div class="col-md-6 mb-3">
+                {{ form_row(form.file, {
+                    attr: {
+                        'data-video-preview-target': 'preview-video-' ~ form.file.vars.id
+                    }
+                    }) 
+                }}
 
-{% if form.file is defined %}
-    <div data-video-toggle-group>
-        <div class="col-md-6 mb-3">
-            {{ form_row(form.file, {
-                attr: {
-                    'data-video-preview-target': 'preview-video-' ~ form.file.vars.id
-                }
-                }) 
-            }}
+                <video
+                    id="preview-video-{{ form.file.vars.id }}"
+                    class="mb-2 d-none"
+                    style="max-width: 100%; height: auto;"
+                    controls
+                ></video>
+            </div>
 
-            <video
-                id="preview-video-{{ form.file.vars.id }}"
-                class="mb-2 d-none"
-                style="max-width: 100%; height: auto;"
-                controls
-            ></video>
+            <div class="text-light mb-3">
+                <p>"OR" select a Youtube url here (not embed link):</p>
+                {{ form_row(form.url, {
+                    attr: {
+                        'data-youtube-preview-target': 'youtube-preview-' ~ form.url.vars.id
+                    }
+                }) }}
+                <div class="mt-2">
+                    <iframe
+                        id="youtube-preview-{{ form.url.vars.id }}"
+                        class="d-none"
+                        width="325"
+                        height="185"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    ></iframe>
+                </div>
+            </div>
         </div>
 
         <div class="text-light mb-3">
-            <p>"OR" select a Youtube url here (not embed link):</p>
-            {{ form_row(form.url, {
-                attr: {
-                    'data-youtube-preview-target': 'youtube-preview-' ~ form.url.vars.id
-                }
-            }) }}
-            <div class="mt-2">
-                <iframe
-                    id="youtube-preview-{{ form.url.vars.id }}"
-                    class="d-none"
-                    width="325"
-                    height="185"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                ></iframe>
-            </div>
+            <p>Publish the: (Mandatory)</p>
+            {{ form_row(form.releasedThe, { 'attr': {'class': 'datetimepicker'} }) }}
         </div>
+    {% endif %}
+
+    {{ form_row(form.path) }}
+
+    {# Column for thumbnail checkbox #}
+    <div class="form-group">
+        {{ form_row(form.isThumbnail) }}
     </div>
 
-    <div class="text-light mb-3">
-        <p>Publish the: (Mandatory)</p>
-        {{ form_row(form.releasedThe, { 'attr': {'class': 'datetimepicker'} }) }}
+    <div class="form-group text-center">
+        <button type="button" class="btn btn-danger btn-remove">
+            Delete
+        </button>
     </div>
-{% endif %}
-
-{{ form_row(form.path) }}
-
-<div class="form-group text-center">
-    <button type="button" class="btn btn-danger btn-remove">
-        Delete
-    </button>
 </div>

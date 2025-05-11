@@ -4,12 +4,11 @@ namespace App\Form;
 
 use App\Entity\Image;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageType extends AbstractType
@@ -19,8 +18,7 @@ class ImageType extends AbstractType
         $builder
             ->add(
                 'path',
-                HiddenType::class
-                // displayed in the form as a hidden field
+                HiddenType::class // displayed in the form as a hidden field
             )
             ->add(
                 'file', 
@@ -37,6 +35,14 @@ class ImageType extends AbstractType
                     'label' => false,
                     'widget' => 'single_text',
                     'html5' => true,
+                ]
+            )
+            ->add(
+                'isThumbnail',
+                CheckboxType::class, 
+                [
+                    'required' => false,
+                    'label' => 'Set as thumbnail',
                 ]
             )
         ;

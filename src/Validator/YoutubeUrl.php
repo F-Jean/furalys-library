@@ -3,9 +3,12 @@
 namespace App\Validator;
 
 use Symfony\Component\Validator\Constraint;
+use Attribute;
 
-// PHP8+ attribute: indicates that this class can be used as attribute
-// It can be placed on properties or methods and used several times (IS_REPEATABLE).
+/**
+ * PHP8+ attribute: indicates that this class can be used as attribute
+ * It can be placed on properties or methods and used several times (IS_REPEATABLE).
+ */
 #[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 //Declares a final (non-extensible) class that represents a custom constraint
 final class YoutubeUrl extends Constraint

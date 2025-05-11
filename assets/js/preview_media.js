@@ -1,9 +1,13 @@
 // assets/js/preview_media.js
 
-// FOR IMAGES
-// Export function to reuse elsewhere to activate image's preview (e.g. after dynamic addition of fields)
+// ========== LOCAL IMAGE MANAGEMENT ==========
+
+/**
+ * Function exported so that it can be called from other JS files (e.g. after dynamic addition of fields).
+ * Enables local image preview (file downloaded by the user).
+ */
 export function setupImagePreview() {
-    // Selects all input fields of type ‘file’ which have the data-preview-target attribute
+    // Selects all <input type="file"> fields with a data-preview-target attribute (target image identifier).
     const inputs = document.querySelectorAll('input[type="file"][data-preview-target]');
 
     // For each field found
@@ -15,11 +19,11 @@ export function setupImagePreview() {
         // When the user selects a file
         input.addEventListener('change', function () {
             // Retrieves the ID of the <img> tag which is to display the preview
-            const previewId = this.dataset.previewTarget;
+            const previewId = this.dataset.previewTarget; // ID of the <img> tag to be updated
             const previewImg = document.getElementById(previewId);
             const file = this.files[0]; // Takes the 1st file selected
 
-            // Checks whether the target <img> tag exists in the DOM
+            // If the <img> tag is not found, we alert the console and exit
             if (!previewImg) {
                 console.warn(`[preview_media.js] No image element found with ID "${previewId}"`);
                 return;
@@ -31,23 +35,18 @@ export function setupImagePreview() {
 
                 // When the file is read successfully
                 reader.onload = e => {
-                    // Allocates the content of the image in base64 to the src of <img>.
-                    previewImg.src = e.target.result;
-                    // Displays the image (removing the Bootstrap `d-none` class)
-                    previewImg.classList.remove('d-none');
+                    previewImg.src = e.target.result; // Allocates the content of the image in base64 to the src of <img>.
+                    previewImg.classList.remove('d-none'); // Displays the image (removing the Bootstrap `d-none` class)
                 };
-
-                // Starts reading the file in Data URL format (base64)
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(file); // Starts reading the file in Data URL format (base64)
             } else {
-                // If no file or invalid file, hide the image
+                // If no file or invalid file, hide the <img> element
                 previewImg.src = '#';
                 previewImg.classList.add('d-none');
             }
         });
 
-        // Marks this field as already processed to avoid duplication
-        input.dataset.previewBound = 'true'; // marque comme déjà lié
+        input.dataset.previewBound = 'true'; // Marks this field as already processed to avoid duplication
     });
 }
 
@@ -56,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupImagePreview();
 });
 
-// FOR LOCAL VIDEOS
+// ========== LOCAL VIDEO MANAGEMENT ==========
+
 export function setupVideoPreview() {
     const inputs = document.querySelectorAll('input[type="file"][data-video-preview-target]');
 
@@ -79,7 +79,7 @@ export function setupVideoPreview() {
                 reader.onload = e => {
                     previewVideo.src = e.target.result;
                     previewVideo.classList.remove('d-none');
-                    previewVideo.load(); // recharge la vidéo
+                    previewVideo.load(); // Reload the video file
                 };
 
                 reader.readAsDataURL(file);
@@ -93,12 +93,12 @@ export function setupVideoPreview() {
     });
 }
 
-// Also launch the video preview at the end
 document.addEventListener('DOMContentLoaded', () => {
     setupVideoPreview();
 });
 
-// FOR YOUTUBE VIDEOS
+// ========== YOUTUBE LINK MANAGEMENT ==========
+
 export function setupYoutubeVideoPreview() {
     const youtubeInputs = document.querySelectorAll('input[data-youtube-preview-target]');
 
@@ -108,14 +108,14 @@ export function setupYoutubeVideoPreview() {
         input.addEventListener('input', function () {
             const previewId = this.dataset.youtubePreviewTarget;
             const previewIframe = document.getElementById(previewId);
-            const url = this.value.trim();
+            const url = this.value.trim(); // Entered URL
 
             if (!previewIframe) {
                 console.warn(`[preview_media.js] No iframe element found with ID "${previewId}"`);
                 return;
             }
 
-            const videoId = extractYoutubeVideoId(url);
+            const videoId = extractYoutubeVideoId(url); // Extract the YouTube video ID
 
             if (videoId) {
                 previewIframe.src = `https://www.youtube.com/embed/${videoId}`;
@@ -129,7 +129,8 @@ export function setupYoutubeVideoPreview() {
         input.dataset.previewBound = 'true';
     });
 }
-// Utility function for extracting the ID of a YouTube video from a classic, embed, short or youtu.be URL
+
+// Utility function for extracting the ID of a YouTube video from various forms of URL
 function extractYoutubeVideoId(url) {
     try {
         const regExp = /(?:youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
@@ -140,9 +141,9 @@ function extractYoutubeVideoId(url) {
     }
 }
 
-// FOR VIDEOS
-// Checks if one field is filled, then the other disappears
+// ========== EXCLUSIVE LOGIC: VIDEO FILE OR YOUTUBE LINK ==========
 
+// Prevents a user from entering both a video file and a YouTube link in the same block
 export function setupExclusiveVideoInputs() {
     const videoGroups = document.querySelectorAll('[data-video-toggle-group]');
 
@@ -154,12 +155,14 @@ export function setupExclusiveVideoInputs() {
             const hasFile = fileInput?.files?.length > 0;
             const hasUrl = urlInput?.value?.trim().length > 0;
 
+            // If a file is selected, hide the URL field
             if (hasFile) {
                 urlInput.closest('.text-light').classList.add('d-none');
             } else {
                 urlInput.closest('.text-light').classList.remove('d-none');
             }
 
+            // If a URL is entered, the file field is hidden
             if (hasUrl) {
                 fileInput.closest('.col-md-6').classList.add('d-none');
             } else {
@@ -167,10 +170,11 @@ export function setupExclusiveVideoInputs() {
             }
         };
 
+        // Add event listeners to each field
         fileInput?.addEventListener('change', toggleFields);
         urlInput?.addEventListener('input', toggleFields);
 
-        toggleFields(); // Initial check
+        toggleFields(); // Applies the initial state on loading
     });
 }
 

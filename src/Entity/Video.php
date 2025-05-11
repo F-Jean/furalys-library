@@ -13,11 +13,13 @@ use App\Validator\YoutubeUrl;
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
 class Video
 {
+    /** @var int */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private int $id;
 
+    /** @var string|null */
     #[ORM\Column(nullable: true, length: 255)]
     #[Assert\Length(
         min: 1,
@@ -27,6 +29,7 @@ class Video
     )]
     private ?string $path = null;
 
+    /** @var UploadedFile|null */
     #[Assert\File(
         maxSize: "2048M",
         mimeTypes: ['video/mp4', 'video/avi', 'video/mpeg', 'video/quicktime', 'video/mov', 'video/wmv'],
@@ -34,11 +37,13 @@ class Video
     )]
     private ?UploadedFile $file = null;
 
+    /** @var string|null */
     #[ORM\Column(nullable: true, length: 255)]
     #[Assert\Url(message: 'video.url.invalid')] // e.g translations/validators for error messages
     #[YoutubeUrl(message: 'video.url.not_youtube')] // e.g Validator/YoutubeUrlValidator
     private ?string $url = null;
 
+    /** @var \DateTimeImmutable|null */
     #[ORM\Column(nullable: true)]
     #[Assert\NotNull(message: "Please select a date.")]
     #[Assert\LessThanOrEqual(
@@ -51,25 +56,36 @@ class Video
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'videos')]
     private Collection $posts;
 
+    /** @var User|null */
     #[ORM\ManyToOne(inversedBy: 'videos')]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?User $user = null;
+
+    /** @var bool */
+    #[ORM\Column(type: 'boolean')]
+    private bool $isThumbnail = false;
 
     public function __construct()
     {
         $this->posts = new ArrayCollection();
     }
 
+    /** @return int */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /** @return string|null */
     public function getPath(): ?string
     {
         return $this->path;
     }
 
+    /**
+     * @param string|null $path
+     * @return static
+     */
     public function setPath(?string $path): static
     {
         $this->path = $path;
@@ -77,11 +93,16 @@ class Video
         return $this;
     }
 
+    /** @return UploadedFile|null */
     public function getFile(): ?UploadedFile
     {
         return $this->file;
     }
 
+    /**
+     * @param UploadedFile|null $file
+     * @return static
+     */
     public function setFile(?UploadedFile $file): static
     {
         $this->file = $file;
@@ -89,11 +110,16 @@ class Video
         return $this;
     }
 
+    /** @return string|null */
     public function getUrl(): ?string
     {
         return $this->url;
     }
 
+    /**
+     * @param string|null $url
+     * @return static
+     */
     public function setUrl(?string $url): static
     {
         $this->url = $url;
@@ -101,11 +127,16 @@ class Video
         return $this;
     }
 
+    /** @return \DateTimeImmutable|null */
     public function getReleasedThe(): ?\DateTimeImmutable
     {
         return $this->releasedThe;
     }
 
+    /**
+     * @param \DateTimeImmutable|null $releasedThe
+     * @return static
+     */
     public function setReleasedThe(?\DateTimeImmutable $releasedThe): static
     {
         $this->releasedThe = $releasedThe;
@@ -121,6 +152,10 @@ class Video
         return $this->posts;
     }
 
+    /**
+     * @param Post $post
+     * @return static
+     */
     public function addPost(Post $post): static
     {
         if (!$this->posts->contains($post)) {
@@ -131,6 +166,10 @@ class Video
         return $this;
     }
 
+    /**
+     * @param Post $post
+     * @return static
+     */
     public function removePost(Post $post): static
     {
         if ($this->posts->removeElement($post)) {
@@ -140,15 +179,36 @@ class Video
         return $this;
     }
 
+    /** @return User|null */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     * @return static
+     */
     public function setUser(?User $user): static
     {
         $this->user = $user;
 
+        return $this;
+    }
+
+    /** @return bool */
+    public function getIsThumbnail(): bool
+    {
+        return $this->isThumbnail;
+    }
+
+    /**
+     * @param bool $isThumbnail
+     * @return static
+     */
+    public function setIsThumbnail(bool $isThumbnail): self
+    {
+        $this->isThumbnail = $isThumbnail;
         return $this;
     }
 }

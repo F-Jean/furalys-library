@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Video;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -18,8 +19,7 @@ class VideoType extends AbstractType
         $builder
             ->add(
                 'path',
-                HiddenType::class
-                // displayed in the form as a hidden field
+                HiddenType::class // displayed in the form as a hidden field
             )
             ->add(
                 'file', 
@@ -46,6 +46,14 @@ class VideoType extends AbstractType
                     'label' => false,
                     'widget' => 'single_text',
                     'html5' => true,
+                ]
+            )
+            ->add(
+                'isThumbnail',
+                CheckboxType::class, 
+                [
+                    'required' => false,
+                    'label' => 'Set as thumbnail',
                 ]
             )
         ;

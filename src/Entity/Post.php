@@ -7,15 +7,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\UniqueThumbnail;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[UniqueThumbnail]
 class Post
 {
+    /** @var int */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private int $id;
 
+    /** @var \DateTimeImmutable */
     #[ORM\Column]
     private \DateTimeImmutable $postedAt;
 
@@ -52,6 +56,7 @@ class Post
     )]
     private Collection $videos;
 
+    /** @var User|null */
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $user = null;
@@ -65,16 +70,22 @@ class Post
         $this->videos = new ArrayCollection();
     }
 
+    /** @return int */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /** @return \DateTimeImmutable */
     public function getPostedAt(): \DateTimeImmutable
     {
         return $this->postedAt;
     }
 
+    /**
+     * @param \DateTimeImmutable $postedAt
+     * @return static
+     */
     public function setPostedAt(\DateTimeImmutable $postedAt): static
     {
         $this->postedAt = $postedAt;
@@ -90,6 +101,10 @@ class Post
         return $this->artists;
     }
 
+    /**
+     * @param Artist $artist
+     * @return static
+     */
     public function addArtist(Artist $artist): static
     {
         if (!$this->artists->contains($artist)) {
@@ -99,6 +114,10 @@ class Post
         return $this;
     }
 
+    /**
+     * @param Artist $artist
+     * @return static
+     */
     public function removeArtist(Artist $artist): static
     {
         $this->artists->removeElement($artist);
@@ -114,6 +133,10 @@ class Post
         return $this->categories;
     }
 
+    /**
+     * @param Category $category
+     * @return static
+     */
     public function addCategory(Category $category): static
     {
         if (!$this->categories->contains($category)) {
@@ -124,6 +147,10 @@ class Post
         return $this;
     }
 
+    /**
+     * @param Category $category
+     * @return static
+     */
     public function removeCategory(Category $category): static
     {
         if ($this->categories->removeElement($category)) {
@@ -141,6 +168,10 @@ class Post
         return $this->images;
     }
 
+    /**
+     * @param Image $image
+     * @return static
+     */
     public function addImage(Image $image): static
     {
         if (!$this->images->contains($image)) {
@@ -150,6 +181,10 @@ class Post
         return $this;
     }
 
+    /**
+     * @param Image $image
+     * @return static
+     */
     public function removeImage(Image $image): static
     {
         $this->images->removeElement($image);
@@ -165,6 +200,10 @@ class Post
         return $this->videos;
     }
 
+    /**
+     * @param Video $video
+     * @return static
+     */
     public function addVideo(Video $video): static
     {
         if (!$this->videos->contains($video)) {
@@ -174,6 +213,10 @@ class Post
         return $this;
     }
 
+    /**
+     * @param Video $video
+     * @return static
+     */
     public function removeVideo(Video $video): static
     {
         $this->videos->removeElement($video);
@@ -181,11 +224,16 @@ class Post
         return $this;
     }
 
+    /** @return User|null */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     * @return static
+     */
     public function setUser(?User $user): static
     {
         $this->user = $user;

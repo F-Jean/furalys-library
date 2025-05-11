@@ -1,67 +1,75 @@
 {# templates/post/_posts.html.twig #}
 
-{# if the user has at least a post #}
+{# Checks if the user has at least one post #}
 {% if user.posts|length > 0 %}
-    {# for all the post present #}
+    {# Browse all available posts #}
     {% for post in posts %}
         {# and if the post(s) match(es) the one(s) of the user connected #}
         {% if app.user == post.user %}
             <div class="post-media me-3 mb-3">
-                {# IMAGES #}
-                {% if post.images|length > 0 and post.images|first is not null %}
-                    <a href="{{ path('post_show', {'id' : post.id }) }}">
-                        <img width="360" height="240"
-                            src="{{ asset('build/medias/post/'~post.images|first.path) }}">
-                    </a>
-                    <div class="card-footer text-center">
-                        <a href="{{ path('post_edit', {'id' : post.id }) }}" class="btn btn-success">
-                            Modify
-                        </a>
-                        <a href="{{ path('post_delete', {'id' : post.id }) }}" class="btn btn-danger">
-                            Delete
-                        </a>
-                    </div>
+                {# Choose the thumbnail if there is one, otherwise fallback to the first image or video #}
+                {# Initialise thumbnail variable: image priority with isThumbnail=true #}
+                {% set thumbnail = post.images|filter(i => i.isThumbnail)|first %}
+
+                {# Otherwise look for a video with isThumbnail=true #}
+                {% if not thumbnail %}
+                    {% set thumbnail = post.videos|filter(v => v.isThumbnail)|first %}
                 {% endif %}
 
-                {# VIDEOS #}
-                {% if post.videos|length > 0 and post.videos|first is not null %}
-                    {% set video = post.videos|first %}
-                    <!-- Allow to access the first result of the entire video table (both path and url).
-                    Without it we first try to access only the first result of video.path and
-                    if it's empty this will cause an error.
-                    -->
-                    <a href="{{ path('post_show', {'id' : post.id }) }}">
-                        <!-- If it's video.file that was filled in the form -->
-                        {% if video.path is not empty %}
-                            <video width="360" height="240" controls>
-                                <source src="{{ asset('build/medias/post/'~post.videos|first.path) }}"
-                                    type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        <!-- If it's video.url that was filled in the form -->
-                        {% elseif video.url is not empty %}
-                            <ul>
-                                <iframe class="post-video" 
-                                width="320" 
-                                height="240" 
-                                src="{{ asset(video.url) }}" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                allowfullscreen>
-                                    Your browser can't read the video.
-                                </iframe>
-                            </ul>
+                {# If there is no explicit thumbnail, take the first image #}
+                {% if not thumbnail %}
+                    {% set thumbnail = post.images|first %}
+                {% endif %}
+
+                {# If still nothing, take the first video #}
+                {% if not thumbnail %}
+                    {% set thumbnail = post.videos|first %}
+                {% endif %}
+
+                {# If a thumbnail has been determined #}
+                {% if thumbnail is not null %}
+                    <a href="{{ path('post_show', {'id': post.id}) }}">
+                        {# If the thumbnail is an uploaded file (path defined and not empty) #}
+                        {% if thumbnail.path is defined and thumbnail.path is not empty %}
+                            {% set path = thumbnail.path|lower %} {# sécurise en minuscule #}
+
+                            {# If the file is a recognised video #}
+                            {% if path ends with '.mp4' or path ends with '.avi' or path ends with '.mpeg' or path ends with '.mov' or path ends with '.wmv' or path ends with '.quicktime' %}
+                                <video width="360" height="240" controls>
+                                    <source src="{{ asset('build/medias/post/' ~ thumbnail.path) }}">
+                                    Your browser does not support the video tag.
+                                </video>
+                            
+                            {# If the file is an image or common visual format #}
+                            {% elseif path ends with '.jpg' or path ends with '.jpeg' or path ends with '.png' or path ends with '.gif' or path ends with '.pdf' or path ends with '.ai' or path ends with '.psd' or path ends with '.clip' or path ends with '.svg' %}
+                                <img width="360" height="240" src="{{ asset('build/medias/post/' ~ thumbnail.path) }}">
+                            {# Otherwise, format not supported #}
+                            {% else %}
+                                <p>Unsupported file type.</p>
+                            {% endif %}
+
+                        {# If the thumbnail is a video via URL (e.g. YouTube) #}
+                        {% elseif thumbnail.url is defined and thumbnail.url is not empty %}
+                            <iframe class="post-video"
+                                    width="360" height="240"
+                                    src="{{ thumbnail.url }}"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                            </iframe>
                         {% endif %}
                     </a>
-                    <div class="card-footer text-center">
-                        <a href="{{ path('post_edit', {'id' : post.id }) }}" class="btn btn-success">
-                            Modify
-                        </a>
-                        <a href="{{ path('post_delete', {'id' : post.id }) }}" class="btn btn-danger">
-                            Delete
-                        </a>
-                    </div>
                 {% endif %}
+
+                {# Card footer with edit and delete actions #}
+                <div class="card-footer text-center">
+                    <a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-success">
+                        Modify
+                    </a>
+                    <a href="{{ path('post_delete', {'id': post.id}) }}" class="btn btn-danger">
+                        Delete
+                    </a>
+                </div>
             </div>
         {% endif %}
     {% endfor %}

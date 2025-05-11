@@ -22,3 +22,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Manual injection of the project root path (%kernel.project_dir%)
+    # required by the MediaUploaderService constructor via the $projectDir parameter
+    App\Service\MediaUploaderService:
+        arguments:
+            $projectDir: '%kernel.project_dir%'

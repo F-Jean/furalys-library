@@ -1,57 +1,16 @@
+// Bootstrap loading via the SCSS module system
 @use "~bootstrap/scss/bootstrap";
 
-/* templates/post/list.html.twig */
-.post-width {
-    width: 1504px;
-}
+// Base
+@use "base/variables";
 
-nav#collapseWidthExample.bg-dark.collapse-horizontal.collapse.show {
-    width: 231px;
-}
+// Layout
+@use "layout/navbar";
 
-// templates/post/_form.html.twig
-// The id is not in the template sheet
-// it is generate by the form in the html page
-#post_categories {
-    max-height: 200px;
-    overflow-y: auto; /* add a scroll effect */
-}
+// Components
+@use "components/buttons";
+@use "components/form-controls";
 
-// The id is not in the template sheet
-// it is generate by the form in the html page
-#post_artists {
-    max-height: 200px;
-    overflow-y: auto; /* add a scroll effect */
-}
-
-/* templates/post/_image.html.twig */
-/* Responsive for mobiles */
-@media (max-width: 768px) {
-    .custom-form-container {
-        padding: 1.5rem 0.5rem;
-    }
-    .custom-form-container img.img-thumbnail {
-        max-height: 200px;
-    }
-    .custom-form-container .btn-remove {
-        width: 100%;
-    }
-}
-
-.custom-form-container {
-    padding: 2rem 1rem;
-}
-
-.custom-form-container label {
-    font-weight: 600;
-}
-
-.custom-form-container img.img-thumbnail {
-    margin-top: 1rem;
-    border-radius: 0.75rem;
-    max-height: 300px;
-}
-
-.custom-form-container .btn-remove {
-    margin-top: 1rem;
-}
+// Pages
+@use "pages/post";
+@use "pages/media";

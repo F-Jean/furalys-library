@@ -27,6 +27,11 @@
         </div>
     </div>
 
+    {# Column for thumbnail checkbox #}
+    <div class="form-group">
+        {{ form_row(form.isThumbnail) }}
+    </div>
+
     {# Preview image if available #}
     {% if form.vars.data is not null %}
         <div class="text-center mb-3">

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\Exception\MultipleThumbnailsException;
 use App\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -112,7 +113,13 @@ class PostController extends AbstractController
             }
 
             // If all previous validations pass, proceed with post creation
-            $this->handlePost->createPost($post);
+            try {
+                $this->handlePost->createPost($post);
+            } catch (MultipleThumbnailsException $e) {
+                $this->addFlash('error', $e->getMessage());
+                return $this->redirectToRoute('post_create');
+            }
+            
             $this->addFlash(
                 'success',
                 'The post has been created successfully.'
@@ -186,7 +193,13 @@ class PostController extends AbstractController
             }
 
             // If all previous validations pass, proceed with post creation
-            $this->handlePost->editPost($post);
+            try {
+                $this->handlePost->editPost($post);
+            } catch (MultipleThumbnailsException $e) {
+                $this->addFlash('error', $e->getMessage());
+                return $this->redirectToRoute('post_edit', ['id' => $post->getId()]);
+            }
+            
             $this->addFlash(
                 'success',
                 'The post has been modified successfully.'
