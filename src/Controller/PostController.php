@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\Exception\MultipleThumbnailsException;
 use App\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -111,24 +112,14 @@ class PostController extends AbstractController
                 }
             }
 
-            // If user choose to enter an url
-            // verify that it's a Youtube url only
-            foreach ($post->getVideos() as $video) {
-                $urlVideo = $video->getUrl();
-                if (!empty($urlVideo) && 
-                    !str_starts_with($urlVideo, "https://www.youtube.com/watch?v=") &&
-                    !str_starts_with($urlVideo, "www.youtube.com/watch?v=") &&
-                    !str_starts_with($urlVideo, "youtube.com/watch?v=")) {
-                        $this->addFlash(
-                            'error',
-                            'Please choose a Youtube URL only.'
-                        );
-                    return $this->redirectToRoute('post_create');
-                }
-            }
-
             // If all previous validations pass, proceed with post creation
-            $this->handlePost->createPost($post);
+            try {
+                $this->handlePost->createPost($post);
+            } catch (MultipleThumbnailsException $e) {
+                $this->addFlash('error', $e->getMessage());
+                return $this->redirectToRoute('post_create');
+            }
+            
             $this->addFlash(
                 'success',
                 'The post has been created successfully.'
@@ -201,24 +192,14 @@ class PostController extends AbstractController
                 }
             }
 
-            // If user choose to enter an url
-            // verify that it's a Youtube url only
-            foreach ($post->getVideos() as $video) {
-                $urlVideo = $video->getUrl();
-                if (!empty($urlVideo) && 
-                    !str_starts_with($urlVideo, "https://www.youtube.com/watch?v=") &&
-                    !str_starts_with($urlVideo, "www.youtube.com/watch?v=") &&
-                    !str_starts_with($urlVideo, "youtube.com/watch?v=")) {
-                        $this->addFlash(
-                            'error',
-                            'Please choose a Youtube URL only.'
-                        );
-                    return $this->redirectToRoute('post_edit', ['id' => $post->getId()]);
-                }
-            }
-
             // If all previous validations pass, proceed with post creation
-            $this->handlePost->editPost($post);
+            try {
+                $this->handlePost->editPost($post);
+            } catch (MultipleThumbnailsException $e) {
+                $this->addFlash('error', $e->getMessage());
+                return $this->redirectToRoute('post_edit', ['id' => $post->getId()]);
+            }
+            
             $this->addFlash(
                 'success',
                 'The post has been modified successfully.'

@@ -1,0 +1,36 @@
+// ========== STYLES OF TEMPLATE /post/_image.html.twig ==========
+
+// --- Default styles (desktop/tablet)
+.custom-form-container { // Used to style an image block
+    padding: 2rem 1rem;
+
+    label {
+        font-weight: 600;
+        color: white;
+    }
+
+    img.img-thumbnail {
+        margin-top: 1rem;
+        border-radius: 0.75rem;
+        max-height: 300px;
+    }
+
+    .btn-remove {
+        margin-top: 1rem;
+    }
+}
+
+// --- Responsive: Applied only to mobile phones and tablets (max-width 768px)
+@media (max-width: 768px) { 
+    .custom-form-container {
+        padding: 1.5rem 0.5rem;
+
+        img.img-thumbnail {
+            max-height: 200px;
+        }
+
+        .btn-remove {
+            width: 100%;
+        }
+    }
+}

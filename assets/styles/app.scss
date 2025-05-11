@@ -1,24 +1,16 @@
+// Bootstrap loading via the SCSS module system
 @use "~bootstrap/scss/bootstrap";
 
-.post-width {
-    width: 1504px;
-}
+// Base
+@use "base/variables";
 
-nav#collapseWidthExample.bg-dark.collapse-horizontal.collapse.show {
-    width: 231px;
-}
+// Layout
+@use "layout/navbar";
 
-// Page post/_form.html.twig
-// The id is not in the template sheet
-// it is generate by the form in the html page
-#post_categories {
-    max-height: 200px;
-    overflow-y: auto; /* add a scroll effect */
-}
+// Components
+@use "components/buttons";
+@use "components/form-controls";
 
-// The id is not in the template sheet
-// it is generate by the form in the html page
-#post_artists {
-    max-height: 200px;
-    overflow-y: auto; /* add a scroll effect */
-}
+// Pages
+@use "pages/post";
+@use "pages/media";

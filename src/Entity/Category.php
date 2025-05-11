@@ -23,13 +23,23 @@ class Category
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank(message: "Please enter a title.")]
+    #[Assert\Length(
+        min: 1,
+        max: 255,
+        minMessage: 'The title must be at least {{ limit }} characters.',
+        maxMessage: 'The title cannot be longer than {{ limit }} characters.'
+    )]
     private string $title;
 
     #[ORM\Column(length: 255)]
     private string $slug;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 500)]
     #[Assert\NotBlank(message: "Please enter a description.")]
+    #[Assert\Length(
+        max: 500,
+        maxMessage: 'The description cannot be longer than {{ limit }} characters.'
+    )]
     private string $description;
 
     /** @var Collection<int, Post> */
@@ -37,7 +47,7 @@ class Category
     private Collection $posts;
 
     #[ORM\ManyToOne(inversedBy: 'categories')]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $user = null;
 
     public function __construct()
