@@ -1,4 +1,21 @@
-// Targets the collapsible side menu when opened with certain Bootstrap classes
-nav#collapseWidthExample.bg-dark.collapse-horizontal.collapse.show {
-    width: 231px;
+@use "../base/variables";
+
+// ========== templates/layout & default/homepage ==========
+.navbar-brand {
+  color: variables.$light;
+  margin-left: 1rem;
+}
+
+.nav-link {
+  color: variables.$light;
+  font-size: 1.25rem;
+  margin-right: 1rem;
+}
+
+// ========== sidebar nav ==========
+.create-content,
+.categories-show,
+.artists-sho,
+.best-categories {
+  margin-top: 1rem;
 }

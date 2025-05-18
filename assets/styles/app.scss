@@ -4,13 +4,23 @@
 // Base
 @use "base/variables";
 
-// Layout
-@use "layout/navbar";
-
 // Components
 @use "components/buttons";
+@use "components/flash-container";
 @use "components/form-controls";
 
+// Layout
+@use "layout/base";
+@use "layout/header-title";
+@use "layout/navbar";
+
 // Pages
-@use "pages/post";
+@use "pages/homepage";
 @use "pages/media";
+@use "pages/post";
+
+// Themes
+@use "themes/_dark";
+
+// Always put import under all use to avoid errors
+@import "~bootstrap-icons/font/bootstrap-icons.css";

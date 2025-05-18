@@ -1,0 +1,8 @@
+@use "../base/variables";
+
+// ========== templates/base ==========
+
+.dark-theme {
+  background-color: variables.$darker;
+  color: variables.$light; 
+}

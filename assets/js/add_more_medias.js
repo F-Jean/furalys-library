@@ -74,7 +74,9 @@ const newItem = (e) => {
         );
         
     // Adds an event to delete the item by clicking on its ‘Delete’ button (remove the whole div )
-    item.querySelector(".btn-remove").addEventListener("click", () => item.remove());
+    const btnRemove = item.querySelector(".btn-remove");
+    btnRemove.innerHTML = '<i class="bi bi-trash-fill"></i> Remove'; // Ajoute l'icône
+    btnRemove.addEventListener("click", () => item.remove());
 
     // Adds the new element to the DOM
     collectionHolder.appendChild(item);

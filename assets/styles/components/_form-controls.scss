@@ -1,8 +1,8 @@
+// ========== post/_form ==========
 /** 
-fomo /post/_form.html.twig
 ⚠️ These IDs are generated automatically by Symfony Form (not explicitly present in the template).
 */
-// Make ‘categories& artists’ fields scrollable when they exceed 200px in height
+// Make ‘categories & artists’ fields scrollable when they exceed 200px in height
 #post_categories,
 #post_artists {
     max-height: 200px;

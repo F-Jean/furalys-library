@@ -5,15 +5,17 @@
     <div class="container-fluid min-vh-100">
         <div class="row vh-100">
             <!-- Main content -->
-            <main role="main" class="col-md-12 ml-sm-auto col-lg-12 bg-dark">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a class="navbar-brand" href="#">Furalys</a>
+            <main role="main" class="col-md-12 ml-sm-auto col-lg-12">
+                <nav class="navbar navbar-expand-lg" role="navigation">
+                    <a class="navbar-brand" href="#">
+                        <i class="bi bi-house-door-fill"></i> Furalys
+                    </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a class="nav-link" href="#">Portfolio</a>
                             </li>
                             <li class="nav-item">
@@ -21,10 +23,14 @@
                             </li>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_posts') }}">Back to app</a>
+                                    <a class="nav-link" href="{{ path('app_posts') }}">
+                                        <i class="bi bi-arrow-left-circle-fill"></i> Back to app
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                                    <a class="nav-link" href="{{ path('app_logout') }}">
+                                        <i class="bi bi-box-arrow-right"></i> Logout
+                                    </a>
                                 </li>
                             {% else %}
                                 <li class="nav-item">
@@ -35,7 +41,7 @@
                     </div>
                 </nav>
 
-                <div class="content text-light">
+                <div class="homepage-content d-flex flex-column justify-content-center align-items-center text-center">
                     <h1>CONTENT COMING SOON</h1>
                 </div>
             </main>
