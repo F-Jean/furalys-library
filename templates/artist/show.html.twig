@@ -7,13 +7,13 @@
 {% block container %}
     {% if app.user == artist.user %}
         <!-- Main content -->
-        <main role="main" class="post col-md-9 ml-sm-auto col-lg-10 px-md-4 text-light">
-            <!-- Posts will be rendered here -->
-            <a href="{{ path('artist_list') }}" class="btn btn-primary">Back to artists</a>
-            <a href="{{ path('artist_edit', {'id' : artist.id }) }}" class="btn btn-success">Edit</a>
-            <a href="{{ path('artist_delete', {'id' : artist.id }) }}" class="btn btn-danger">Delete</a>
+        <main role="main" class="post col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
-            <div class="avatar-container">
+            <a href="{{ path('artist_list') }}" class="btn btn-primary show-artist-btn">Back to artists</a>
+            <a href="{{ path('artist_edit', {'id' : artist.id }) }}" class="btn btn-success show-artist-btn">Edit</a>
+            <a href="{{ path('artist_delete', {'id' : artist.id }) }}" class="btn btn-danger show-artist-btn">Delete</a>
+
+            <div class="avatar-container mb-2">
                 <img src="{{ asset('build/medias/avatar/'~artist.avatar) }}" 
                 class="rounded" alt="">
             </div>
@@ -44,6 +44,6 @@
         </main>
     {% else %}
         {# To be replace by an image before prod #}
-        <p class="text-light">Sorry the artist you're lookin for don't want to see you, sad !</p>
+        <p>Sorry the artist you're lookin for don't want to see you, sad !</p>
     {% endif %}
 {% endblock %}

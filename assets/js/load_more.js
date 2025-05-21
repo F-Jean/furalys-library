@@ -1,3 +1,5 @@
+// assets/js/load_more.js
+
 document.addEventListener('DOMContentLoaded', function() {
     let page = 1;
 

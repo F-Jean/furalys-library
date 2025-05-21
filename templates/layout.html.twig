@@ -5,17 +5,21 @@
         <div class="container-fluid min-vh-100">
             <div class="row vh-100">
                 <!-- Main content -->
-                <main role="main" class="col-md-12 ml-sm-auto col-lg-12 bg-dark">
+                <main role="main" class="col-md-12 ml-sm-auto col-lg-12">
                     {% if is_granted('ROLE_USER') %}
-                        <nav class="navbar navbar-expand-lg sticky-top bg-dark" >
-                            <button class="btn btn-dark " type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                        <nav class="navbar navbar-expand-lg sticky-top">
+                            <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
                                 </svg>
                             </button>
+
                             <div class="container-fluid ps-0">
                                 <div class="navbar-collapse d-flex justify-content-between">
-                                    <a class="navbar-brand text-light ms-4" href="{{ path('app_posts') }}">{{ app.user.username }}</a>
+                                    <a class="navbar-brand" href="{{ path('app_posts') }}">
+                                        <i class="bi bi-person-circle"></i> {{ app.user.username }}
+                                    </a>
+
                                     <form class="d-flex" role="search">
                                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">
@@ -24,15 +28,21 @@
                                             </svg>
                                         </button>
                                     </form>
-                                    <a class="nav-link me-3 fs-5 text-light" href="{{ path('app_logout') }}">Logout</a>
+
+                                    <a class="nav-link" href="{{ path('app_logout') }}">
+                                        <i class="bi bi-box-arrow-right"></i> Logout
+                                    </a>
                                 </div>
-                                <a class="nav-link me-3 fs-5 text-light" href="{{ path('homepage') }}">Back to website</a>
+
+                                <a class="nav-link" href="{{ path('homepage') }}">
+                                    <i class="bi bi-arrow-left-circle-fill"></i> Back to website
+                                </a>
                             </div>
                         </nav><!-- /.navbar -->
                     {% endif %}
 
                     {# FLASH MESSAGES SECTION #}
-                    <div class="d-flex justify-content-center mt-5">
+                    <div class="flash-container">
                         {% for flash_message in app.flashes('success') %}
                             <div class="alert alert-success" role="alert">
                                 <strong>Yeah !</strong> {{ flash_message }}
@@ -47,49 +57,54 @@
                     </div>
                     {# END OF FLASH MESSAGES SECTION #}
 
-                    <div class="d-flex justify-content-center my-5 text-light" >
+                    <div class="header-title">
                         {% block header_title %}{% endblock %}
                     </div>
 
                     <div class="row">
                         <!-- Sidebar -->
-                        <nav id="collapseWidthExample" class="col-lg-2 bg-dark collapse collapse-horizontal">
+                        <nav id="collapseWidthExample" class="col-lg-2 collapse collapse-horizontal">
                             <div class="container">
                                 <!-- ... sidebar content here ... -->
                                 <ul class="nav flex-column">
                                     {% if is_granted('ROLE_ADMIN') %}
                                         <li class="nav-item">
                                             {# Only available for admins to handle (edit/delete) users accounts #}
-                                            <a class="nav-link mx-2 fs-5 text-light" href="{{ path('user_list') }}">Users list</a>
+                                            <a class="nav-link" href="{{ path('user_list') }}">Users list</a>
                                         </li>
                                     {% endif %}
+
                                     {% if is_granted('ROLE_USER') %}
                                         <div class="create-content">
                                             <li class="nav-item">
-                                                <a class="nav-link mx-2 fs-5 text-light" href="{{ path('post_create') }}">Add a post</a>
+                                                <a class="nav-link" href="{{ path('post_create') }}">
+                                                    <i class="bi bi-plus-circle-fill"></i> Add a post
+                                                </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link mx-2 fs-5 text-light" href="{{ path('category_list') }}">Categories</a>
+                                                <a class="nav-link" href="{{ path('category_list') }}">Categories</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link mx-2 fs-5 text-light" href="{{ path('artist_list') }}">Artists</a>
+                                                <a class="nav-link" href="{{ path('artist_list') }}">Artists</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link mx-2 fs-5 text-light">Add a tag</a>
+                                                <a class="nav-link">
+                                                    <i class="bi bi-plus-circle-fill"></i> Add a tag
+                                                </a>
                                             </li>
                                         </div>
+
                                         <div class="categories-show">
-                                            {# link to categories' list page #}
-                                            <a class="nav-link mx-2 fs-5 text-light" href="#">See all categories</a>
+                                            <a class="nav-link" href="#">See all categories</a>
                                             <div class="best-categories">
-                                                {# display the 5 - 10 categories that the user have marked as favorite #}
+                                                {# Affichage des catégories favorites #}
                                             </div>
                                         </div>
+
                                         <div class="artists-show">
-                                            {# link to artists' list page #}
-                                            <a class="nav-link mx-2 fs-5 text-light" href="#">See all artists</a>
+                                            <a class="nav-link" href="#">See all artists</a>
                                             <div class="best-categories">
-                                                {# display the 5 - 10 artists that the user have marked as favorite #}
+                                                {# Affichage des artistes favoris #}
                                             </div>
                                         </div>
                                     {% endif %}
@@ -97,6 +112,7 @@
                             </div>
                         </nav>
                         <!-- END of Sidebar -->
+
                         <div class="col">
                             <div class="row justify-content-center">
                                 {% block container %}{% endblock %}

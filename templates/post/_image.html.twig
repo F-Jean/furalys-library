@@ -1,26 +1,50 @@
 {# templates/post/_image.html.twig #}
 {# include of templates/post/_form.html.twig #}
+<div class="custom-form-container pt-4 ps-3">
+    {{ form_widget(form.path) }}
+    <div class="d-flex flex-column mb-3">
+        {# Column for file upload (if applicable) #}
+        {% if form.file is defined %}
+            <div class="col-md-6 mb-3">
+                <img 
+                    id="preview-{{ form.file.vars.id }}" 
+                    src="#" 
+                    alt="Preview" 
+                    class="img-thumbnail mb-3 d-none"
+                {{ form_row(form.file, {
+                    attr: {
+                        'data-preview-target': 'preview-' ~ form.file.vars.id
+                    }
+                }) }}
+            </div>
+        {% endif %}
 
-{{ form_widget(form.path)}}
-{% if form.file is defined %}
-    {{ form_row(form.file, { 'attr': {'class': 'mt-5'} }) }}
-    <p class ="text-light">
-        Publish the : (Not required)
-    </p>
-    {{ form_row(form.releasedThe, { 'attr': {'class': 'datetimepicker'} }) }}
-{% endif %}
-{% if form.vars.data is not null %}
-    <img 
-    src="{{ asset('build/medias/post/'~form.vars.data.path) }}" 
-    width="325" 
-    height="200">
-{% else %}
-    <div class="svg-container">
-        <i class="fa-regular fa-circle-xmark"></i>
+        {# Column for publication date #}
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.releasedThe, 'Publish the (Mandatory)', { 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_widget(form.releasedThe, { 'attr': {'class': 'form-control'} }) }}
+        </div>
     </div>
-{% endif %}
-<div class="form-group">
-    <button type="button" class="btn btn-danger btn-remove">
-        Delete
-    </button>
+
+    {# Column for thumbnail checkbox #}
+    <div class="form-group">
+        {{ form_row(form.isThumbnail) }}
+    </div>
+
+    {# Preview image if available #}
+    {% if form.vars.data is not null %}
+        <div class="text-center mb-3">
+            <img 
+                src="{{ asset('build/medias/post/' ~ form.vars.data.path) }}" 
+                class="img-thumbnail"
+                alt="Image preview">
+        </div>
+    {% endif %}
+
+    {# Button to delete the image #}
+    <div class="text-center">
+        <button type="button" class="btn btn-danger btn-remove mt-3">
+            Delete
+        </button>
+    </div>
 </div>

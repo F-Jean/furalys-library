@@ -8,6 +8,12 @@
         <button type="button" class="btn btn-primary btn-new" data-collection="#images">
             <i class="fas fa-plus-circle"></i> Image(s)
         </button>
+        {# Image errors display #}
+        {% if postForm.images.vars.errors is not empty %}
+            <div class="alert alert-danger mt-2">
+                {{ form_errors(postForm.images) }}
+            </div>
+        {% endif %}
         <div 
         id="images" 
         class="row" 
@@ -23,9 +29,15 @@
     </div>
     <!-- VIDEOS -->
     <div class="add-video col-md-4">
-        <button type="button" class="btn btn-primary btn-new" data-collection="#videos"><i class="fas fa-plus-circle"></i> 
-            Video(s)
+        <button type="button" class="btn btn-primary btn-new" data-collection="#videos">
+            <i class="fas fa-plus-circle"></i> Video(s)
         </button>
+        {# Image errors display #}
+        {% if postForm.videos.vars.errors is not empty %}
+            <div class="alert alert-danger mt-2">
+                {{ form_errors(postForm.videos) }}
+            </div>
+        {% endif %}
         <div 
         id="videos" 
         class="row" 
@@ -42,7 +54,7 @@
 </div>
 <!-- ARTISTS -->
 {% if filtered_Artists is not empty %}
-    <div class="row justify-content-center text-light">
+    <div class="row justify-content-center">
         <div class="add-artist col-md-4 my-5">
             {{ form_row(postForm.artists) }}
         </div>
@@ -53,13 +65,15 @@
     </div>
 {% else %}
     <div>
-        <p class="text-light">No artists yet, add one here :</p>
-        <a href="{{ path('artist_create') }}" class="col-lg-1 btn btn-success">Add first artist</a>
+        <p>No artists yet, add one here :</p>
+        <a href="{{ path('artist_create') }}" class="col-lg-1 btn btn-success">
+            <i class="bi bi-plus-circle-fill"></i> Add first artist
+        </a>
     </div>
 {% endif %}
 <!-- CATEGORIES -->
 {% if filtered_Categories is not empty %}
-    <div class="row justify-content-center text-light">
+    <div class="row justify-content-center">
         <div class="add-category col-md-4 my-5">
             {{ form_row(postForm.categories) }}
         </div>
@@ -70,7 +84,9 @@
     </div>
     {% else %}
     <div>
-        <p class="text-light">No categories yet, add one here :</p>
-        <a href="{{ path('category_create') }}" class="col-lg-1 btn btn-success">Add first category</a>
+        <p>No categories yet, add one here :</p>
+        <a href="{{ path('category_create') }}" class="col-lg-1 btn btn-success">
+            <i class="bi bi-plus-circle-fill"></i> Add first category
+        </a>
     </div>
 {% endif %}

@@ -8,19 +8,26 @@
 
 {% block container %}
     <div class="create-post">
-        <div class="text-light text-center mb-5">
-            <p>You need to at least add one image or video to create a post</p>
+        <div class="text-center mb-5">
+            <p>
+                You need at least one image or video to create a post</br>
+                Upload up to 10 media at once (limit : 5 images & 5 videos / 2Go in total)
+            </p>
         </div>
-        <a href="{{ path('app_posts') }}" class="btn btn-success">Back to posts</a>
+        <a href="{{ path('app_posts') }}" class="btn btn-primary">
+            <i class="bi bi-arrow-left-circle-fill"></i> Back to posts
+        </a>
         {{ form_start(postForm) }}
             {{ include("post/_form.html.twig", {form: postForm}) }}
             {% if filtered_Artists is not empty and filtered_Categories is not empty %}
                 <div class="btn-create d-flex justify-content-center">
-                    <button class="btn btn-primary btn-post">Create post</button>
+                    <button class="btn btn-success btn-post">
+                        <i class="bi bi-plus-circle-fill"></i> Create post
+                    </button>
                 </div>
             {% else %}
             <div class="text-center">
-                <p class="text-light">You need to create at least one ARTIST and one CATEGORY to create a post !</p>
+                <p>You need to create at least one ARTIST and one CATEGORY to create a post !</p>
             </div>
             {% endif %}
         {{ form_end(postForm, {render_rest: false}) }}

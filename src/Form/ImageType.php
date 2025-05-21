@@ -4,12 +4,11 @@ namespace App\Form;
 
 use App\Entity\Image;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageType extends AbstractType
@@ -19,27 +18,31 @@ class ImageType extends AbstractType
         $builder
             ->add(
                 'path',
-                HiddenType::class
-                // displayed in the form as a hidden field
+                HiddenType::class // displayed in the form as a hidden field
             )
-            // The event is used here to dynamically add a 'file' field to the form 
-            // based on the presence or absence of an existing image
-            ->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event)
-            {
-                $image = $event->getData();
-                if($image === null) 
-                {
-                    $event->getForm()->add('file', FileType::class, [
-                        'label' => false,
-                        'required' => false,
-                    ]);
-                }
-            })
             ->add(
-                'releasedThe',
-                DateTimeType::class,
+                'file', 
+                FileType::class, 
                 [
                     'label' => false,
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'releasedThe',
+                DateType::class,
+                [
+                    'label' => false,
+                    'widget' => 'single_text',
+                    'html5' => true,
+                ]
+            )
+            ->add(
+                'isThumbnail',
+                CheckboxType::class, 
+                [
+                    'required' => false,
+                    'label' => 'Set as thumbnail',
                 ]
             )
         ;

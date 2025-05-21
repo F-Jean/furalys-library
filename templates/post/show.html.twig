@@ -9,11 +9,19 @@
 {% block container %}
     {% if app.user == post.user %}
         <!-- Main content -->
-        <main role="main" class="post col-md-9 ml-sm-auto col-lg-10 px-md-4 text-light">
+        <main role="main" class="post col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <!-- Posts will be rendered here -->
-            <a href="{{ path('app_posts') }}" class="btn btn-success">Back to posts</a>
+            <a href="{{ path('app_posts') }}" class="btn btn-primary">
+                <i class="bi bi-arrow-left-circle-fill"></i> Back to posts
+            </a>
+            <a href="{{ path('post_edit', {'id' : post.id }) }}" class="btn btn-primary">
+                <i class="bi bi-pencil-fill"></i> Modify post
+            </a>
+            <a href="{{ path('post_delete', {'id' : post.id }) }}" class="btn btn-danger">
+                <i class="bi bi-trash-fill"></i> Delete post
+            </a>
 
-            <p>Posté le : {{ post.postedAt|date('Y-m-d H:i:s') }}</p>
+            <p>Posté le : {{ post.postedAt|date('Y-m-d') }}</p>
 
             <h2>Artiste(s):</h2>
             <ul>
@@ -34,14 +42,29 @@
                 {% if post.images|length > 0 and post.images|first is not null %}
                     {% if image.releasedThe is not empty %}
                         <p>Publish the : {{ image.releasedThe|date('Y-m-d') }}</p>
-                        <a href="#" class="btn btn-success">Change published date</a>
                     {% endif %}
                     <!-- If image.file that was filled in the form -->
                     {% if image.path is not empty %}
                         <ul>
+                            <!-- Display the image -->
                             <img 
-                            class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4" 
-                            src="{{ asset('build/medias/post/'~image.path) }}">
+                            class="img-thumbnail col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4" 
+                            src="{{ asset('build/medias/post/'~image.path) }}"
+                            alt="Image {{ loop.index }}">
+
+                            {% if image.isThumbnail %}
+                                <p class="text-success font-weight-bold mt-2">Current Thumbnail</p>
+                            {% else %}
+                                <!-- Change actual thumnail -->
+                                <form 
+                                    action="{{ path('post_set_thumbnail', { postId: post.id, imageId: image.id }) }}" 
+                                    method="post">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('set-thumbnail-' ~ image.id) }}">
+                                    <button class="btn btn-sm btn-outline-success mt-2" type="submit">
+                                        Set as thumbnail
+                                    </button>
+                                </form>
+                            {% endif %}                            
                         </ul>
                     {% endif %}
                 {% endif %}
@@ -54,32 +77,42 @@
                         <p>Publish the : {{ video.releasedThe|date('Y-m-d') }}</p>
                     {% endif %}
                     <!-- If it's video.file that was filled in the form -->
-                    {% if video.path is not empty %}
-                        <ul>
+                    <ul>
+                        {% if video.path is not empty %}
                             <video width="320" height="240" controls>
                                 <source src="{{ asset('build/medias/post/'~video.path) }}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
-                        </ul>
-                    <!-- If it's video.url that was filled in the form -->
-                    {% elseif video.url is not empty %}
-                        <ul>
+                        {% elseif video.url is not empty %}
                             <iframe class="post-video" 
-                            width="320" 
-                            height="240" 
-                            src="{{ video.url }}" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
+                                    width="320" 
+                                    height="240" 
+                                    src="{{ video.url }}" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
                                 Your browser can't read the video.
                             </iframe>
-                        </ul>
-                    {% endif %}
+                        {% endif %}
+
+                        {% if video.isThumbnail %}
+                            <p class="text-success font-weight-bold mt-2">Current Video Thumbnail</p>
+                        {% else %}
+                            <form 
+                                action="{{ path('post_set_video_thumbnail', { postId: post.id, videoId: video.id }) }}" 
+                                method="post">
+                                <input type="hidden" name="_token" value="{{ csrf_token('set-thumbnail-video-' ~ video.id) }}">
+                                <button class="btn btn-sm btn-outline-success mt-2" type="submit">
+                                    Set as thumbnail
+                                </button>
+                            </form>
+                        {% endif %}
+                    </ul>
                 {% endif %}
             {% endfor %}
         </main>
     {% else %}
         {# To be replace by an image before prod #}
-        <p class="text-light">Sorry the post you are looking for does not exist !</p>
+        <p>Sorry the post you are looking for does not exist !</p>
     {% endif %}
 {% endblock %}

@@ -1,0 +1,4 @@
+video:
+  url:
+    invalid: "Ceci n'est pas une URL valide."
+    not_youtube: "Seules les URLs YouTube sont acceptées."

@@ -1,3 +1,5 @@
+// assets/js/category_dropdown.js
+
 document.addEventListener('DOMContentLoaded', function () {
     var categoriesCheckboxes = document.querySelectorAll('#post_categories input[type="checkbox"]');
     var selectedCategoriesDiv = document.getElementById('selected_categories');
