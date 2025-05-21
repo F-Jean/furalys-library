@@ -10,8 +10,7 @@
                     id="preview-{{ form.file.vars.id }}" 
                     src="#" 
                     alt="Preview" 
-                    class="img-thumbnail mb-3 d-none" 
-                    style="max-width: 325px; height: auto;" />
+                    class="img-thumbnail mb-3 d-none"
                 {{ form_row(form.file, {
                     attr: {
                         'data-preview-target': 'preview-' ~ form.file.vars.id
@@ -38,7 +37,6 @@
             <img 
                 src="{{ asset('build/medias/post/' ~ form.vars.data.path) }}" 
                 class="img-thumbnail"
-                style="max-width: 325px; height: auto;"
                 alt="Image preview">
         </div>
     {% endif %}

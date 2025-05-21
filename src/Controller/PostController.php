@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 #[IsGranted('ROLE_USER')]
 class PostController extends AbstractController
@@ -28,7 +30,7 @@ class PostController extends AbstractController
     {
     }
 
-    // PAGE DISPLAYING ALL THE POSTS
+    // PAGE DISPLAYING ALL THE THUMBNAILS POSTS
     #[Route('/posts', name: 'app_posts')]
     public function index(): Response
     {
@@ -139,6 +141,10 @@ class PostController extends AbstractController
     #[Route('/post/{id}', name: 'post_show')]
     public function show(Post $post): Response
     {
+        if ($post->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
         ]);
@@ -229,5 +235,64 @@ class PostController extends AbstractController
             'The post has been deleted successfully.'
         );
         return $this->redirectToRoute('app_posts');
+    }
+
+    // METHODS TO SWITCH THE THUMBNAIL OF A POST DIRECTLY FROM SHOW PAGE
+    #[Route('/post/{postId}/image/{imageId}/set-thumbnail', name: 'post_set_thumbnail', methods: ['POST'])]
+    public function setThumbnail(
+        int $postId, 
+        int $imageId,
+        Request $request,
+        CsrfTokenManagerInterface $csrfTokenManager
+    ): RedirectResponse
+    {
+        $post = $this->postRepository->find($postId);
+
+        if (!$post || $post->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('You are not allowed to modify this post.');
+        }
+
+        $submittedToken = $request->request->get('_token');
+        if (!$csrfTokenManager->isTokenValid(new CsrfToken('set-thumbnail-' . $imageId, $submittedToken))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token.');
+        }
+
+        try {
+            $this->handlePost->setThumbnailImage($post, $imageId);
+            $this->addFlash('success', 'Thumbnail updated successfully.');
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+        }
+
+        return $this->redirectToRoute('post_show', ['id' => $postId]);
+    }
+
+    #[Route('/post/{postId}/video/{videoId}/set-thumbnail', name: 'post_set_video_thumbnail', methods: ['POST'])]
+    public function setVideoThumbnail(
+        int $postId, 
+        int $videoId,
+        Request $request,
+        CsrfTokenManagerInterface $csrfTokenManager
+    ): RedirectResponse
+    {
+        $post = $this->postRepository->find($postId);
+
+        if (!$post || $post->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('You are not allowed to modify this post.');
+        }
+
+        $submittedToken = $request->request->get('_token');
+        if (!$csrfTokenManager->isTokenValid(new CsrfToken('set-thumbnail-video-' . $videoId, $submittedToken))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token.');
+        }
+
+        try {
+            $this->handlePost->setThumbnailVideo($post, $videoId);
+            $this->addFlash('success', 'Video thumbnail updated successfully.');
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+        }
+
+        return $this->redirectToRoute('post_show', ['id' => $postId]);
     }
 }
