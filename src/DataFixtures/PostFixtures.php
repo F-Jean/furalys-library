@@ -22,15 +22,26 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         /* 
-            1 post doit contenir :
-            1 ou des artistes ;
-            1 ou des image(s)/video(s) ;
-            1 ou des catégories (exemple de catégories : animation, illustration, live2d) ;
-            (1 utilisateur plus tard) ;
-            (possiblement des tags plus tard).
+            1 post must have :
+            1 or many artistes ;
+            1 or many image(s)/video(s) ;
+            1 or many categories ;
+            1 user ;
+            tags (not mandatory).
         */
 
         $userqdoe = $this->getReference(UserFixtures::USER_QDOE, User::class);
+
+        for ($i = 1; $i <= 28; $i++) {
+            $post = new Post();
+            $post->setPostedAt(new \DateTimeImmutable())
+            ->addArtist($this->getReference(ArtistFixtures::DYA_RIKKU, Artist::class))
+            ->addCategory($this->getReference(CategoryFixtures::ILLUSTRATION, Category::class))
+            ->addImage($this->getReference(ImageFixtures::IMG1, Image::class))
+            ->setUser($userqdoe);
+            $manager->persist($post);
+        }
+
         $post1 = new Post();
         $post1->setPostedAt(new \DateTimeImmutable())
         ->addArtist($this->getReference(ArtistFixtures::DYA_RIKKU, Artist::class))
@@ -74,15 +85,22 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         ->setUser($userqdoe);
         $manager->persist($post5);
 
-        for ($i = 1; $i <= 40; $i++) {
-            $post = new Post();
-            $post->setPostedAt(new \DateTimeImmutable())
-            ->addArtist($this->getReference(ArtistFixtures::DYA_RIKKU, Artist::class))
-            ->addCategory($this->getReference(CategoryFixtures::ILLUSTRATION, Category::class))
-            ->addImage($this->getReference(ImageFixtures::IMG1, Image::class))
-            ->setUser($userqdoe);
-            $manager->persist($post);
-        }
+        $post6 = new Post();
+        $post6->setPostedAt(new \DateTimeImmutable())
+        ->addArtist($this->getReference(ArtistFixtures::KAVALLIERE, Artist::class))
+        ->addCategory($this->getReference(CategoryFixtures::ANIMATION, Category::class))
+        ->addImage($this->getReference(ImageFixtures::IMG3, Image::class))
+        ->addImage($this->getReference(ImageFixtures::IMG8, Image::class))
+        ->addImage($this->getReference(ImageFixtures::IMG1, Image::class))
+        ->addImage($this->getReference(ImageFixtures::IMG2, Image::class))
+        ->addImage($this->getReference(ImageFixtures::IMG9, Image::class))
+        ->addVideo($this->getReference(VideoFixtures::VIDEO1, Video::class))
+        ->addVideo($this->getReference(VideoFixtures::VIDEO2, Video::class))
+        ->addVideo($this->getReference(VideoFixtures::VIDEO3, Video::class))
+        ->addVideo($this->getReference(VideoFixtures::VIDEO4, Video::class))
+        ->addVideo($this->getReference(VideoFixtures::VIDEO5, Video::class))
+        ->setUser($userqdoe);
+        $manager->persist($post6);
 
         $manager->flush();
     }
