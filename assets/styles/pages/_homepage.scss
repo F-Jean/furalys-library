@@ -1,0 +1,12 @@
+@use "../base/variables";
+
+// ========== default/homepage ==========
+
+.homepage-content {
+  min-height: calc(100vh - 56px); // Adjustment if navbar fixed
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+}

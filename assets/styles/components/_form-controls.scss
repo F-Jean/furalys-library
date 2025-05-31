@@ -1,0 +1,10 @@
+// ========== post/_form ==========
+/** 
+⚠️ These IDs are generated automatically by Symfony Form (not explicitly present in the template).
+*/
+// Make ‘categories & artists’ fields scrollable when they exceed 200px in height
+#post_categories,
+#post_artists {
+    max-height: 200px;
+    overflow-y: auto; /* add a scroll effect */
+}

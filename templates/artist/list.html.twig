@@ -1,3 +1,5 @@
+{# templates/artist/list.html.twig #}
+
 {% extends 'layout.html.twig' %}
 
 {% block header_title %}
@@ -6,8 +8,13 @@
 
 {% block container %}
     {% if is_granted('ROLE_USER') %}
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 text-light">
-            <a href="{{ path('artist_create') }}" class="btn btn-success">Add an artist</a>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-4 px-md-4">
+            <a href="{{ path('artist_create') }}" class="btn btn-success manage-array-btn">
+                <i class="bi bi-plus-circle-fill"></i> Add an artist
+            </a>
+            <a href="{{ path('app_posts') }}" class="btn btn-primary manage-array-btn">
+                <i class="bi bi-arrow-left-circle-fill"></i> Back to posts
+            </a>
             {% if user.artists|length > 0 %}
                 <div class="row">
                     <table class="table table-dark table-striped table-hover">

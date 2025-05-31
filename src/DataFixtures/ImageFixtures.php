@@ -18,6 +18,8 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
     public const IMG5 = "img5";
     public const IMG6 = "img6";
     public const IMG7 = "img7";
+    public const IMG8 = "img8";
+    public const IMG9 = "img9";
  
     /**
      * @param ObjectManager $manager
@@ -47,12 +49,19 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
             self::IMG7 => [
                 'path' => 'ds_4.jpg'
             ],
+            self::IMG8 => [
+                'path' => 'selen.png'
+            ],
+            self::IMG9 => [
+                'path' => '@Shep_ww_2025_04_11_1a.jpg'
+            ],
         ];
 
         foreach ($imagesConfig as $reference => $config) {
             $userqdoe = $this->getReference(UserFixtures::USER_QDOE, User::class);
             $image = new Image();
             $image->setPath($config['path'])
+            ->setReleasedThe(new \DateTimeImmutable())
             ->setUser($userqdoe);
 
             $manager->persist($image);

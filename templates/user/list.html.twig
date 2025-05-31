@@ -6,22 +6,24 @@
 
 {% block container %}
     {% if is_granted('ROLE_ADMIN') %}
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 text-light">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            
             {% if users|length == 0 %}
-            <div class="alert alert-warning" role="alert">
-                Seems there is noone here, it's emptier than an interstellar void ..
-            </div>
+                <div class="alert alert-warning" role="alert">
+                    Seems there is noone here, it's emptier than an interstellar void ..
+                </div>
             {% else %}
                 <div class="row">
                     <table class="table table-dark table-striped table-hover">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Actions</th>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
                         </thead>
+
                         <tbody>
                         {% for user in users %}
                             <tr class="user-infos">
@@ -38,6 +40,7 @@
                     </table>
                 </div>
             {% endif %}
+            
         </main>
     {% endif %}
 {% endblock %}

@@ -1,0 +1,10 @@
+@use "../base/variables";
+
+// ========== templates/layout ==========
+
+.header-title {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+  color: variables.$light;
+}

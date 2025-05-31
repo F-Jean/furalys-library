@@ -1,3 +1,5 @@
+// assets/js/artist_dropdown.js
+
 document.addEventListener('DOMContentLoaded', function () {
     var artistsCheckboxes = document.querySelectorAll('#post_artists input[type="checkbox"]');
     var selectedartistsDiv = document.getElementById('selected_artists');

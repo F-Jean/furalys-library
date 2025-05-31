@@ -1,0 +1,25 @@
+@use "../base/variables";
+
+// ========== post/_image ==========
+
+// Used to style an image block
+.custom-form-container {
+    img.img-thumbnail {
+        max-height: 300px;
+    }
+}
+
+// --- Responsive
+@media (max-width: 768px) { 
+    .custom-form-container {
+        padding: 1.5rem 0.5rem;
+
+        img.img-thumbnail {
+            max-height: 200px;
+        }
+
+        .btn-remove {
+            width: 100%;
+        }
+    }
+}

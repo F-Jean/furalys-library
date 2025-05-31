@@ -6,8 +6,12 @@
             <th scope="row">{{ loop.index }}</th>
             <td><a href="{{ path('artist_show', { 'id' : artist.id }) }}">{{ artist.name }}</a></td>
             <td>
-                <a class="btn btn-success btn-sm" href="{{ path('artist_edit', {'id' : artist.id }) }}">Edit</a>
-                <a class="btn btn-danger btn-sm" href="{{ path('artist_delete', {'id' : artist.id }) }}">Delete</a>
+                <a class="btn btn-primary btn-sm" href="{{ path('artist_edit', {'id' : artist.id }) }}">
+                    <i class="bi bi-pencil-fill"></i> Edit
+                </a>
+                <a class="btn btn-danger btn-sm" href="{{ path('artist_delete', {'id' : artist.id }) }}">
+                    <i class="bi bi-trash-fill"></i> Delete
+                </a>
             </td>
         </tr>
     {% endif %}
